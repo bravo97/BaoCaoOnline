@@ -1,0 +1,16 @@
+S:\Working\LamThem\BaoCaoOnline\API\Application\bin\Debug\net8.0\Application.deps.json
+S:\Working\LamThem\BaoCaoOnline\API\Application\bin\Debug\net8.0\Application.dll
+S:\Working\LamThem\BaoCaoOnline\API\Application\bin\Debug\net8.0\Application.pdb
+S:\Working\LamThem\BaoCaoOnline\API\Application\bin\Debug\net8.0\Domain.dll
+S:\Working\LamThem\BaoCaoOnline\API\Application\bin\Debug\net8.0\Domain.pdb
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.sourcelink.json
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.dll
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\refint\Application.dll
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\Application.pdb
+S:\Working\LamThem\BaoCaoOnline\API\Application\obj\Debug\net8.0\ref\Application.dll
