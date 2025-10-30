@@ -1,4 +1,5 @@
 ﻿using API.DTO;
+using Application.Interfaces;
 using Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly IJwtTokenService _jwtTokenService;
 
-        public AuthController(UserService userService)
+        public AuthController(UserService userService, IJwtTokenService jwtTokenService)
         {
             _userService = userService;
+            _jwtTokenService = jwtTokenService;
         }
 
         [HttpPost("register")]
@@ -30,11 +33,8 @@ namespace API.Controllers
             var user = await _userService.LoginAsync(dto.Username, dto.Password);
             if (user == null) return Unauthorized("Invalid credentials");
 
-            return Ok(new
-            {
-                user.Username,
-                user.Email
-            });
+            var token = _jwtTokenService.GenerateToken(user);
+            return Ok(new { token });
         }
     }
 }
