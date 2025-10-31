@@ -3,36 +3,28 @@
   "WorkspaceRootPath": "C:\\Hung\\BaoCaoOnline\\API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\ijwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\ijwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|c:\\hung\\baocaoonline\\api\\infrastructure\\security\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\security\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|c:\\hung\\baocaoonline\\api\\infrastructure\\repositories\\fileaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\fileaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\ijwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\ijwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|c:\\hung\\baocaoonline\\api\\domain\\entities\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|c:\\hung\\baocaoonline\\api\\infrastructure\\repositories\\filecustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,32 +35,60 @@
       "RelativeMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\repositories\\fileuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|c:\\hung\\baocaoonline\\api\\domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|c:\\hung\\baocaoonline\\api\\domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\dto\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\dto\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|c:\\hung\\baocaoonline\\api\\domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5BDA2D-36D4-4205-B9EA-FD9FED7895DB}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\services\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\services\\jwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\ijwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\ijwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|c:\\hung\\baocaoonline\\api\\infrastructure\\security\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7F9BF1C-4BB6-4002-9719-681FE568F397}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\security\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|c:\\hung\\baocaoonline\\api\\application\\interfaces\\ijwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8956D82D-4B6F-42D4-BC87-7AB312383436}|Application\\Application.csproj|solutionrelative:application\\interfaces\\ijwttokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|c:\\hung\\baocaoonline\\api\\api\\dto\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F07B2B60-953C-46A7-939E-6CCC53FEC2F6}|API\\API.csproj|solutionrelative:api\\dto\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,24 +98,89 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 15,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "API\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAswBkAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:51:14.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountService.cs",
+              "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\AccountService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\AccountService.cs",
+              "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\AccountService.cs",
+              "RelativeToolTip": "Application\\Services\\AccountService.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAmwCMAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:50:31.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FileAccountRepository.cs",
+              "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileAccountRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\FileAccountRepository.cs",
+              "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileAccountRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\FileAccountRepository.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAkwBIAAABmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:49:49.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAccountRepository.cs",
+              "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IAccountRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Interfaces\\IAccountRepository.cs",
+              "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IAccountRepository.cs",
+              "RelativeToolTip": "Application\\Interfaces\\IAccountRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:49:28.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Account.cs",
+              "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\Account.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Account.cs",
+              "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\Account.cs",
+              "RelativeToolTip": "Domain\\Entities\\Account.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:48:59.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\appsettings.json",
               "RelativeDocumentMoniker": "API\\appsettings.json",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\API\\appsettings.json",
               "RelativeToolTip": "API\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAEAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-10-30T07:11:11.56Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 19,
               "Title": "JwtSettings.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Security\\JwtSettings.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Security\\JwtSettings.cs",
@@ -103,25 +188,24 @@
               "RelativeToolTip": "Infrastructure\\Security\\JwtSettings.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T07:08:09.305Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T07:08:09.305Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "JwtTokenService.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\JwtTokenService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\JwtTokenService.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\JwtTokenService.cs",
               "RelativeToolTip": "Application\\Services\\JwtTokenService.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAkwCcAAAAAAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAQwCMAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-30T07:05:36.055Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 20,
               "Title": "IJwtTokenService.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IJwtTokenService.cs",
               "RelativeDocumentMoniker": "Application\\Interfaces\\IJwtTokenService.cs",
@@ -129,12 +213,11 @@
               "RelativeToolTip": "Application\\Interfaces\\IJwtTokenService.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T07:05:12.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T07:05:12.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 18,
               "Title": "IJwtSettings.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IJwtSettings.cs",
               "RelativeDocumentMoniker": "Application\\Interfaces\\IJwtSettings.cs",
@@ -142,44 +225,43 @@
               "RelativeToolTip": "Application\\Interfaces\\IJwtSettings.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAqwAoAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T07:04:45.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T07:04:45.017Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "CustomerController.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\CustomerController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\CustomerController.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\CustomerController.cs",
               "RelativeToolTip": "API\\Controllers\\CustomerController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAswBoAAAAIAAAA",
+              "ViewState": "AQIAADQAAAAAAAAAAAAcwDAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:57:10.345Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "FileCustomerRepository.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileCustomerRepository.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Repositories\\FileCustomerRepository.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileCustomerRepository.cs",
               "RelativeToolTip": "Infrastructure\\Repositories\\FileCustomerRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAqwB4AAABNAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:49:49.661Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "CustomerService.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\CustomerService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\CustomerService.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\CustomerService.cs",
               "RelativeToolTip": "Application\\Services\\CustomerService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:48:27.717Z",
               "EditorCaption": ""
@@ -192,40 +274,40 @@
               "RelativeDocumentMoniker": "Application\\Interfaces\\ICustomerRepository.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\ICustomerRepository.cs",
               "RelativeToolTip": "Application\\Interfaces\\ICustomerRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:46:36.568Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\Customer.cs",
               "RelativeDocumentMoniker": "Domain\\Entities\\Customer.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\Customer.cs",
               "RelativeToolTip": "Domain\\Entities\\Customer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:42:23.422Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\Program.cs",
               "RelativeDocumentMoniker": "API\\Program.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\API\\Program.cs",
               "RelativeToolTip": "API\\Program.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAgwCQAAABhAAAA",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAgwDQAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:31:06.112Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "AuthDTO.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\DTO\\AuthDTO.cs",
               "RelativeDocumentMoniker": "API\\DTO\\AuthDTO.cs",
@@ -233,70 +315,69 @@
               "RelativeToolTip": "API\\DTO\\AuthDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T16:30:17.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T16:30:17.146Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\API\\Controllers\\AuthController.cs",
               "RelativeToolTip": "API\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAAAJAAAA",
+              "ViewState": "AQIAABwAAAAAAAAAAAAswCwAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:28:13.626Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "FileUserRepository.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileUserRepository.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Repositories\\FileUserRepository.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Repositories\\FileUserRepository.cs",
               "RelativeToolTip": "Infrastructure\\Repositories\\FileUserRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACEAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:25:31.272Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "IUserRepository.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IUserRepository.cs",
               "RelativeDocumentMoniker": "Application\\Interfaces\\IUserRepository.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Interfaces\\IUserRepository.cs",
               "RelativeToolTip": "Application\\Interfaces\\IUserRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:12:12.58Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 8,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\UserService.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Services\\UserService.cs",
               "RelativeToolTip": "Application\\Services\\UserService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:08:21.619Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\User.cs",
               "RelativeDocumentMoniker": "Domain\\Entities\\User.cs",
               "ToolTip": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Entities\\User.cs",
               "RelativeToolTip": "Domain\\Entities\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T16:02:51.983Z",
               "EditorCaption": ""

@@ -4,34 +4,87 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
     public class FileCustomerRepository : ICustomerRepository
     {
-        private const string FilePath = "Data/customers.json";
-        private List<Customer> customers = new List<Customer>();
-        public async Task AddAsync(Customer customer)
+        private readonly string _filePath;
+        private List<Customer> _customers = new();
+
+        public FileCustomerRepository()
         {
-            customers.Add(customer);
-            await Task.CompletedTask;
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "customers.json");
+
+            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+
+            LoadData();
         }
 
-        public async Task<IEnumerable<Customer>> GetAllAsync()
+        private void LoadData()
         {
-            return await Task.FromResult(customers);
+            if (!File.Exists(_filePath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+                File.WriteAllText(_filePath, "[]");
+            }
+
+            var json = File.ReadAllText(_filePath);
+            _customers = JsonSerializer.Deserialize<List<Customer>>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new List<Customer>();
+        }
+        private void SaveData()
+        {
+            var json = JsonSerializer.Serialize(_customers, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(_filePath, json);
         }
 
-        public async Task<Customer?> GetByIDAsync(Guid id)
+        public Task AddAsync(Customer customer)
         {
-            return await Task.FromResult(customers.Find(cus => cus.Id == id));
+            _customers.Add(customer);
+            SaveData();
+            return Task.CompletedTask;
         }
 
-        public async Task SaveChangesAsync()
+        public Task DeleteAsync(string id)
         {
-            // Logic to save customers to FilePath  
-            await Task.CompletedTask;
+            var existing = _customers.FirstOrDefault(c => c.Id == id);
+            if (existing != null)
+            {
+                _customers.Remove(existing);
+                SaveData();
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task<IEnumerable<Customer>> GetAllAsync() =>
+            Task.FromResult(_customers.AsEnumerable());
+
+        public Task<Customer?> GetByIdAsync(string id) =>
+            Task.FromResult(_customers.FirstOrDefault(c => c.Id == id));
+
+
+        public Task SaveChangesAsync()
+        {
+            SaveData();
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateAsync(Customer customer)
+        {
+            var existing = _customers.FirstOrDefault(c => c.Id == customer.Id);
+            if (existing != null)
+            {
+                _customers.Remove(existing);
+                _customers.Add(customer);
+                SaveData();
+            }
+            return Task.CompletedTask;
         }
     }
 }

@@ -8,26 +8,54 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class CustomerService : ICustomerRepository
+    public class CustomerService
     {
-        public Task AddAsync(Customer customer)
+        private readonly ICustomerRepository _customerRepository;
+
+        public CustomerService(ICustomerRepository customerRepository)
         {
-            throw new NotImplementedException();
+            _customerRepository = customerRepository;
         }
 
-        public Task<IEnumerable<Customer>> GetAllAsync()
+        // Lấy tất cả khách hàng
+        public async Task<IEnumerable<Customer>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _customerRepository.GetAllAsync();
         }
 
-        public Task<Customer?> GetByIDAsync(Guid id)
+        // Lấy khách hàng theo ID
+        public async Task<Customer?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _customerRepository.GetByIdAsync(id);
         }
 
-        public Task SaveChangesAsync()
+        // Thêm khách hàng, kiểm tra code trùng
+        public async Task<bool> AddCustomerAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            var all = await _customerRepository.GetAllAsync();
+
+            await _customerRepository.AddAsync(customer);
+            return true;
+        }
+
+        // Cập nhật khách hàng
+        public async Task<bool> UpdateCustomerAsync(Customer customer)
+        {
+            var existing = await _customerRepository.GetByIdAsync(customer.Id);
+            if (existing == null) return false;
+
+            await _customerRepository.UpdateAsync(customer);
+            return true;
+        }
+
+        // Xóa khách hàng
+        public async Task<bool> DeleteCustomerAsync(string id)
+        {
+            var existing = await _customerRepository.GetByIdAsync(id);
+            if (existing == null) return false;
+
+            await _customerRepository.DeleteAsync(id);
+            return true;
         }
     }
 }

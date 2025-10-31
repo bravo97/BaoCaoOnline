@@ -11,9 +11,33 @@ namespace Infrastructure.Repositories
 {
     public class FileUserRepository : IUserRepository
     {
-        private const string FilePath = "Data/users.json";
+        private readonly string _filePath;
         private List<User> _users = new List<User>();
 
+        public FileUserRepository()
+        {
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "users.json");
+            LoadData();
+        }
+        private void LoadData()
+        {
+            if (!File.Exists(_filePath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+                File.WriteAllText(_filePath, "[]");
+            }
+
+            var json = File.ReadAllText(_filePath);
+            _users = JsonSerializer.Deserialize<List<User>>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new List<User>();
+        }
+        private void SaveData()
+        {
+            var json = JsonSerializer.Serialize(_users, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(_filePath, json);
+        }
         public async Task<User?> GetByUsernameAsync(string username)
         {
             return await Task.FromResult(_users.Find(user => user.Username == username));
@@ -22,6 +46,7 @@ namespace Infrastructure.Repositories
         public async Task AddAsync(User user)
         {
             _users.Add(user);
+            SaveData();
             await Task.CompletedTask;
         }
 
@@ -33,6 +58,7 @@ namespace Infrastructure.Repositories
         public async Task SaveChangesAsync()
         {
             // Logic to save _users to FilePath  
+            SaveData();
             await Task.CompletedTask;
         }
     }

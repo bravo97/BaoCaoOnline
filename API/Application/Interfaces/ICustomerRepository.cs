@@ -9,9 +9,11 @@ namespace Application.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task<Customer?> GetByIDAsync(Guid id);
-        Task AddAsync(Customer customer);
         Task<IEnumerable<Customer>> GetAllAsync();
+        Task<Customer?> GetByIdAsync(string id);
+        Task AddAsync(Customer customer);
+        Task UpdateAsync(Customer customer);
+        Task DeleteAsync(string id);
         Task SaveChangesAsync();
     }
 }

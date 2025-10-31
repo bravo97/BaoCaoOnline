@@ -1,6 +1,7 @@
 ﻿using API.DTO;
 using Application.Interfaces;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,5 +37,12 @@ namespace API.Controllers
             var token = _jwtTokenService.GenerateToken(user);
             return Ok(new { token });
         }
+        [HttpGet("admin-test")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminTest() => Ok(new { message = "Chỉ admin mới xem được." });
+
+        [HttpGet("user-test")]
+        [Authorize(Roles = "Admin,Regular")]
+        public IActionResult UserTest() => Ok(new { message = "Tất cả user đều xem được." });
     }
 }
