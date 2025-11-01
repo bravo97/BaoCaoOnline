@@ -49,6 +49,8 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddSingleton<IUserRepository, FileUserRepository>();
 builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
 builder.Services.AddScoped<IAccountRepository, FileAccountRepository>();
+builder.Services.AddScoped<IReportRepository, OptimizedSqlReportRepository>();
+builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CustomerService>();

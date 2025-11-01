@@ -88,3 +88,17 @@ C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.
 C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\System.Data.SqlClient.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+S:\Working\LamThem\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll

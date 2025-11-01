@@ -10,5 +10,17 @@
     "Password": "1",
     "DatabaseName": "PhanMem24h",
     "Note": "Kh\u00E1ch h\u00E0ng 1"
+  },
+  {
+    "Id": "eab08103-7649-4a04-b309-db5aaeec7db9",
+    "Name": "A H\u00F9ng",
+    "Email": "dobahung941997@gmail.com",
+    "IPAddress": "192.168.1.46",
+    "Port": 2008,
+    "ServerName": "192.168.1.46,2008",
+    "UserName": "sa",
+    "Password": "1",
+    "DatabaseName": "PhanMem24",
+    "Note": "ch\u1EA1y local"
   }
 ]
