@@ -1,14 +1,23 @@
 <header>
-        <h2>{{title}}</h2>
-        <div class="profile-container">
-            <div class="profile" (click)="toggleProfileMenu()">
-            <i class="fa fa-user-circle"></i>
-            </div>
+  <h2>{{ title }}</h2>
 
-            <!-- Dropdown menu -->
-            <div class="profile-menu" [class.open]="profileMenuOpen">
-            <button (click)="changePassword()">Đổi mật khẩu</button>
-            <button (click)="logout()">Đăng xuất</button>
-            </div>
-        </div>
+  <div class="header-actions">
+    <!-- Nút toggle mode -->
+    <button class="mode-toggle" (click)="toggleDarkMode()">
+      <i [ngClass]="isDarkMode ? 'fa fa-sun' : 'fa fa-moon'"></i>
+    </button>
+
+    <!-- Profile -->
+    <div class="profile-container">
+      <div class="profile" (click)="toggleProfileMenu()">
+        <i class="fa fa-user-circle"></i>
+      </div>
+
+      <!-- Dropdown menu -->
+      <div class="profile-menu" [class.open]="profileMenuOpen">
+        <button (click)="changePassword()">Đổi mật khẩu</button>
+        <button (click)="logout()">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
 </header>

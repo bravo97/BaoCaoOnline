@@ -1,1 +1,31 @@
-<p>notification works!</p>
+<div class="admin-container">
+  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
+
+  <div class="dashboard">
+    <app-header [title]="headerTitle"></app-header>
+
+    <div class="admin-page notification-page">
+  <div class="content-container">
+    <div class="notification-layout">
+      <!-- Bên trái: Danh sách thông báo -->
+      <div class="notification-list">
+        <div class="notification-item" *ngFor="let item of notifications">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.message }}</p>
+          <span class="date">{{ item.date | date:'short' }}</span>
+        </div>
+      </div>
+
+      <!-- Bên phải: Form tạo mới -->
+      <div class="notification-form">
+        <input type="text" placeholder="Tiêu đề" [(ngModel)]="title" />
+        <textarea placeholder="Nội dung" rows="6" [(ngModel)]="message"></textarea>
+        <button (click)="sendNotification()">Gửi thông báo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>

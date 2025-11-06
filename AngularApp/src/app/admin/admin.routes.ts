@@ -11,7 +11,7 @@ export const ADMIN_ROUTES: Routes = [
   { path: '', component: Admin },
   { path: 'customers', component: Customer },
   { path: 'accounts', component: Account },
-  { path: 'feedback', component: Feedback },
-  { path: 'notification', component: Notification },
-  { path: 'setting', component: Setting }
+  { path: 'feedbacks', component: Feedback },
+  { path: 'notifications', component: Notification },
+  { path: 'settings', component: Setting }
 ];
