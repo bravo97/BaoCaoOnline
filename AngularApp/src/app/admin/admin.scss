@@ -17,6 +17,7 @@
     padding: 1rem;
     transition: width 0.3s ease, transform 0.3s ease;
     width: 250px;
+    height: 100%;
 
     &.collapsed {
       width: 80px;

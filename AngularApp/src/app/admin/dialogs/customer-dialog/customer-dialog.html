@@ -1,0 +1,47 @@
+<div class="dialog-backdrop" *ngIf="visible">
+  <div class="dialog">
+    <h3>{{ customer.id ? 'Cập nhật khách hàng' : 'Thêm khách hàng' }}</h3>
+    <form (ngSubmit)="saveCustomer()">
+      <label>
+        Tên:
+        <input [(ngModel)]="customer.name" name="name" required />
+      </label>
+      <label>
+        Email:
+        <input [(ngModel)]="customer.email" name="email" type="email" required />
+      </label>
+      <label>
+        IP Address:
+        <input [(ngModel)]="customer.ipAddress" name="ipAddress" />
+      </label>
+      <label>
+        Port:
+        <input [(ngModel)]="customer.port" name="port" type="number" />
+      </label>
+      <label>
+        Server Name:
+        <input [(ngModel)]="customer.serverName" name="serverName" />
+      </label>
+      <label>
+        User Name:
+        <input [(ngModel)]="customer.userName" name="userName" />
+      </label>
+      <label>
+        Password:
+        <input [(ngModel)]="customer.password" name="password" type="password" />
+      </label>
+      <label>
+        Database Name:
+        <input [(ngModel)]="customer.databaseName" name="databaseName" />
+      </label>
+      <label>
+        Note:
+        <textarea [(ngModel)]="customer.note" name="note"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" (click)="closeDialog()">Hủy</button>
+        <button type="submit">Lưu</button>
+      </div>
+    </form>
+  </div>
+</div>

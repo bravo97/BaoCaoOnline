@@ -1,0 +1,19 @@
+<nav class="sidebar" [class.collapsed]="sidebarCollapsed">
+  <div class="sidebar-header">
+    <button (click)="toggleSidebar()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <span *ngIf="!sidebarCollapsed"></span>
+  </div>
+
+  <ul class="menu">
+    <li
+      *ngFor="let item of menuItems"
+      (click)="selectMenu(item)"
+      [class.active]="activeMenu === item.label"
+    >
+      <i [class]="item.icon"></i>
+      <span *ngIf="!sidebarCollapsed">{{ item.label }}</span>
+    </li>
+  </ul>
+</nav>

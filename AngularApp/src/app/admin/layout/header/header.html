@@ -1,0 +1,14 @@
+<header>
+        <h2>{{title}}</h2>
+        <div class="profile-container">
+            <div class="profile" (click)="toggleProfileMenu()">
+            <i class="fa fa-user-circle"></i>
+            </div>
+
+            <!-- Dropdown menu -->
+            <div class="profile-menu" [class.open]="profileMenuOpen">
+            <button (click)="changePassword()">Đổi mật khẩu</button>
+            <button (click)="logout()">Đăng xuất</button>
+            </div>
+        </div>
+</header>

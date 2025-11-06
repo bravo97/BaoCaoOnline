@@ -1,37 +1,8 @@
 <div class="admin-container">
-  <nav class="sidebar" [class.collapsed]="sidebarCollapsed">
-    <div class="sidebar-header">
-      <button class="toggle-btn" (click)="toggleSidebar()">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <span class="logo-text" *ngIf="!sidebarCollapsed"></span>
-    </div>
-
-    <ul class="menu">
-      <li class="active"><i class="fa-solid fa-gauge-high"></i> <span *ngIf="!sidebarCollapsed">Tổng quan</span></li>
-      <li><i class="fa-solid fa-users"></i> <span *ngIf="!sidebarCollapsed">Khách hàng</span></li>
-      <li><i class="fa-solid fa-chart-line"></i> <span *ngIf="!sidebarCollapsed">Tài khoản</span></li>
-      <li><i class="fa-solid fa-envelope"></i> <span *ngIf="!sidebarCollapsed">Thông tin phản ánh</span></li>
-      <li><i class="fa-solid fa-tasks"></i> <span *ngIf="!sidebarCollapsed">Thiết lập giới hạn</span></li>
-      <li><i class="fa-solid fa-gear"></i> <span *ngIf="!sidebarCollapsed">Cài đặt hệ thống</span></li>
-    </ul>
-  </nav>
+  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
 
   <div class="dashboard">
-    <header>
-        <h2>Tổng quan</h2>
-        <div class="profile-container">
-            <div class="profile" (click)="toggleProfileMenu()">
-            <i class="fa fa-user-circle"></i>
-            </div>
-
-            <!-- Dropdown menu -->
-            <div class="profile-menu" [class.open]="profileMenuOpen">
-            <button (click)="changePassword()">Đổi mật khẩu</button>
-            <button (click)="logout()">Đăng xuất</button>
-            </div>
-        </div>
-    </header>
+    <app-header [title]="headerTitle"></app-header>
 
     <div class="cards">
       <div class="card"><h4>Tổng số khách hàng</h4><div class="number">1,250</div></div>
