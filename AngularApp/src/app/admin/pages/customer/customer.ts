@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CustomerModel } from '../../models/customer';
+import { CustomerModel } from '../../models/customerModel';
 import { CommonModule } from '@angular/common';
 import { Header } from "../../layout/header/header";
 import { Sidebar } from "../../layout/sidebar/sidebar";
@@ -13,7 +13,7 @@ import { CustomerDialog } from '../../dialogs/customer-dialog/customer-dialog';
   styleUrls: [
     '../../admin.scss',
     './customer.scss'],
-    encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class Customer implements AfterViewInit{
   @ViewChild('customerDialog') customerDialog!: CustomerDialog;
@@ -45,7 +45,7 @@ export class Customer implements AfterViewInit{
     }
   ];
 
-  ngAfterViewInit(): void {console.log('Dialog is ready:', this.customerDialog);}
+  ngAfterViewInit(): void {}
   
   onMenuSelected(menu: string) {
     this.headerTitle = menu;

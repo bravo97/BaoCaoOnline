@@ -1,0 +1,27 @@
+<div class="dialog-backdrop" *ngIf="visible">
+  <div class="dialog">
+    <h3>{{ account.id ? 'Sửa Account' : 'Thêm Account' }}</h3>
+    <label>Khách hàng:
+      <input [(ngModel)]="account.customerId" placeholder="Customer ID">
+    </label>
+    <label>Username:
+      <input [(ngModel)]="account.username">
+    </label>
+    <label>Password:
+      <input [(ngModel)]="account.password" type="password">
+    </label>
+    <label>Role:
+      <select [(ngModel)]="account.role">
+        <option value="Regular">Regular</option>
+        <option value="Admin">Admin</option>
+      </select>
+    </label>
+    <label>Note:
+      <textarea [(ngModel)]="account.note"></textarea>
+    </label>
+    <div class="dialog-actions">
+      <button (click)="saveAccount()">Lưu</button>
+      <button (click)="closeDialog()">Hủy</button>
+    </div>
+  </div>
+</div>

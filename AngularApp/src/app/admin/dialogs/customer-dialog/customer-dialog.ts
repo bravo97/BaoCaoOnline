@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './customer-dialog.scss',
 })
 export class CustomerDialog {
-@Output() save = new EventEmitter<any>();
+  @Output() save = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();
 
   visible = false;
