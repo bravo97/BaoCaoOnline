@@ -21,8 +21,8 @@ export class Sidebar {
     { label: 'Tổng quan', icon: 'fa-solid fa-gauge-high', route:'/admin'},
     { label: 'Khách hàng', icon: 'fa-solid fa-users', route:'/admin/customers' },
     { label: 'Tài khoản', icon: 'fa-solid fa-chart-line', route:'/admin/accounts' },
-    { label: 'Thông tin phản ánh', icon: 'fa-solid fa-envelope', route:'/admin/feedback' },
-    { label: 'Thiết lập giới hạn', icon: 'fa-solid fa-tasks', route:'/admin/limits' },
+    { label: 'Góp ý & Phản ánh', icon: 'fa-solid fa-envelope', route:'/admin/feedback' },
+    { label: 'Quản lý cảnh báo', icon: 'fa-solid fa-tasks', route:'/admin/notification' },
     { label: 'Cài đặt hệ thống', icon: 'fa-solid fa-gear', route:'/admin/settings' }
   ];
 
