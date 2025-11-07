@@ -1,7 +1,5 @@
 import { Component, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header } from "../../layout/header/header";
-import { Sidebar } from "../../layout/sidebar/sidebar";
 import { AccountDialog } from '../../dialogs/account-dialog/account-dialog';
 import { AccountModel } from '../../models/accountModel';
 import { CustomerDialog } from "../../dialogs/customer-dialog/customer-dialog";
@@ -9,17 +7,13 @@ import { CustomerDialog } from "../../dialogs/customer-dialog/customer-dialog";
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, Header, Sidebar, AccountDialog],
+  imports: [CommonModule, AccountDialog],
   templateUrl: './account.html',
-  styleUrls: [
-    '../../admin.scss',
-    './account.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl:'./account.scss'
 })
 export class Account implements AfterViewInit {
   @ViewChild('accountDialog') accountDialog!: AccountDialog;
 
-  headerTitle = 'Tài khoản';
   accounts: AccountModel[] = [
     { id: '1', customerId: 'KH001', username: 'admin', password: '123456', role: 'Admin', note: 'Admin chính' },
     { id: '2', customerId: 'KH001', username: 'user1', password: 'userpass', role: 'Regular', note: 'Nhân viên A' },
@@ -29,10 +23,6 @@ export class Account implements AfterViewInit {
   ];
 
   ngAfterViewInit() {}
-
-  onMenuSelected(menu: string) {
-    this.headerTitle = menu;
-  }
 
   openDialog(account?: AccountModel | string) {
       if (!this.accountDialog) return;

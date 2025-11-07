@@ -1,10 +1,4 @@
-<div class="admin-container">
-  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
-
-  <div class="dashboard">
-    <app-header [title]="headerTitle"></app-header>
-
-    <div class="admin-page notification-page">
+<div class="admin-page notification-page">
   <div class="content-container">
     <div class="notification-layout">
       <!-- Bên trái: Danh sách thông báo -->
@@ -23,9 +17,5 @@
         <button (click)="sendNotification()">Gửi thông báo</button>
       </div>
     </div>
-  </div>
-</div>
-
-
   </div>
 </div>

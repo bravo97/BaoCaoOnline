@@ -6,15 +6,11 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notification',
-  imports: [CommonModule, FormsModule, Sidebar, Header],
+  imports: [CommonModule, FormsModule],
   templateUrl: './notification.html',
-  styleUrls: [
-    '../../admin.scss',
-    './notification.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './notification.scss'
 })
 export class Notification {
-  headerTitle = 'Quản lý thông báo';
   notifications = [
     { title: 'Bảo trì hệ thống', message: 'Hệ thống sẽ bảo trì lúc 2AM ngày mai.', date: new Date() },
     { title: 'Khuyến mãi', message: 'Giảm giá 20% cho tất cả sản phẩm.', date: new Date() },
@@ -22,10 +18,6 @@ export class Notification {
 
   title = '';
   message = '';
-
-  onMenuSelected(menu: string) {
-    this.headerTitle = menu;
-  }
 
   sendNotification() {
     if (this.title && this.message) {

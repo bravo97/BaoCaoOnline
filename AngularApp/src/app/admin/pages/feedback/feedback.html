@@ -1,60 +1,51 @@
-<div class="admin-container">
-  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
-
-  <div class="dashboard">
-    <app-header [title]="headerTitle"></app-header>
-
-    <div class="feedback-page">
-      <!-- Danh sách khách hàng phản ánh -->
-      <div class="feedback-list">
-        <div class="feedback-item"
-             *ngFor="let f of feedbacks"
-             [class.active]="f.customerId === selectedCustomer?.customerId"
-             (click)="selectCustomer(f)">
-          <div class="customer-name">{{ f.customerName }}</div>
-          <div class="last-message">{{ f.lastMessage }}</div>
-          <div class="status"
-               [class.pending]="f.status === 'Pending'"
-               [class.resolved]="f.status === 'Resolved'">
-            {{ f.status === 'Pending' ? 'Đang chờ' : 'Đã phản hồi' }}
-          </div>
-        </div>
+<div class="feedback-page">
+  <!-- Danh sách khách hàng phản ánh -->
+  <div class="feedback-list">
+    <div class="feedback-item"
+          *ngFor="let f of feedbacks"
+          [class.active]="f.customerId === selectedCustomer?.customerId"
+          (click)="selectCustomer(f)">
+      <div class="customer-name">{{ f.customerName }}</div>
+      <div class="last-message">{{ f.lastMessage }}</div>
+      <div class="status"
+            [class.pending]="f.status === 'Pending'"
+            [class.resolved]="f.status === 'Resolved'">
+        {{ f.status === 'Pending' ? 'Đang chờ' : 'Đã phản hồi' }}
       </div>
-
-      <!-- Khung chat phản hồi -->
-      <div class="feedback-chat">
-        <div class="chat-header" *ngIf="selectedCustomer; else noSelectionHeader">
-          <h3>{{ selectedCustomer.customerName }}</h3>
-          <small>{{ selectedCustomer.status === 'Pending' ? 'Đang chờ phản hồi' : 'Đã phản hồi' }}</small>
-        </div>
-        <ng-template #noSelectionHeader>
-          <div class="chat-header placeholder">
-            <h3>Chưa chọn khách hàng</h3>
-            <small>Chọn một khách hàng bên trái để xem chi tiết phản ánh</small>
-          </div>
-        </ng-template>
-
-        <div class="chat-messages" *ngIf="selectedCustomer; else emptyMessages">
-          <div *ngFor="let msg of selectedCustomer.messages"
-               [class.admin]="msg.from === 'admin'"
-               [class.customer]="msg.from === 'customer'">
-            <div class="msg-content">{{ msg.content }}</div>
-            <div class="msg-time">{{ msg.time }}</div>
-          </div>
-        </div>
-
-        <ng-template #emptyMessages>
-          <div class="chat-empty">
-            <p>Chưa có phản ánh nào được chọn</p>
-          </div>
-        </ng-template>
-
-        <div class="chat-input">
-          <input [(ngModel)]="replyText" placeholder="Nhập phản hồi..." [disabled]="!selectedCustomer" />
-          <button (click)="sendReply()" [disabled]="!selectedCustomer || !replyText.trim()">Gửi</button>
-        </div>
-      </div>
-
-
+    </div>
   </div>
+
+  <!-- Khung chat phản hồi -->
+  <div class="feedback-chat">
+    <div class="chat-header" *ngIf="selectedCustomer; else noSelectionHeader">
+      <h3>{{ selectedCustomer.customerName }}</h3>
+      <small class="status"[class.pending]="selectedCustomer.status === 'Pending'"
+            [class.resolved]="selectedCustomer.status === 'Resolved'">{{ selectedCustomer.status === 'Pending' ? 'Đang chờ phản hồi' : 'Đã phản hồi' }}</small>
+    </div>
+    <ng-template #noSelectionHeader>
+      <div class="chat-header placeholder">
+        <h3>Chưa chọn khách hàng</h3>
+        <small>Chọn một khách hàng bên trái để xem chi tiết phản ánh</small>
+      </div>
+    </ng-template>
+
+    <div class="chat-messages" *ngIf="selectedCustomer; else emptyMessages">
+      <div *ngFor="let msg of selectedCustomer.messages"
+            [class.admin]="msg.from === 'admin'"
+            [class.customer]="msg.from === 'customer'">
+        <div class="msg-content">{{ msg.content }}</div>
+        <div class="msg-time">{{ msg.time }}</div>
+      </div>
+    </div>
+
+    <ng-template #emptyMessages>
+      <div class="chat-empty">
+        <p>Chưa có phản ánh nào được chọn</p>
+      </div>
+    </ng-template>
+
+    <div class="chat-input">
+      <input [(ngModel)]="replyText" placeholder="Nhập phản hồi..." [disabled]="!selectedCustomer" />
+      <button (click)="sendReply()" [disabled]="!selectedCustomer || !replyText.trim()">Gửi</button>
+    </div>
 </div>

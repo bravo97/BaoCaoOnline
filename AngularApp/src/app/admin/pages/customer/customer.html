@@ -1,44 +1,36 @@
-<div class="admin-container">
-  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
-
-  <div class="dashboard">
-    <app-header [title]="headerTitle"></app-header>
-
-    <div class="customers-page">
-      <div class="page-header">
-        <button class="btn-add" (click)="openDialog()">+ Thêm khách hàng</button>
-      </div>
-
-      <table class="customers-table">
-        <thead>
-          <tr>
-            <th>Tên</th>
-            <th>Email</th>
-            <th>Địa chỉ IP</th>
-            <th>Máy chủ</th>
-            <th>Database</th>
-            <th>Ghi chú</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let c of customers">
-            <td>{{ c.name }}</td>
-            <td>{{ c.email }}</td>
-            <td>{{ c.ipAddress }}:{{ c.port }}</td>
-            <td>{{ c.serverName }}</td>
-            <td>{{ c.databaseName }}</td>
-            <td>{{ c.note }}</td>
-            <td>
-              <button class="btn-edit" (click)="openDialog(c)">Sửa</button>
-              <button class="btn-delete" (click)="openDialog(c.id)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Customer Dialog -->
-    <app-customer-dialog #customerDialog (save)="saveCustomer($event)"></app-customer-dialog>
+<div class="customers-page">
+  <div class="page-header">
+    <button class="btn-add" (click)="openDialog()">+ Thêm khách hàng</button>
   </div>
+
+  <table class="customers-table">
+    <thead>
+      <tr>
+        <th>Tên</th>
+        <th>Email</th>
+        <th>Địa chỉ IP</th>
+        <th>Máy chủ</th>
+        <th>Database</th>
+        <th>Ghi chú</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <td>{{ c.name }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.ipAddress }}:{{ c.port }}</td>
+        <td>{{ c.serverName }}</td>
+        <td>{{ c.databaseName }}</td>
+        <td>{{ c.note }}</td>
+        <td>
+          <button class="btn-edit" (click)="openDialog(c)">Sửa</button>
+          <button class="btn-delete" (click)="openDialog(c.id)">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+<!-- Customer Dialog -->
+<app-customer-dialog #customerDialog (save)="saveCustomer($event)"></app-customer-dialog>

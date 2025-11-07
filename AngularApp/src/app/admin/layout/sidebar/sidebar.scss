@@ -1,0 +1,87 @@
+/* ================== SIDEBAR ================== */
+  .sidebar {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: width 0.3s ease, transform 0.3s ease;
+    width: 250px;
+    height: 100%;
+
+    &.collapsed {
+      width: 80px;
+
+      .logo-text {
+        display: none;
+      }
+
+      .menu li span {
+        display: none;
+      }
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+
+      button { 
+      /* Đổi tên selector nếu bạn không dùng class .toggle-btn trong CSS */
+      /* Base Style */
+      background: none;
+      border: none;
+      color: var(--text-primary); /* Màu chữ/icon chính */
+      font-size: 1.25rem;         /* Kích thước icon vừa phải */
+      cursor: pointer;
+      padding: 8px;               /* Thêm padding để dễ bấm hơn */
+      border-radius: 8px;         /* Bo góc mềm mại */
+      transition: background 0.2s, color 0.2s; /* Thêm transition */
+      line-height: 1;             /* Căn giữa icon tốt hơn */
+      
+      /* Hover Effect */
+      &:hover {
+        background: var(--border-color); /* Dùng màu viền làm nền hover rất nhẹ */
+        color: var(--accent);            /* Màu nhấn khi hover cho icon */
+      }
+
+      /* Active/Pressed Effect (Khi người dùng bấm vào) */
+      &:active {
+        background: #ced4da; /* Một màu xám đậm hơn một chút khi nhấn xuống */
+        transform: translateY(1px); /* Hiệu ứng nhấn nhẹ */
+      }
+    }
+    }
+
+    .menu {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        i {
+          width: 24px;
+          text-align: center;
+          margin-right: 10px;
+        }
+
+        &:hover {
+          background: var(--sidebar-hover);
+          color: var(--text-primary);
+        }
+
+        &.active {
+          background: var(--accent);
+          color: var(--text-primary);
+          border-radius: 6px;
+        }
+      }
+    }
+  }

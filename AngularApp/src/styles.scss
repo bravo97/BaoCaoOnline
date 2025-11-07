@@ -1,5 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 /* styles.scss */
+:root {
+  /* LIGHT THEME: Mềm mại & Nổi bật */
+  
+  /* Nền tổng thể (màu nền của trang) */
+  --bg-primary: #F8F9FA; 
+  
+  /* Nền sidebar hoặc khối phụ */
+  --bg-secondary: #E9ECEF; 
+
+  /* Nền của các card (hộp thống kê, bảng, chart) */
+  --card-bg: #FFFFFF; 
+
+  /* Màu chữ chính */
+  --text-primary: #212529; 
+
+  /* Màu chữ phụ, mô tả */
+  --text-secondary: #6C757D; 
+
+  /* Màu nhấn (accent color) */
+  --accent: #007BFF; 
+
+  /* Màu viền card hoặc đường phân cách */
+  --border-color: #DEE2E6; 
+
+  --sidebar-hover:#c7dcf1;
+}
+
+[data-theme="dark"] {
+  /* Màu nền chính (background tổng thể) */
+  --bg-primary: #0f172a;      /* gần như đen xanh, rất phù hợp */
+
+  /* Sidebar hoặc vùng phụ */
+  --bg-secondary: #1e293b;    /* hơi sáng hơn nền chính để tạo phân tách */
+
+  /* Nền của card, bảng, chart */
+  --card-bg: #1e293b;         /* thống nhất với sidebar, có thể đậm hơn 1 chút */
+  /* Nếu muốn card nổi hơn: #273549 (vẫn ok, chỉ hơi khác tone) */
+
+  /* Màu chữ chính */
+  --text-primary: #e2e8f0;    /* trắng dịu, dễ đọc trên nền tối */
+
+  /* Màu chữ phụ, label */
+  --text-secondary: #94a3b8;  /* xám lam nhạt, hợp với tone xanh navy */
+
+  /* Màu nhấn – chart line, link, icon, hover */
+  --accent: #3b82f6;          /* xanh lam chuẩn Tailwind Blue-500 */
+
+  /* Viền card hoặc border */
+  --border-color: #334155;    /* xám đậm, vừa đủ phân tách */
+
+  --sidebar-hover:#334155;
+}
+
 
 /* Reset CSS cơ bản */
 * {

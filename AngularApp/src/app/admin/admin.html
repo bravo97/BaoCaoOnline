@@ -4,43 +4,6 @@
   <div class="dashboard">
     <app-header [title]="headerTitle"></app-header>
 
-    <div class="cards">
-      <div class="card"><h4>Tổng số khách hàng</h4><div class="number">1,250</div></div>
-      <div class="card"><h4>Tổng số tài khoản</h4><div class="number">1,230</div></div>
-      <div class="card"><h4>Tổng số người dùng thực tế</h4><div class="number">$6,520</div></div>
-      <div class="card"><h4>Tổng số báo cáo</h4><div class="number">560</div></div>
-    </div>
-
-    <div class="content">
-      <div class="box revenue-box">
-        <h4>Revenue</h4>
-        <canvas id="revenueChart"></canvas>
-      </div>
-
-      <div class="box orders-box">
-        <h4>Recent Orders</h4>
-        <table>
-          <thead>
-            <tr><th>ID</th><th>Customer</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>OR9842</td><td>Robert Fox</td><td class="completed">Completed</td></tr>
-            <tr><td>OR1849</td><td>Arlene McCoy</td><td class="pending">Pending</td></tr>
-            <tr><td>OR7429</td><td>Glenna Reichert</td><td class="processing">Processing</td></tr>
-            <tr><td>OR7429</td><td>Clementine Bauch</td><td class="completed">Completed</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="box stats-box">
-        <h4>Stats</h4>
-        <canvas id="statsChart"></canvas>
-      </div>
-
-      <div class="box traffic-box">
-        <h4>Traffic</h4>
-        <canvas id="trafficChart"></canvas>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +10,21 @@ import { Component, Input } from '@angular/core';
     '../../admin.scss',
     './header.scss'],
 })
-export class Header {
+export class Header implements OnInit{
   @Input() title: string = 'Tổng quan';
   profileMenuOpen = false;
   isDarkMode = true; // mặc định dark
 
+  ngOnInit() {
+    const saved = localStorage.getItem('theme') || 'dark';
+    this.isDarkMode = saved === 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    const adminContainer = document.querySelector('.admin-container');
-    if (this.isDarkMode) {
-      adminContainer?.classList.add('dark-mode');
-    } else {
-      adminContainer?.classList.remove('dark-mode');
-    }
+    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
 
   toggleProfileMenu() {

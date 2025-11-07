@@ -8,16 +8,12 @@ import { CustomerDialog } from '../../dialogs/customer-dialog/customer-dialog';
 @Component({
   selector: 'app-customer',
   standalone:true,
-  imports: [CommonModule, Header, Sidebar, CustomerDialog],
+  imports: [CommonModule, CustomerDialog],
   templateUrl: './customer.html',
-  styleUrls: [
-    '../../admin.scss',
-    './customer.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './customer.scss',
 })
 export class Customer implements AfterViewInit{
   @ViewChild('customerDialog') customerDialog!: CustomerDialog;
-  headerTitle = 'Khách hàng';
   customers: CustomerModel[] = [
     {
       id: crypto.randomUUID(),
@@ -47,10 +43,6 @@ export class Customer implements AfterViewInit{
 
   ngAfterViewInit(): void {}
   
-  onMenuSelected(menu: string) {
-    this.headerTitle = menu;
-  }
-
   openDialog(customer?: CustomerModel | string) {
     if (!this.customerDialog) return;
 

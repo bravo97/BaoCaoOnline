@@ -8,15 +8,11 @@ import { FormsModule } from "@angular/forms";
 @Component({
   selector: 'app-feedback',
   standalone:true,
-  imports: [CommonModule, Sidebar, Header, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './feedback.html',
-  styleUrls: [
-    '../../admin.scss',
-    './feedback.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './feedback.scss'
 })
 export class Feedback {
-  headerTitle = 'Góp ý & Phản ánh';
   selectedCustomer?: FeedbackModel;
   replyText: string = '';
   feedbacks: FeedbackModel[] = [
@@ -52,9 +48,6 @@ export class Feedback {
   ];
 
   
-  onMenuSelected(menu: string) {
-    this.headerTitle = menu;
-  }
   selectCustomer(f: FeedbackModel) {
     this.selectedCustomer = f;
   }
