@@ -24,15 +24,4 @@ export class Admin {
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
-
-  toggleProfileMenu() {
-    this.profileMenuOpen = !this.profileMenuOpen;
-  }
-
-  changePassword(){
-
-  }
-  logout(){
-
-  }
 }

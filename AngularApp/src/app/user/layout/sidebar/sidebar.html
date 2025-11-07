@@ -1,0 +1,17 @@
+<nav class="sidebar" [class.collapsed]="sidebarCollapsed">
+  <div class="sidebar-header">
+    <button (click)="toggleSidebar()">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <span *ngIf="!sidebarCollapsed"></span>
+  </div>
+
+  <ul class="menu">
+    <li
+      *ngFor="let item of menuItems"
+      (click)="selectMenu(item)">
+      <i class="fa-solid fa-file"></i>
+      <span *ngIf="!sidebarCollapsed" class="tooltip">{{ item.fullName }}</span>
+    </li>
+  </ul>
+</nav>

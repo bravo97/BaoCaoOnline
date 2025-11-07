@@ -1,1 +1,14 @@
-<p>report-viewer works!</p>
+<div *ngIf="report">
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">{{ col.displayName }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let col of columns">{{ row[col.cloumnName] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

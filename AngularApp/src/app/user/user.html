@@ -1,0 +1,9 @@
+<div class="user-container">
+  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
+
+  <div class="dashboard">
+    <app-header [title]="headerTitle"></app-header>
+
+    <app-report-viewer [report]="selectedReport"></app-report-viewer>
+  </div>
+</div>

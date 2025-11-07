@@ -1,0 +1,68 @@
+/* ================== ADMIN CONTAINER ================== */
+.user-container {
+  display: grid;
+  grid-template-columns: auto 1fr; // sidebar + dashboard
+  height: 100vh;
+  background: var(--bg-primary);;
+  color: var(--text-primary);
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+
+  
+  /* ================== DASHBOARD ================== */
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem 1.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    }
+  }
+    
+
+/* ================== RESPONSIVE TABLET / MOBILE ================== */
+/* CONTENT RESPONSIVE */
+@media (max-width: 1024px) {
+  .dashboard .content {
+    grid-template-columns: 1fr; /* stack dọc */
+    grid-template-rows: auto;
+    gap: 1rem;
+
+    .revenue-box,
+    .orders-box,
+    .stats-box,
+    .traffic-box {
+      grid-column: 1 / 2 !important;
+      grid-row: auto !important;
+    }
+
+    /* Canvas co lại để vừa màn hình */
+    canvas {
+      max-height: 250px !important;
+      min-width: 100% !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard .content {
+    gap: 0.8rem;
+
+    canvas {
+      max-height: 220px !important;
+      min-width: 100% !important;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard .content {
+    gap: 0.5rem;
+
+    canvas {
+      max-height: 200px !important;
+      min-width: 100% !important;
+    }
+  }
+}
