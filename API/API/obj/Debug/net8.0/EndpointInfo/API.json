@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "API",
-    "version": "1.0"
+    "title": "Report API",
+    "description": "API for multi-tenant report system with JWT authentication",
+    "version": "v1"
   },
   "paths": {
     "/api/Account/customer/{customerId}": {
@@ -475,6 +476,10 @@
             "type": "string",
             "nullable": true
           },
+          "sqlReport": {
+            "type": "string",
+            "nullable": true
+          },
           "note": {
             "type": "string",
             "nullable": true
@@ -540,6 +545,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Enter JWT token",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

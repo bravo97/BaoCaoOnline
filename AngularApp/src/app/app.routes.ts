@@ -15,7 +15,7 @@ export const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./user/user.routes').then(m => m.USER_ROUTES),
-    pathMatch: 'prefix'  // thay vì mặc định 'full'
+      pathMatch: 'prefix'  // thay vì mặc định 'full'
   },
   {
     path: 'admin',

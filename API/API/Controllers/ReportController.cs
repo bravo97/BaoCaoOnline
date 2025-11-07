@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace API.Controllers
         }
 
         // GET: api/customers/{customerId}/reports
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports(string customerId)
         {
@@ -25,6 +27,7 @@ namespace API.Controllers
         }
 
         // GET: api/customers/{customerId}/reports/{reportId}
+        [Authorize]
         [HttpGet("{reportId}")]
         public async Task<ActionResult<object>> GetReportData(string customerId, string reportId)
         {

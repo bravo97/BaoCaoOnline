@@ -8,9 +8,9 @@ import { Component, Input } from '@angular/core';
   styleUrl: './header.scss',
 })
 export class Header {
-@Input() title: string = 'Tổng quan';
+  @Input() title: string='';
   profileMenuOpen = false;
-  isDarkMode = true; // mặc định dark
+  isDarkMode = false; // mặc định dark
 
   ngOnInit() {
     const saved = localStorage.getItem('theme') || 'dark';

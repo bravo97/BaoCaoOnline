@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace API.Controllers
             _customerRepository = customerRepository;
         }
 
-        // [Authorize]  // có thể bật sau khi test xong
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -26,6 +27,7 @@ namespace API.Controllers
             return Ok(customers);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -34,6 +36,7 @@ namespace API.Controllers
             return Ok(customer);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Customer customer)
         {
@@ -41,6 +44,7 @@ namespace API.Controllers
             return Ok(new { message = "Thêm khách hàng thành công", customer });
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Customer customer)
         {
@@ -52,6 +56,7 @@ namespace API.Controllers
             return Ok(new { message = "Cập nhật khách hàng thành công" });
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
