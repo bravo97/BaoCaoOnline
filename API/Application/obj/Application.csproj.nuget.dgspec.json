@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj": {}
+    "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj": {}
   },
   "projects": {
-    "D:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj": {
+    "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj",
+        "projectUniqueName": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\Hung\\BaoCaoOnline\\API\\Application\\obj\\",
+        "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\dobah\\.nuget\\packages\\",
+        "outputPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dobah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj"
+              "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\Domain.csproj": {
+                "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\Domain.csproj"
               }
             }
           }
@@ -44,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -71,21 +75,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj": {
+    "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj",
+        "projectUniqueName": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\Hung\\BaoCaoOnline\\API\\Domain\\obj\\",
+        "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\dobah\\.nuget\\packages\\",
+        "outputPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dobah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -111,7 +119,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -132,7 +140,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

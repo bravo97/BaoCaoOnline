@@ -6,12 +6,13 @@ import { Feedback } from './pages/feedback/feedback';
 import { Notification } from './pages/notification/notification';
 import { Setting } from './pages/setting/setting';
 import { Dashboard } from './pages/dashboard/dashboard';
-
+import { authGuard } from './guards/auth-guard';
 
 export const ADMIN_ROUTES: Routes = [
   {
     path:'',
     component:Admin,
+    canActivateChild: [authGuard],
     children:[
       { path: '', component: Dashboard },
       { path: 'customers', component: Customer },

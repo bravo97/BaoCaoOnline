@@ -70,16 +70,6 @@
   },
   {
     "ContainingType": "API.Controllers.AuthController",
-    "Method": "AdminTest",
-    "RelativePath": "api/Auth/admin-test",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
     "HttpMethod": "POST",
@@ -108,16 +98,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AuthController",
-    "Method": "UserTest",
-    "RelativePath": "api/Auth/user-test",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

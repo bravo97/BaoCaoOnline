@@ -94,6 +94,18 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Khai báo policy CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // domain frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // ===========================
@@ -107,6 +119,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+// **Dùng CORS**
+app.UseCors("AllowAngularApp");
 // **Thứ tự quan trọng**
 app.UseAuthentication();
 app.UseAuthorization();

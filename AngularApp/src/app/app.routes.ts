@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LanddingPage } from './landding-page/landding-page';
 import { Login } from './user/pages/login/login';
+import { LoginAdmin } from './admin/pages/login/login';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component:Login
+  },
+  {
+    path: 'admin/login',
+    component: LoginAdmin
   },
   {
     path: '',
