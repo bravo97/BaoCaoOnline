@@ -22,3 +22,15 @@ C:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.dll
 C:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\refint\Domain.dll
 C:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.pdb
 C:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\ref\Domain.dll
+D:\Hung\BaoCaoOnline\API\Domain\bin\Debug\net8.0\Domain.deps.json
+D:\Hung\BaoCaoOnline\API\Domain\bin\Debug\net8.0\Domain.dll
+D:\Hung\BaoCaoOnline\API\Domain\bin\Debug\net8.0\Domain.pdb
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.dll
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\refint\Domain.dll
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\Domain.pdb
+D:\Hung\BaoCaoOnline\API\Domain\obj\Debug\net8.0\ref\Domain.dll

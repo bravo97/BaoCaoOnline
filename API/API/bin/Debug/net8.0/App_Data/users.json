@@ -6,5 +6,13 @@
     "Email": "dobahung941997@gmail.com",
     "CreatedAt": "2025-11-07T14:01:39.6646241Z",
     "Role": 0
+  },
+  {
+    "Id": "bc4b4762-1254-4de1-aa05-8d5fe5e0b4aa",
+    "Username": "string",
+    "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
+    "Email": "string",
+    "CreatedAt": "2025-11-08T06:56:13.5290054Z",
+    "Role": 1
   }
 ]

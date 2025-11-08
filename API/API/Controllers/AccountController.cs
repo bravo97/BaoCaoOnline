@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -17,7 +18,6 @@ namespace API.Controllers
             _accountService = accountService;
         }
 
-        [Authorize]
         [HttpGet("customer/{customerId}")]
         public async Task<IActionResult> GetByCustomer(string customerId)
         {
@@ -25,7 +25,6 @@ namespace API.Controllers
             return Ok(accounts);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Account account)
         {
@@ -34,7 +33,6 @@ namespace API.Controllers
             return Ok(account);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Account account)
         {
@@ -44,7 +42,6 @@ namespace API.Controllers
             return Ok(account);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

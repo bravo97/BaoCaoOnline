@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReportController : ControllerBase
@@ -18,7 +19,6 @@ namespace API.Controllers
         }
 
         // GET: api/customers/{customerId}/reports
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports(string customerId)
         {
@@ -27,10 +27,10 @@ namespace API.Controllers
         }
 
         // GET: api/customers/{customerId}/reports/{reportId}
-        [Authorize]
         [HttpGet("{reportId}")]
         public async Task<ActionResult<object>> GetReportData(string customerId, string reportId)
         {
+            //var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
             var data = await _reportService.GetReportDataAsync(customerId, reportId);
             var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
 

@@ -2,6 +2,7 @@
 using Application.Services;
 using Infrastructure.Repositories;
 using Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,12 +23,10 @@ builder.Services.AddSingleton<IJwtSettings>(sp =>
 // ===========================
 // 2. JWT Authentication
 // ===========================
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        // Lấy instance JwtSettings đã được inject
-        var jwtSettings = builder.Services.BuildServiceProvider().GetRequiredService<IJwtSettings>();
-
+        var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
         options.RequireHttpsMetadata = false;
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
@@ -39,7 +38,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidIssuer = jwtSettings.Issuer,
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
-            ClockSkew = TimeSpan.Zero
+            ClockSkew = TimeSpan.FromMinutes(5)
         };
     });
 
@@ -107,7 +106,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
 // **Thứ tự quan trọng**
 app.UseAuthentication();
 app.UseAuthorization();
