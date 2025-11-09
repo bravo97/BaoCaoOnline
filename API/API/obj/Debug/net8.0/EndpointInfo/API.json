@@ -6,29 +6,17 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Account/customer/{customerId}": {
+    "/api/Account": {
       "get": {
         "tags": [
           "Account"
-        ],
-        "parameters": [
-          {
-            "name": "customerId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Account": {
+      },
       "post": {
         "tags": [
           "Account"
@@ -52,6 +40,28 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Account/customer/{customerId}": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -30,12 +30,12 @@ namespace Application.Services
         }
 
         // Thêm khách hàng, kiểm tra code trùng
-        public async Task<bool> AddCustomerAsync(Customer customer)
+        public async Task<Customer> AddCustomerAsync(Customer customer)
         {
             var all = await _customerRepository.GetAllAsync();
 
-            await _customerRepository.AddAsync(customer);
-            return true;
+            var result = await _customerRepository.AddAsync(customer);
+            return result;
         }
 
         // Cập nhật khách hàng

@@ -1,17 +1,25 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { AuthService } from '../services/auth';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpRequest, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
+  const token = localStorage.getItem('accessToken');
+  const router = inject(Router);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  if (req.url.startsWith('/api/admin')) {
-    const cloned = req.clone({ setHeaders: { Authorization: 'Bearer admin-token' } });
-    return next.handle(cloned);
-  }
-  return next.handle(req);
- }
-}
+  // Thêm Bearer token nếu có
+  const authReq = token
+    ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+    : req;
+
+  return next(authReq).pipe(
+    catchError(err => {
+      if (err.status === 401) {
+        // Token hết hạn -> chuyển về login
+        localStorage.removeItem('accessToken'); // xoá token cũ
+        router.navigate(['admin/login']); // chuyển hướng
+      }
+      return throwError(() => err);
+    })
+  );
+};

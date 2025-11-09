@@ -1,4 +1,6 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
+using Application.Models;
+using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +19,22 @@ namespace API.Controllers
         {
             _accountService = accountService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+                var accounts = await _accountService.GetByCustomerAsync(customerId);
+                return Ok(ApiResponse<object>.Ok(accounts, "Lấy danh sách tài khoản thành công"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi lấy danh sách khách hàng: {ex.Message}"));
+            }
+        }
+
 
         [HttpGet("customer/{customerId}")]
         public async Task<IActionResult> GetByCustomer(string customerId)

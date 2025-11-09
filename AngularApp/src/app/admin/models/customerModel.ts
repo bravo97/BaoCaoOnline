@@ -8,5 +8,6 @@ export interface CustomerModel {
   userName: string;
   password: string;
   databaseName: string;
+  sqlReport:string;
   note?: string;
 }

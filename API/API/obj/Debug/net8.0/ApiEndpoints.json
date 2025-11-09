@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "API.Controllers.AccountController",
+    "Method": "GetAll",
+    "RelativePath": "api/Account",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.AccountController",
     "Method": "Create",
     "RelativePath": "api/Account",
     "HttpMethod": "POST",

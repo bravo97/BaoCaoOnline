@@ -25,7 +25,7 @@
         <td>{{ c.note }}</td>
         <td>
           <button class="btn-edit" (click)="openDialog(c)">Sửa</button>
-          <button class="btn-delete" (click)="openDialog(c.id)">Xóa</button>
+          <button class="btn-delete" (click)="showConfirm(c.id)">Xóa</button>
         </td>
       </tr>
     </tbody>
@@ -34,3 +34,5 @@
 
 <!-- Customer Dialog -->
 <app-customer-dialog #customerDialog (save)="saveCustomer($event)"></app-customer-dialog>
+<app-confirm-dialog [visible]="dialogVisible" [title]="dialogTitle" [message]="dialogMessage"></app-confirm-dialog>
+

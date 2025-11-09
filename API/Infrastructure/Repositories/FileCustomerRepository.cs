@@ -44,11 +44,12 @@ namespace Infrastructure.Repositories
             File.WriteAllText(_filePath, json);
         }
 
-        public Task AddAsync(Customer customer)
+        public Task<Customer> AddAsync(Customer customer)
         {
+            customer.Id = Guid.NewGuid().ToString();
             _customers.Add(customer);
             SaveData();
-            return Task.CompletedTask;
+            return Task.FromResult(customer);
         }
 
         public Task DeleteAsync(string id)

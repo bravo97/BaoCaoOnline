@@ -24,6 +24,7 @@ export class CustomerDialog {
     userName: '',
     password: '',
     databaseName: '',
+    sqlReport:'',
     note: ''
   };
 
@@ -41,6 +42,7 @@ export class CustomerDialog {
         userName: '',
         password: '',
         databaseName: '',
+        sqlReport:'',
         note: ''
       };
     }
