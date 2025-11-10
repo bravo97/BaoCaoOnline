@@ -1,10 +1,11 @@
-<div class="overlay" *ngIf="visible">
-  <div class="dialog">
-    <h2>{{ title }}</h2>
+<div class="dialog-backdrop" *ngIf="visible">
+  <div class="dialog-box">
+    <h3>{{ title }}</h3>
     <p>{{ message }}</p>
+
     <div class="actions">
-      <button (click)="cancel()">Hủy</button>
-      <button class="warn" (click)="confirm()">Xóa</button>
+      <button class="cancel" (click)="onCancel()">Hủy</button>
+      <button class="confirm" (click)="onConfirm()">Xác nhận</button>
     </div>
   </div>
 </div>

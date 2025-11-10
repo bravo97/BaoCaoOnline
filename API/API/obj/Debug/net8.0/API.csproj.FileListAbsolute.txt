@@ -158,3 +158,9 @@ D:\Hung\BaoCaoOnline\API\API\obj\Debug\net8.0\refint\API.dll
 D:\Hung\BaoCaoOnline\API\API\obj\Debug\net8.0\API.pdb
 D:\Hung\BaoCaoOnline\API\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 D:\Hung\BaoCaoOnline\API\API\obj\Debug\net8.0\ref\API.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Hung\BaoCaoOnline\API\API\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll

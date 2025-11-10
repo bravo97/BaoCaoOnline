@@ -18,10 +18,8 @@ import { ConfirmDialog } from "../../../shared/components/confirm-dialog/confirm
 export class Customer implements AfterViewInit{
   @ViewChild('customerDialog') customerDialog!: CustomerDialog;
   ustomers = [];
-  dialogVisible = false;
-  dialogTitle = '';
-  dialogMessage = '';
-  deletingId: string | null = null;
+  confirmVisible = false;
+  deleteId: string | null = null;
   customers: CustomerModel[] = [];
   constructor(private customerService: CustomerService, private notify:ToastrNotification) {
     this.loadCustomers();
@@ -34,34 +32,25 @@ export class Customer implements AfterViewInit{
     });
   }
 
-  showConfirm(id: string) {
-  this.dialogVisible = true;
-  this.dialogTitle = 'Xác nhận xóa';
-  this.dialogMessage = 'Bạn có chắc muốn xóa khách hàng này không?';
-  this.deletingId = id;
-}
-
-handleConfirm(result: boolean) {
-  if (result && this.deletingId != null) {
-    this.customerService.delete(this.deletingId).subscribe({
-      next: () => this.notify.success('Xóa khách hàng thành công!'),
-      error: () => this.notify.error('Xóa khách hàng thất bại!')
-    });
+  confirm(id: string) {
+    this.deleteId = id;
+    this.confirmVisible = true;
   }
-  this.deletingId = null;
-}
+
+  delete() {
+    if (this.deleteId) {
+
+      this.customerService.delete(this.deleteId).subscribe(() => {
+        this.customers = this.customers.filter(c => c.id !== this.deleteId);
+      });
+      
+      this.deleteId = null;
+      this.confirmVisible = false;
+    }
+  }
 
   openDialog(customer?: CustomerModel | string) {
     if (!this.customerDialog) return;
-
-    if (typeof customer === 'string') {
-      // xóa qua API
-      this.customerService.delete(customer).subscribe(() => {
-        this.customers = this.customers.filter(c => c.id !== customer);
-      });
-      return;
-    }
-
     this.customerDialog.open(customer);
   }
 

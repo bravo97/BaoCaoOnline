@@ -25,7 +25,7 @@
         <td>{{ c.note }}</td>
         <td>
           <button class="btn-edit" (click)="openDialog(c)">Sửa</button>
-          <button class="btn-delete" (click)="showConfirm(c.id)">Xóa</button>
+          <button class="btn-delete" (click)="confirm(c.id)">Xóa</button>
         </td>
       </tr>
     </tbody>
@@ -34,5 +34,5 @@
 
 <!-- Customer Dialog -->
 <app-customer-dialog #customerDialog (save)="saveCustomer($event)"></app-customer-dialog>
-<app-confirm-dialog [visible]="dialogVisible" [title]="dialogTitle" [message]="dialogMessage"></app-confirm-dialog>
+<app-confirm-dialog [visible]="confirmVisible" title="Xác nhận xóa" message="Bạn có chắc chắn muốn xóa khách hàng này không?" (confirm)="delete()" (cancel)="confirmVisible = false"></app-confirm-dialog>
 

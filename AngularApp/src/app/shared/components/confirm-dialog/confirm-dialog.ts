@@ -10,16 +10,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ConfirmDialog {
   @Input() visible = false;
   @Input() title = 'Xác nhận';
-  @Input() message = 'Bạn có chắc muốn xóa?';
-  @Output() confirmed = new EventEmitter<boolean>();
+  @Input() message = 'Bạn có chắc chắn muốn thực hiện thao tác này?';
 
-  confirm() {
-    this.confirmed.emit(true);
+  @Output() confirm = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
+
+  onConfirm() {
+    this.confirm.emit();
     this.visible = false;
   }
 
-  cancel() {
-    this.confirmed.emit(false);
+  onCancel() {
+    this.cancel.emit();
     this.visible = false;
   }
 }

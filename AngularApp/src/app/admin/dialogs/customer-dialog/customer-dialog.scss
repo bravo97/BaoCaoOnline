@@ -12,8 +12,8 @@
 }
 
 .dialog {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   padding: 1.5rem;
   border-radius: 8px;
   width: 400px;
@@ -34,8 +34,8 @@
       padding: 0.5rem;
       border-radius: 4px;
       border: none;
-      background: #334155;
-      color: #e2e8f0;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
       margin-top: 0.25rem;
     }
 
