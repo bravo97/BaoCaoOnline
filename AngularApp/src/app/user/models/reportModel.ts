@@ -6,6 +6,12 @@ export interface ReportModel {
   group: string;
 }
 
+export interface GroupReportModel{
+  name:string;
+  fullName:string;
+}
+
+
 export interface ColumReportModel {
   id: string;
   cloumnName: string;

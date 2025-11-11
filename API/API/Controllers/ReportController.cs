@@ -22,16 +22,16 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+            var customerId = User.Identity?.Name;
             var reports = await _reportService.GetReportsAsync(customerId);
             return Ok(reports);
         }
 
         // GET: api/customers/{customerId}/reports/{reportId}
         [HttpGet("{reportId}")]
-        public async Task<ActionResult<object>> GetReportData(string customerId, string reportId)
+        public async Task<ActionResult<object>> GetReportData( string reportId)
         {
-            //var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+            var customerId = User.Identity?.Name;
             var data = await _reportService.GetReportDataAsync(customerId, reportId);
             var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
 

@@ -22,7 +22,7 @@
     "UserName": "sa",
     "Password": "1",
     "DatabaseName": "PhanMem24",
-    "SqlReport": "",
+    "SqlReport": "select Ma as 'Name', dbo.TCVN2Unicode(Ten) as 'FullName',NhomBC as 'Group',SQL1 as 'SqlQuery'  from SysReport",
     "Note": "ch\u1EA1y local"
   },
   {

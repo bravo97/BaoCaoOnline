@@ -16,29 +16,23 @@ export class User implements OnInit{
   sidebarCollapsed = false;
   profileMenuOpen = false;
   headerTitle = 'Home';
-  reports = REPORTS;           // dữ liệu sidebar
   selectedReport?: ReportModel;
 
-  constructor() {
-    // Mặc định chọn report đầu tiên
-    this.selectReport(this.reports[0].name);
-  }
+  constructor() {}
   ngOnInit(): void {
     
   }
 
 
 
-  selectReport(reportName: string) {
-    const report = this.reports.find(r => r.name === reportName);
-    if (!report) return;
-
-    this.selectedReport = report;
+  selectReport(report: ReportModel) {
     this.headerTitle = report.fullName;
   }
 
-  onMenuSelected(menu: string) {
-    this.headerTitle = menu;
+  onMenuSelected(menu: any) {
+    
+    this.selectedReport = menu;
+    this.headerTitle = menu.fullName;
   }
 
   toggleSidebar() {

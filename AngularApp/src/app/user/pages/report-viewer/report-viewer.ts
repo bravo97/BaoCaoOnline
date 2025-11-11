@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumReportModel, REPORT_COLUMNS, REPORT_DATA, ReportModel, REPORTS } from '../../models/reportModel';
 import { CommonModule } from '@angular/common';
+import { Data } from '../../services/data';
 
 @Component({
   selector: 'app-report-viewer',
@@ -11,31 +12,33 @@ import { CommonModule } from '@angular/common';
 })
 export class ReportViewer implements OnChanges {
   @Input() report?: ReportModel;
-
   columns: ColumReportModel[] = [];
   data: any[] = [];
+  constructor(private service:Data){}
 
-  ngOnChanges() {
-    if (!this.report) {
-      this.columns = [];
-      this.data = [];
-      return;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['report']) {
+      if(this.report){
+        this.loadReport(this.report);
+      } 
     }
+  }
 
-    // Lấy cột tương ứng report
-    switch(this.report.name) {
-      case 'sales-summary':
-      case 'monthly-sales':
-        this.columns = REPORT_COLUMNS.filter(c => ['date','total','profit'].includes(c.cloumnName));
-        break;
-      case 'customer-list':
-        this.columns = REPORT_COLUMNS.filter(c => ['customerName','email','phone'].includes(c.cloumnName));
-        break;
-      default:
-        this.columns = [];
-    }
-
-    // Lấy dữ liệu bảng
-    this.data = REPORT_DATA[this.report.name] || [];
+  loadReport(report: any) {    
+    this.service.GetReportDataColumn(report.id).subscribe(
+      {
+        next: (res) => {
+         console.log(res);
+         
+        //this.isLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          
+          //this.error = 'Không thể tải dữ liệu!';
+          //this.isLoading = false;
+        }
+      }
+    )
   }
 }

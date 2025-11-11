@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { REPORTS } from '../../models/reportModel';
+import { GroupReportModel, ReportModel, REPORTS } from '../../models/reportModel';
 import { Data } from '../../services/data';
 
 @Component({
@@ -13,7 +13,8 @@ import { Data } from '../../services/data';
 export class Sidebar implements OnInit{
   @Output() menuSelected = new EventEmitter<string>();
   sidebarCollapsed = false;
-  menuItems =  REPORTS;
+  groupMenuItems:GroupReportModel[] | undefined;
+  menuItems:ReportModel[] | undefined;
   
   constructor(private router: Router,private data: Data) {}
   ngOnInit(): void {
@@ -27,6 +28,6 @@ export class Sidebar implements OnInit{
   }
 
   selectMenu(item: any) {
-    this.menuSelected.emit(item.fullName);
+    this.menuSelected.emit(item);
   }
 }

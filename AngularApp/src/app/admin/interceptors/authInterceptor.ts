@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
       if (err.status === 401) {
         // Token hết hạn -> chuyển về login
         localStorage.removeItem('accessToken'); // xoá token cũ
-        router.navigate(['admin/login']); // chuyển hướng
+        router.navigate(['login']); // chuyển hướng
       }
       return throwError(() => err);
     })

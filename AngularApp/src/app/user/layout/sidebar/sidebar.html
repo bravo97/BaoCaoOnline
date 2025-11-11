@@ -5,7 +5,7 @@
     </button>
     <span *ngIf="!sidebarCollapsed"></span>
   </div>
-
+ <div class="sidebar-content">
   <ul class="menu">
     <li
       *ngFor="let item of menuItems"
@@ -14,4 +14,6 @@
       <span *ngIf="!sidebarCollapsed" class="tooltip">{{ item.fullName }}</span>
     </li>
   </ul>
+ </div>
+  
 </nav>

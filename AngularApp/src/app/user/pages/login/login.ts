@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone:true,
   imports: [FormsModule,CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -15,8 +16,6 @@ export class Login {
   loginModel: LoginModel = { username: '', password: '' };
   constructor(private router: Router,private auth:AuthService) {}
   Login() {
-    console.log(this.loginModel);
-    
       this.auth.login(this.loginModel.username, this.loginModel.password)
     .subscribe({
       next: () => {

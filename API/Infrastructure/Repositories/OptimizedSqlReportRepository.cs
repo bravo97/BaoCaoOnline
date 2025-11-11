@@ -72,10 +72,10 @@ namespace Infrastructure.Repositories
                 {
                     var item = new Report
                     {
-                        Name = reader["Ma"] as string ?? string.Empty,
-                        FullName = reader["Ten"] as string ?? string.Empty,
-                        Group = reader["NhomBC"] as string ?? string.Empty,
-                        SqlQuery = reader["SQL1"] as string ?? string.Empty
+                        Name = reader["Name"] as string ?? string.Empty,
+                        FullName = reader["FullName"] as string ?? string.Empty,
+                        Group = reader["Group"] as string ?? string.Empty,
+                        SqlQuery = reader["SqlQuery"] as string ?? string.Empty
                     };
 
                     reports.Add(item);
