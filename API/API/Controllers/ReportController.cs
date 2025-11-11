@@ -20,8 +20,9 @@ namespace API.Controllers
 
         // GET: api/customers/{customerId}/reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Report>>> GetReports(string customerId)
+        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
+            var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
             var reports = await _reportService.GetReportsAsync(customerId);
             return Ok(reports);
         }

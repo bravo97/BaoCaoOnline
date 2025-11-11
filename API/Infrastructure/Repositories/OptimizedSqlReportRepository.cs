@@ -28,27 +28,26 @@ namespace Infrastructure.Repositories
             _customerRepository = customerRepository;
         }
 
-        private async Task<string> GetConnectionStringAsync(string customerId)
+        private async Task<string> GetConnectionStringAsync(Customer _customer)
         {
-            if (_connectionCache.TryGetValue(customerId, out var cachedConn))
+            if (_connectionCache.TryGetValue(_customer.Id, out var cachedConn))
                 return cachedConn;
 
-            var customer = await _customerRepository.GetByIdAsync(customerId);
-            if (customer == null)
-                throw new Exception($"Customer {customerId} not found");
+            if (_customer == null)
+                throw new Exception($"Customer {_customer.Id} not found");
 
             var builder = new SqlConnectionStringBuilder
             {
-                DataSource = customer.ServerName,
-                InitialCatalog = customer.DatabaseName,
-                UserID = customer.UserName,
-                Password = customer.Password, // có thể mã hóa trước khi lưu
+                DataSource = _customer.ServerName,
+                InitialCatalog = _customer.DatabaseName,
+                UserID = _customer.UserName,
+                Password = _customer.Password, // có thể mã hóa trước khi lưu
                 MultipleActiveResultSets = true,
                 ConnectTimeout = 30
             };
 
             var connStr = builder.ConnectionString;
-            _connectionCache[customerId] = connStr;
+            _connectionCache[_customer.Id] = connStr;
             return connStr;
         }
 
@@ -56,13 +55,14 @@ namespace Infrastructure.Repositories
         {
             if (_reportCache.TryGetValue(customerId, out var cachedReports))
                 return cachedReports;
-            var connStr = await GetConnectionStringAsync(customerId);
+            var _customer = await _customerRepository.GetByIdAsync(customerId);
+            var connStr = await GetConnectionStringAsync(_customer);
             var result = new List<Dictionary<string, object>>();
             var reports = new List<Report>{ };
             try
             {
                 using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand("select Ma,dbo.TCVN2Unicode(Ten) as Ten,NhomBC,SQL1 from SysReport", conn)
+                using var cmd = new SqlCommand(_customer.SqlReport, conn)
                 {
                     CommandTimeout = 60
                 };
@@ -98,7 +98,8 @@ namespace Infrastructure.Repositories
             var report = reports.FirstOrDefault(r => r.Id == reportId);
             if (report == null) return Enumerable.Empty<Dictionary<string, object>>();
 
-            var connStr = await GetConnectionStringAsync(customerId);
+            var _customer = await _customerRepository.GetByIdAsync(customerId);
+            var connStr = await GetConnectionStringAsync(_customer);
             var result = new List<Dictionary<string, object>>();
 
             try

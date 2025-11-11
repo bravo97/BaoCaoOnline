@@ -4,15 +4,15 @@
       <h2>Đăng nhập</h2>
       <p class="subtitle">Truy cập hệ thống xem báo cáo online</p>
 
-      <form>
-        <div class="form-group">
+      <form #loginForm="ngForm">
+        <div class="form-group" >
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Nhập email của bạn" required />
+          <input [(ngModel)]="loginModel.username" id="email"  placeholder="Nhập email của bạn" required />
         </div>
 
         <div class="form-group">
           <label for="password">Mật khẩu</label>
-          <input id="password" type="password" placeholder="Nhập mật khẩu" required />
+          <input [(ngModel)]="loginModel.password" id="password" type="password" placeholder="Nhập mật khẩu" required />
         </div>
 
         <button class="login-btn" (click)="Login()">Đăng nhập</button>

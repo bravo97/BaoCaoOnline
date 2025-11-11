@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "f99096a7-b5d2-4ae1-a141-964dc7e4eac0",
+    "CustomerId": "5a95911c-10a0-4777-a468-a1af22977f41",
+    "Username": "kh_user1",
+    "Password": "123",
+    "Role": "Regular",
+    "Note": "User c\u1EE7a kh\u00E1ch h\u00E0ng 2"
+  },
+  {
+    "Id": "a3de0ecc-9a3d-4d25-bbb0-31da85deeb3c",
+    "CustomerId": "5a95911c-10a0-4777-a468-a1af22977f41",
+    "Username": "kh_user2",
+    "Password": "123",
+    "Role": "Regular",
+    "Note": "User c\u1EE7a kh\u00E1ch h\u00E0ng 2"
+  },
+  {
+    "Id": "61db1356-51fa-4219-a446-9572f55dc203",
+    "CustomerId": "4da17d4f-6651-4186-93eb-9219b4c5b729",
+    "Username": "kh_user3",
+    "Password": "123",
+    "Role": "Regular",
+    "Note": "User c\u1EE7a kh\u00E1ch h\u00E0ng 1"
+  }
+]

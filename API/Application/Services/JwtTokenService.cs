@@ -42,5 +42,28 @@ namespace Application.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public string GenerateToken(Account account)
+        {
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, account.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, account.CustomerId),
+                new Claim(ClaimTypes.Role, $"{account.Role}")
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

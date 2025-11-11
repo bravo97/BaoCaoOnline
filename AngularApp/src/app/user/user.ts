@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Sidebar } from "./layout/sidebar/sidebar";
 import { Header } from "./layout/header/header";
@@ -12,7 +12,7 @@ import { ReportModel, REPORTS } from './models/reportModel';
   templateUrl: './user.html',
   styleUrl: './user.scss',
 })
-export class User {
+export class User implements OnInit{
   sidebarCollapsed = false;
   profileMenuOpen = false;
   headerTitle = 'Home';
@@ -23,6 +23,11 @@ export class User {
     // Mặc định chọn report đầu tiên
     this.selectReport(this.reports[0].name);
   }
+  ngOnInit(): void {
+    
+  }
+
+
 
   selectReport(reportName: string) {
     const report = this.reports.find(r => r.name === reportName);

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { REPORTS } from '../../models/reportModel';
+import { Data } from '../../services/data';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,12 +10,17 @@ import { REPORTS } from '../../models/reportModel';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
-export class Sidebar {
+export class Sidebar implements OnInit{
   @Output() menuSelected = new EventEmitter<string>();
   sidebarCollapsed = false;
   menuItems =  REPORTS;
   
-  constructor(private router: Router) {}
+  constructor(private router: Router,private data: Data) {}
+  ngOnInit(): void {
+    this.data.GetMenuSidebar().subscribe(res=>{
+      this.menuItems = res;
+    });
+  }
   
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;

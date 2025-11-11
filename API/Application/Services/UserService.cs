@@ -12,10 +12,12 @@ namespace Application.Services
     public class UserService
     {
         private readonly IUserRepository _userRepo;
+        private readonly IAccountRepository _accountRepo;
 
-        public UserService(IUserRepository userRepo)
+        public UserService(IUserRepository userRepo, IAccountRepository accountRepo)
         {
             _userRepo = userRepo;
+            _accountRepo = accountRepo;
         }
 
         public async Task<bool> RegisterAsync(string username, string password, string email)
@@ -41,6 +43,17 @@ namespace Application.Services
             if (user == null) return null;
 
             if (user.PasswordHash != HashPassword(password))
+                return null;
+
+            return user;
+        }
+
+        public async Task<Account?> LoginAccountAsync(string username, string password)
+        {
+            var user = await _accountRepo.GetByUsernameAsync(username);
+            if (user == null) return null;
+
+            if (user.Password != password)
                 return null;
 
             return user;
