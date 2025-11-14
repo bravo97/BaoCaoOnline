@@ -35,7 +35,7 @@
     "UserName": "ssa",
     "Password": "atosql@2017",
     "DatabaseName": "SmartNet_VinhPhat",
-    "SqlReport": "select * from app_chucnang where isnull(rptgroup,0) \u003E 0",
+    "SqlReport": "select ma 'Name',hienthi 'FullName',b.tennhom 'Group',sqlreport 'SqlQuery' from app_chucnang a join app_reportgroup b on a.rptgroup = b.id where isnull(rptgroup,0) \u003E 0",
     "Note": "Kh\u00E1ch h\u00E0ng test 2"
   }
 ]

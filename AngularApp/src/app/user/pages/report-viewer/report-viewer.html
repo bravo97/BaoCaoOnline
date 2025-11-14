@@ -1,4 +1,20 @@
-<div *ngIf="report">
+<!-- Bộ lọc -->
+<div class="filter-container">
+  <div class="filter-item">
+    <label for="fromDate">Từ ngày</label>
+    <input id="fromDate" type="date" [(ngModel)]="fromDate">
+  </div>
+
+  <div class="filter-item">
+    <label for="toDate">Đến ngày</label>
+    <input id="toDate" type="date" [(ngModel)]="toDate">
+  </div>
+
+  <button class="filter-btn" (click)="applyFilter()">Lọc dữ liệu</button>
+</div>
+
+<!-- Bảng báo cáo -->
+<div class="table-wrapper" *ngIf="report">
   <table class="report-table">
     <thead>
       <tr>

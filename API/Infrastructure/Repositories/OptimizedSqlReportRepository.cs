@@ -57,7 +57,7 @@ namespace Infrastructure.Repositories
                 return cachedReports;
             var _customer = await _customerRepository.GetByIdAsync(customerId);
             var connStr = await GetConnectionStringAsync(_customer);
-            var result = new List<Dictionary<string, object>>();
+
             var reports = new List<Report>{ };
             try
             {
@@ -137,19 +137,44 @@ namespace Infrastructure.Repositories
             if (_columnCache.TryGetValue(cacheKey, out var cachedColumns))
                 return cachedColumns;
 
-            var data = await GetReportDataAsync(customerId, reportId);
-            if (!data.Any()) return Enumerable.Empty<ReportColumn>();
-
-            var firstRow = data.First();
-            var columns = firstRow.Keys.Select(k => new ReportColumn
+            var _reports = await GetReportsAsync(customerId);
+            var _report = _reports.FirstOrDefault(r => r.Id == reportId);
+            var _customer = await _customerRepository.GetByIdAsync(customerId);
+            var connStr = await GetConnectionStringAsync(_customer);
+            var reportColumns = new List<ReportColumn> { };
+            try
             {
-                ColumnName = k,
-                DisplayName = k,  // có thể map sang tên hiển thị khác
-                DataType = firstRow[k]?.GetType().Name ?? "string"
-            }).ToList();
+                using var conn = new SqlConnection(connStr);
+                using var cmd = new SqlCommand("select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='" + _report.Name + "'", conn)
+                {
+                    CommandTimeout = 60
+                };
+                await conn.OpenAsync();
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    var item = new ReportColumn
+                    {
+                        ReportId = reportId,
+                        ColumnName = reader["ColumnName"] as string ?? string.Empty,
+                        DisplayName = reader["DisplayName"] as string ?? string.Empty,
+                        DataType = reader["DataType"] as string ?? string.Empty
+                    };
 
-            _columnCache[cacheKey] = columns;
-            return columns;
+                    reportColumns.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logging
+                Console.WriteLine($"Error getting report data: {ex.Message}");
+                throw;
+            }
+
+            
+
+            _columnCache[cacheKey] = reportColumns;
+            return reportColumns;
         }
 
         // Optional: xóa cache khi cần refresh

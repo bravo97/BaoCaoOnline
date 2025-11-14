@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Sidebar } from "./layout/sidebar/sidebar";
 import { Header } from "./layout/header/header";
 import { ReportViewer } from "./pages/report-viewer/report-viewer";
-import { ReportModel, REPORTS } from './models/reportModel';
+import { ReportModel } from './models/reportModel';
 
 @Component({
   selector: 'app-user',

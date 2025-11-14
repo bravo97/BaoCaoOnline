@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { GroupReportModel, ReportModel, REPORTS } from '../../models/reportModel';
+import { GroupReportModel, ReportModel } from '../../models/reportModel';
 import { Data } from '../../services/data';
 
 @Component({

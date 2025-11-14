@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: auto 1fr; // sidebar + dashboard
   height: 100vh;
+  max-height: 100vh;
   background: var(--bg-primary);;
   color: var(--text-primary);
   font-family: "Segoe UI", sans-serif;

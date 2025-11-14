@@ -17,6 +17,7 @@ namespace Domain.Entities
 
     public class ReportColumn
     {
+        public string ReportId { get; set; }
         public string ColumnName { get; set; } = string.Empty;      // Tên cột trong SQL
         public string DisplayName { get; set; } = string.Empty;     // Tên hiển thị trên UI
         public string DataType { get; set; } = string.Empty;

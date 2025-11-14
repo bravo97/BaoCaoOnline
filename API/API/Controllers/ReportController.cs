@@ -29,17 +29,23 @@ namespace API.Controllers
 
         // GET: api/customers/{customerId}/reports/{reportId}
         [HttpGet("{reportId}")]
-        public async Task<ActionResult<object>> GetReportData( string reportId)
+        public async Task<ActionResult<object>> GetReportColums( string reportId)
         {
             var customerId = User.Identity?.Name;
-            var data = await _reportService.GetReportDataAsync(customerId, reportId);
+            //var data = await _reportService.GetReportDataAsync(customerId, reportId);
             var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
 
-            return Ok(new
-            {
-                Columns = columns,
-                Data = data
-            });
+            return Ok(columns);
+        }
+
+        [HttpGet("{reportId}")]
+        public async Task<ActionResult<object>> GetReportData(string reportId)
+        {
+            var customerId = User.Identity?.Name;
+            //var data = await _reportService.GetReportDataAsync(customerId, reportId);
+            var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
+
+            return Ok(columns);
         }
     }
 }
