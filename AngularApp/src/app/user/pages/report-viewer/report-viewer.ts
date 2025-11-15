@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumReportModel, ReportModel } from '../../models/reportModel';
 import { CommonModule } from '@angular/common';
@@ -15,11 +15,12 @@ import { FormsModule } from '@angular/forms';
 export class ReportViewer implements OnChanges {
   @Input() report?: ReportModel;
   columns: ColumReportModel[] = [];
+  reportID:string='';
   data: any[] = [];
   fromDate: string | null = null;
   toDate: string | null = null;
 
-  constructor(private service:Data){}
+  constructor(private service:Data,private cd: ChangeDetectorRef){}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['report']) {
@@ -33,7 +34,9 @@ export class ReportViewer implements OnChanges {
     this.service.GetReportDataColumn(report.id).subscribe(
       {
         next: (res) => {
-         console.log(res);
+          console.log("column",res);
+          
+         this.reportID = report.id;
          this.columns = res
         //this.isLoading = false;
         },
@@ -48,10 +51,23 @@ export class ReportViewer implements OnChanges {
   }
 
   applyFilter() {
-  console.log('Từ ngày:', this.fromDate);
-  console.log('Đến ngày:', this.toDate);
-
-  // Sau này sẽ gọi API theo bộ lọc thật
-  // this.reportService.getReport(this.fromDate, this.toDate).subscribe(...)
-}
+    console.log('Từ ngày:', this.fromDate);
+    console.log('Đến ngày:', this.toDate);
+    this.service.GetReportData(this.reportID).subscribe(
+      {
+        next: (res) => {
+          console.log(res);
+          this.data = res
+          this.cd.detectChanges();
+        //this.isLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          
+          //this.error = 'Không thể tải dữ liệu!';
+          //this.isLoading = false;
+        }
+      }
+    );
+  }
 }

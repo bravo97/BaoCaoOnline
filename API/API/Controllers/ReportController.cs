@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Models;
+using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,20 +33,17 @@ namespace API.Controllers
         public async Task<ActionResult<object>> GetReportColums( string reportId)
         {
             var customerId = User.Identity?.Name;
-            //var data = await _reportService.GetReportDataAsync(customerId, reportId);
             var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
 
             return Ok(columns);
         }
 
-        [HttpGet("{reportId}")]
-        public async Task<ActionResult<object>> GetReportData(string reportId)
+        [HttpGet("data/{reportId}")]
+        public async Task<ActionResult<object>> GetReportData(string reportId, [FromQuery] ReportParameters parameters)
         {
             var customerId = User.Identity?.Name;
-            //var data = await _reportService.GetReportDataAsync(customerId, reportId);
-            var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
-
-            return Ok(columns);
+            var data = await _reportService.GetReportDataAsync(customerId, reportId,parameters);          
+            return Ok(data);
         }
     }
 }

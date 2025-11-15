@@ -94,6 +94,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 // Khai báo policy CORS
 builder.Services.AddCors(options =>
 {
@@ -114,7 +115,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "RESTful API Demo v1");
+        c.RoutePrefix = string.Empty; // Để Swagger UI hiển thị ở root (http://localhost:<port>/)
+    });
 }
 
 app.UseHttpsRedirection();

@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,9 @@ namespace Application.Services
             return await _reportRepository.GetReportsAsync(customerId);
         }
 
-        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId)
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, ReportParameters parameters)
         {
-            return await _reportRepository.GetReportDataAsync(customerId, reportId);
+            return await _reportRepository.GetReportDataAsync(customerId, reportId, parameters);
         }
 
         public async Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId)

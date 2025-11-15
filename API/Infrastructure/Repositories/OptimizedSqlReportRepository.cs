@@ -1,5 +1,7 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
+using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Hosting.Server;
 using System;
 using System.Collections.Concurrent;
@@ -92,45 +94,6 @@ namespace Infrastructure.Repositories
             return reports;
         }
 
-        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId)
-        {
-            var reports = await GetReportsAsync(customerId);
-            var report = reports.FirstOrDefault(r => r.Id == reportId);
-            if (report == null) return Enumerable.Empty<Dictionary<string, object>>();
-
-            var _customer = await _customerRepository.GetByIdAsync(customerId);
-            var connStr = await GetConnectionStringAsync(_customer);
-            var result = new List<Dictionary<string, object>>();
-
-            try
-            {
-                using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(report.SqlQuery, conn)
-                {
-                    CommandTimeout = 60
-                };
-                await conn.OpenAsync();
-                using var reader = await cmd.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
-                {
-                    var row = new Dictionary<string, object>();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        row[reader.GetName(i)] = reader.GetValue(i);
-                    }
-                    result.Add(row);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Logging
-                Console.WriteLine($"Error getting report data: {ex.Message}");
-                throw;
-            }
-
-            return result;
-        }
-
         public async Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId)
         {
             string cacheKey = $"{customerId}_{reportId}";
@@ -175,6 +138,52 @@ namespace Infrastructure.Repositories
 
             _columnCache[cacheKey] = reportColumns;
             return reportColumns;
+        }
+
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters)
+        {
+            var reports = await GetReportsAsync(customerId);
+            var report = reports.FirstOrDefault(r => r.Id == reportId);
+            if (report == null) return Enumerable.Empty<Dictionary<string, object>>();
+
+            //Xử lý query với tham số nếu cần
+            var (SqlQueryWithParams, sqlParams) = SqlParameterBinder.BuildSqlWithParams(report.SqlQuery, parameters);
+
+            var _customer = await _customerRepository.GetByIdAsync(customerId);
+            var connStr = await GetConnectionStringAsync(_customer);
+            var result = new List<Dictionary<string, object>>();
+
+            try
+            {
+                using var conn = new SqlConnection(connStr);
+                using var cmd = new SqlCommand(SqlQueryWithParams, conn)
+                {
+                    CommandTimeout = 60
+                };
+
+                foreach (var p in sqlParams)
+                    cmd.Parameters.Add(p);
+
+                await conn.OpenAsync();
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    var row = new Dictionary<string, object>();
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        row[reader.GetName(i)] = reader.GetValue(i);
+                    }
+                    result.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logging
+                Console.WriteLine($"Error getting report data: {ex.Message}");
+                throw;
+            }
+
+            return result;
         }
 
         // Optional: xóa cache khi cần refresh

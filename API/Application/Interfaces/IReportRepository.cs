@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Models;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Application.Interfaces
         Task<IEnumerable<Report>> GetReportsAsync(string customerId);
 
         // Lấy dữ liệu report
-        Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId);
+        Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters);
 
         // Lấy danh sách cột của report
         Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId);

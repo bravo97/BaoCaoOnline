@@ -7,7 +7,7 @@ import { ColumReportModel } from '../models/reportModel';
   providedIn: 'root',
 })
 export class Data {
-  private apiUrl = 'https://localhost:7023/api/report';
+  private apiUrl = 'http://localhost:5000/api/report';
 
   constructor(private http: HttpClient) {}
 
@@ -17,5 +17,9 @@ export class Data {
 
   GetReportDataColumn(id:string){
     return this.http.get<ColumReportModel[]>(`${this.apiUrl+''}/${id}`);
+  }
+
+  GetReportData(id:string){
+    return this.http.get<any[]>(`${this.apiUrl+'/data'}/${id}`);
   }
 }
