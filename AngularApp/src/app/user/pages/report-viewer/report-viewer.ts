@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColumReportModel, ReportModel } from '../../models/reportModel';
 import { CommonModule } from '@angular/common';
@@ -12,62 +12,87 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './report-viewer.html',
   styleUrl: './report-viewer.scss',
 })
-export class ReportViewer implements OnChanges {
+export class ReportViewer implements OnInit,OnChanges {
   @Input() report?: ReportModel;
   columns: ColumReportModel[] = [];
   reportID:string='';
   data: any[] = [];
-  fromDate: string | null = null;
-  toDate: string | null = null;
+  fromDate: Date | null = new Date();
+  toDate: Date | null = new Date();
+  pageIndex = 0;
+  pageSize = 50;
+  pagedData: any[] = [];
+  totalPages = 0;
+
 
   constructor(private service:Data,private cd: ChangeDetectorRef){}
+  ngOnInit(): void {
+    this.fromDate = new Date();
+    this.toDate = new Date();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['report']) {
       if(this.report){
+        this.columns = [];
+        this.data = [];
+        this.pagedData = [];
+        this.pageIndex = 0;
+        this.totalPages = 0;
+        
         this.loadReport(this.report);
       } 
     }
   }
 
-  loadReport(report: any) {    
+  loadReport(report: any) {     
     this.service.GetReportDataColumn(report.id).subscribe(
       {
-        next: (res) => {
-          console.log("column",res);
-          
+        next: (res) => {         
          this.reportID = report.id;
-         this.columns = res
-        //this.isLoading = false;
+         this.columns = res;
         },
         error: (err) => {
           console.log(err);
-          
-          //this.error = 'Không thể tải dữ liệu!';
-          //this.isLoading = false;
         }
       }
     )
   }
 
   applyFilter() {
-    console.log('Từ ngày:', this.fromDate);
-    console.log('Đến ngày:', this.toDate);
     this.service.GetReportData(this.reportID).subscribe(
       {
         next: (res) => {
           console.log(res);
           this.data = res
-          this.cd.detectChanges();
-        //this.isLoading = false;
+          this.totalPages = Math.ceil(this.data.length / this.pageSize);
+          this.refreshPagedData();
         },
         error: (err) => {
           console.log(err);
-          
-          //this.error = 'Không thể tải dữ liệu!';
-          //this.isLoading = false;
         }
       }
     );
   }
+
+  refreshPagedData() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.data.slice(start, end);
+    }
+
+  nextPage() {
+    if (this.pageIndex < this.totalPages - 1) {
+      this.pageIndex++;
+      this.refreshPagedData();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 0) {
+      this.pageIndex--;
+      this.refreshPagedData();
+    }
+  }
+
 }

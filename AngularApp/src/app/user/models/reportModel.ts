@@ -14,7 +14,7 @@ export interface GroupReportModel{
 
 export interface ColumReportModel {
   reportid: string;
-  cloumnName: string;
+  columnName: string;
   displayName: string;
   dataType: string;
 }

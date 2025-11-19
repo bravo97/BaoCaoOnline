@@ -26,7 +26,7 @@ namespace API.Controllers
             try
             {
                 var customerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
-                var accounts = await _accountService.GetByCustomerAsync(customerId);
+                var accounts = await _accountService.GetByCustomerAsync(customerId!);
                 return Ok(ApiResponse<object>.Ok(accounts, "Lấy danh sách tài khoản thành công"));
             }
             catch (Exception ex)

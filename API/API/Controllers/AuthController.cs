@@ -12,10 +12,9 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly AccountService _accountService;
         private readonly IJwtTokenService _jwtTokenService;
 
-        public AuthController(UserService userService,AccountService accountService, IJwtTokenService jwtTokenService)
+        public AuthController(UserService userService, IJwtTokenService jwtTokenService)
         {
             _userService = userService;
             _jwtTokenService = jwtTokenService;

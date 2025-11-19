@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings.Issuer,
+            ValidIssuer = jwtSettings!.Issuer,
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
             ClockSkew = TimeSpan.FromHours(5)
@@ -115,11 +115,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "RESTful API Demo v1");
-        c.RoutePrefix = string.Empty; // Để Swagger UI hiển thị ở root (http://localhost:<port>/)
-    });
+    app.UseSwaggerUI();
+    //c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RESTful API Demo v1");
+    //    c.RoutePrefix = string.Empty; // Để Swagger UI hiển thị ở root (http://localhost:<port>/)
+    //}
 }
 
 app.UseHttpsRedirection();

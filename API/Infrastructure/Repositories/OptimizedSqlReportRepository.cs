@@ -7,7 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace Infrastructure.Repositories
                 return cachedConn;
 
             if (_customer == null)
-                throw new Exception($"Customer {_customer.Id} not found");
+                throw new Exception($"Customer {_customer!.Id} not found");
 
             var builder = new SqlConnectionStringBuilder
             {
@@ -50,6 +50,8 @@ namespace Infrastructure.Repositories
 
             var connStr = builder.ConnectionString;
             _connectionCache[_customer.Id] = connStr;
+
+            await Task.CompletedTask;
             return connStr;
         }
 
@@ -58,13 +60,13 @@ namespace Infrastructure.Repositories
             if (_reportCache.TryGetValue(customerId, out var cachedReports))
                 return cachedReports;
             var _customer = await _customerRepository.GetByIdAsync(customerId);
-            var connStr = await GetConnectionStringAsync(_customer);
+            var connStr = await GetConnectionStringAsync(_customer!);
 
             var reports = new List<Report>{ };
             try
             {
                 using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(_customer.SqlReport, conn)
+                using var cmd = new SqlCommand(_customer!.SqlReport, conn)
                 {
                     CommandTimeout = 60
                 };
@@ -103,12 +105,12 @@ namespace Infrastructure.Repositories
             var _reports = await GetReportsAsync(customerId);
             var _report = _reports.FirstOrDefault(r => r.Id == reportId);
             var _customer = await _customerRepository.GetByIdAsync(customerId);
-            var connStr = await GetConnectionStringAsync(_customer);
+            var connStr = await GetConnectionStringAsync(_customer!);
             var reportColumns = new List<ReportColumn> { };
             try
             {
                 using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand("select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='" + _report.Name + "'", conn)
+                using var cmd = new SqlCommand("select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='" + _report!.Name + "'", conn)
                 {
                     CommandTimeout = 60
                 };
@@ -150,7 +152,7 @@ namespace Infrastructure.Repositories
             var (SqlQueryWithParams, sqlParams) = SqlParameterBinder.BuildSqlWithParams(report.SqlQuery, parameters);
 
             var _customer = await _customerRepository.GetByIdAsync(customerId);
-            var connStr = await GetConnectionStringAsync(_customer);
+            var connStr = await GetConnectionStringAsync(_customer!);
             var result = new List<Dictionary<string, object>>();
 
             try
@@ -171,7 +173,8 @@ namespace Infrastructure.Repositories
                     var row = new Dictionary<string, object>();
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        row[reader.GetName(i)] = reader.GetValue(i);
+                        var value = reader.IsDBNull(i) ? null : reader.GetValue(i);
+                        row[reader.GetName(i)] = value!;
                     }
                     result.Add(row);
                 }

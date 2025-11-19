@@ -15,12 +15,20 @@ export class Sidebar implements OnInit{
   sidebarCollapsed = false;
   groupMenuItems:GroupReportModel[] | undefined;
   menuItems:ReportModel[] | undefined;
+  selectedReportId: string | null = null;
   
   constructor(private router: Router,private data: Data) {}
   ngOnInit(): void {
     this.data.GetMenuSidebar().subscribe(res=>{
       this.menuItems = res;
     });
+
+    const reported = localStorage.getItem("selectedReport");
+    if (reported) {
+      this.selectedReportId = JSON.parse(reported).id;  
+      // 👉 emit lại để cha nhận report và load data
+      this.menuSelected.emit(JSON.parse(reported));
+    }
   }
   
   toggleSidebar() {
@@ -29,5 +37,7 @@ export class Sidebar implements OnInit{
 
   selectMenu(item: any) {
     this.menuSelected.emit(item);
+    this.selectedReportId = item.id
+    localStorage.setItem("selectedReport", JSON.stringify(item));
   }
 }

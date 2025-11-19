@@ -9,6 +9,7 @@
   <ul class="menu">
     <li
       *ngFor="let item of menuItems"
+      [class.active]="item.id === selectedReportId"
       (click)="selectMenu(item)">
       <i class="fa-solid fa-file"></i>
       <span *ngIf="!sidebarCollapsed" class="tooltip">{{ item.fullName }}</span>

@@ -24,7 +24,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
             var customerId = User.Identity?.Name;
-            var reports = await _reportService.GetReportsAsync(customerId);
+            var reports = await _reportService.GetReportsAsync(customerId!);
             return Ok(reports);
         }
 
@@ -33,7 +33,7 @@ namespace API.Controllers
         public async Task<ActionResult<object>> GetReportColums( string reportId)
         {
             var customerId = User.Identity?.Name;
-            var columns = await _reportService.GetReportColumnsAsync(customerId, reportId);
+            var columns = await _reportService.GetReportColumnsAsync(customerId!, reportId);
 
             return Ok(columns);
         }
@@ -42,7 +42,7 @@ namespace API.Controllers
         public async Task<ActionResult<object>> GetReportData(string reportId, [FromQuery] ReportParameters parameters)
         {
             var customerId = User.Identity?.Name;
-            var data = await _reportService.GetReportDataAsync(customerId, reportId,parameters);          
+            var data = await _reportService.GetReportDataAsync(customerId!, reportId,parameters);          
             return Ok(data);
         }
     }
