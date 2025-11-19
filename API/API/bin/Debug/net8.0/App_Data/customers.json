@@ -10,6 +10,7 @@
     "Password": "1",
     "DatabaseName": "PhanMem24h",
     "SqlReport": "",
+    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as 'ColumnName',dbo.TCVN2Unicode(TenTruong) as 'DisplayName', dbo.TCVN2Unicode(KieuDuLieu) as 'DataType' from DM_RunSQLGrd where Ma ='{Name}'",
     "Note": "Kh\u00E1ch h\u00E0ng 1"
   },
   {
@@ -21,8 +22,9 @@
     "ServerName": "192.168.1.46,2008",
     "UserName": "sa",
     "Password": "1",
-    "DatabaseName": "PhanMem24",
+    "DatabaseName": "PhanMem24_Real",
     "SqlReport": "select Ma as 'Name', dbo.TCVN2Unicode(Ten) as 'FullName',NhomBC as 'Group',SQL1 as 'SqlQuery'  from SysReport",
+    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as 'ColumnName',dbo.TCVN2Unicode(TenTruong) as 'DisplayName', dbo.TCVN2Unicode(KieuDuLieu) as 'DataType' from DM_RunSQLGrd where Ma ='{Name}'",
     "Note": "ch\u1EA1y local"
   },
   {
@@ -36,6 +38,7 @@
     "Password": "atosql@2017",
     "DatabaseName": "SmartNet_VinhPhat",
     "SqlReport": "select ma 'Name',hienthi 'FullName',b.tennhom 'Group',sqlreport 'SqlQuery' from app_chucnang a join app_reportgroup b on a.rptgroup = b.id where isnull(rptgroup,0) \u003E 0",
+    "SqlColumnQuery": "select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='{Name}'",
     "Note": "Kh\u00E1ch h\u00E0ng test 2"
   }
 ]

@@ -4,6 +4,7 @@ import { ColumReportModel, ReportModel } from '../../models/reportModel';
 import { CommonModule } from '@angular/common';
 import { Data } from '../../services/data';
 import { FormsModule } from '@angular/forms';
+import { ToastrNotification } from '../../../shared/services/toastr-service';
 
 @Component({
   selector: 'app-report-viewer',
@@ -17,18 +18,18 @@ export class ReportViewer implements OnInit,OnChanges {
   columns: ColumReportModel[] = [];
   reportID:string='';
   data: any[] = [];
-  fromDate: Date | null = new Date();
-  toDate: Date | null = new Date();
+  fromDate: string ='';
+  toDate: string ='';
   pageIndex = 0;
   pageSize = 50;
   pagedData: any[] = [];
   totalPages = 0;
 
 
-  constructor(private service:Data,private cd: ChangeDetectorRef){}
+  constructor(private service:Data,private toastr: ToastrNotification){}
   ngOnInit(): void {
-    this.fromDate = new Date();
-    this.toDate = new Date();
+    this.fromDate = '2025-01-01';
+    this.toDate = new Date().toISOString().slice(0, 10);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -53,7 +54,8 @@ export class ReportViewer implements OnInit,OnChanges {
          this.columns = res;
         },
         error: (err) => {
-          console.log(err);
+          this.toastr.error("Không thể lấy dữ liệu cột báo cáo");
+          console.error(err);
         }
       }
     )
@@ -69,7 +71,8 @@ export class ReportViewer implements OnInit,OnChanges {
           this.refreshPagedData();
         },
         error: (err) => {
-          console.log(err);
+          this.toastr.error("Không thể lấy dữ liệu báo cáo");
+          console.error(err);
         }
       }
     );

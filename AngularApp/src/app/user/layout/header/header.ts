@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class Header {
   @Input() title: string='';
   profileMenuOpen = false;
   isDarkMode = false; // mặc định dark
-
+  constructor(private router: Router){}
   ngOnInit() {
     const saved = localStorage.getItem('theme') || 'dark';
     this.isDarkMode = saved === 'dark';
@@ -29,7 +30,8 @@ export class Header {
   }
 
   logout() {
-    console.log('Đăng xuất');
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 
   changePassword() {

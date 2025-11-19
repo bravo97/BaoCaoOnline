@@ -12,7 +12,7 @@
       [class.active]="item.id === selectedReportId"
       (click)="selectMenu(item)">
       <i class="fa-solid fa-file"></i>
-      <span *ngIf="!sidebarCollapsed" class="tooltip">{{ item.fullName }}</span>
+      <span *ngIf="!sidebarCollapsed" class="tooltip"  [title]="item.fullName">{{ item.fullName }}</span>
     </li>
   </ul>
  </div>

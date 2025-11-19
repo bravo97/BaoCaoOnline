@@ -45,7 +45,9 @@ namespace Infrastructure.Repositories
                 UserID = _customer.UserName,
                 Password = _customer.Password, // có thể mã hóa trước khi lưu
                 MultipleActiveResultSets = true,
-                ConnectTimeout = 30
+                ConnectTimeout = 30,
+                Encrypt = false,
+                TrustServerCertificate = true
             };
 
             var connStr = builder.ConnectionString;
@@ -104,13 +106,15 @@ namespace Infrastructure.Repositories
 
             var _reports = await GetReportsAsync(customerId);
             var _report = _reports.FirstOrDefault(r => r.Id == reportId);
+            if (_report == null) return null;
             var _customer = await _customerRepository.GetByIdAsync(customerId);
             var connStr = await GetConnectionStringAsync(_customer!);
             var reportColumns = new List<ReportColumn> { };
             try
             {
+                string sqlColumnQuery = _customer!.SqlColumnQuery.Replace("{Name}", _report!.Name);
                 using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand("select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='" + _report!.Name + "'", conn)
+                using var cmd = new SqlCommand(sqlColumnQuery, conn)
                 {
                     CommandTimeout = 60
                 };
@@ -147,7 +151,7 @@ namespace Infrastructure.Repositories
             var reports = await GetReportsAsync(customerId);
             var report = reports.FirstOrDefault(r => r.Id == reportId);
             if (report == null) return Enumerable.Empty<Dictionary<string, object>>();
-
+            if(report.SqlQuery == null || report.SqlQuery == "") return Enumerable.Empty<Dictionary<string, object>>();
             //Xử lý query với tham số nếu cần
             var (SqlQueryWithParams, sqlParams) = SqlParameterBinder.BuildSqlWithParams(report.SqlQuery, parameters);
 

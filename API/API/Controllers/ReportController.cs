@@ -23,27 +23,48 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Report>>> GetReports()
         {
-            var customerId = User.Identity?.Name;
-            var reports = await _reportService.GetReportsAsync(customerId!);
-            return Ok(reports);
+            try
+            {
+                var customerId = User.Identity?.Name;
+                var reports = await _reportService.GetReportsAsync(customerId!);
+                return Ok(reports);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         // GET: api/customers/{customerId}/reports/{reportId}
         [HttpGet("{reportId}")]
-        public async Task<ActionResult<object>> GetReportColums( string reportId)
+        public async Task<ActionResult<object>> GetReportColums(string reportId)
         {
-            var customerId = User.Identity?.Name;
-            var columns = await _reportService.GetReportColumnsAsync(customerId!, reportId);
+            try
+            {
+                var customerId = User.Identity?.Name;
+                var columns = await _reportService.GetReportColumnsAsync(customerId!, reportId);
 
-            return Ok(columns);
+                return Ok(columns);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("data/{reportId}")]
         public async Task<ActionResult<object>> GetReportData(string reportId, [FromQuery] ReportParameters parameters)
         {
-            var customerId = User.Identity?.Name;
-            var data = await _reportService.GetReportDataAsync(customerId!, reportId,parameters);          
-            return Ok(data);
+            try
+            {
+                var customerId = User.Identity?.Name;
+                var data = await _reportService.GetReportDataAsync(customerId!, reportId, parameters);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

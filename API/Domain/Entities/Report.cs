@@ -12,7 +12,7 @@ namespace Domain.Entities
         public string Name { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
-        public string SqlQuery { get; set; } = string.Empty; // Query lấy dữ liệu
+        public string SqlQuery { get; set; } = string.Empty; // Query lấy danh sách báo cáo
     }
 
     public class ReportColumn

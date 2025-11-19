@@ -227,7 +227,7 @@
   },
   {
     "ContainingType": "API.Controllers.ReportController",
-    "Method": "GetReportData",
+    "Method": "GetReportColums",
     "RelativePath": "api/Report/{reportId}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -237,6 +237,87 @@
         "Name": "reportId",
         "Type": "System.String",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ReportController",
+    "Method": "GetReportData",
+    "RelativePath": "api/Report/data/{reportId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reportId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "TuNgay",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "DenNgay",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SoCT",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaHang",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "KhoHang",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "NhomHang",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ChungLoai",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "KhachHang",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "NhaCungCap",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "KichCo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "MauSac",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Serial",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ThuongHieu",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
