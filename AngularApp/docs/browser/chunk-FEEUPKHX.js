@@ -1,1 +1,0 @@
-import{Ia as n,j as s,k as o}from"./chunk-IRT45O6D.js";var e=class i{constructor(r){this.toastr=r}success(r,t){this.toastr.success(r,t)}error(r,t){this.toastr.error(r,t)}info(r,t){this.toastr.info(r,t)}warning(r,t){this.toastr.warning(r,t)}static \u0275fac=function(t){return new(t||i)(o(n))};static \u0275prov=s({token:i,factory:i.\u0275fac,providedIn:"root"})};export{e as a};
