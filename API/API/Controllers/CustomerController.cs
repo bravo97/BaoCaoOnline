@@ -15,90 +15,143 @@ namespace API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly CustomerService _customerService;
 
-        public CustomerController(ICustomerRepository customerRepository)
+        public CustomerController(CustomerService customerService)
         {
-            _customerRepository = customerRepository;
+            _customerService = customerService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
+            var customers = await _customerService.GetAllAsync();
+            // map to DTO
+            var dtos = customers.Select(c => new CustomerDto
             {
-                var customers = await _customerRepository.GetAllAsync();
-                return Ok(ApiResponse<object>.Ok(customers, "Lấy danh sách khách hàng thành công"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi lấy danh sách khách hàng: {ex.Message}"));
-            }
+                Id = c.Id,
+                Name = c.Name,
+                Email = c.Email,
+                IPAddress = c.IPAddress,
+                Port = c.Port,
+                ServerName = c.ServerName,
+                DatabaseName = c.DatabaseName,
+                SqlLogin = c.SqlLogin,
+                SqlReport = c.SqlReport,
+                SqlColumnQuery = c.SqlColumnQuery,
+                Note = c.Note
+            });
+
+            return Ok(ApiResponse<object>.Ok(dtos, "Lấy danh sách khách hàng thành công"));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            try
+            var customer = await _customerService.GetByIdAsync(id);
+            if (customer == null)
+                return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
+
+            var dto = new CustomerDto
             {
-                var customer = await _customerRepository.GetByIdAsync(id);
-                if (customer == null)
-                    return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
-                return Ok(ApiResponse<object>.Ok(customer, "Lấy thông tin khách hàng thành công"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi lấy thông tin khách hàng: {ex.Message}"));
-            }
+                Id = customer.Id,
+                Name = customer.Name,
+                Email = customer.Email,
+                IPAddress = customer.IPAddress,
+                Port = customer.Port,
+                ServerName = customer.ServerName,
+                DatabaseName = customer.DatabaseName,
+                SqlLogin = customer.SqlLogin,
+                SqlReport = customer.SqlReport,
+                SqlColumnQuery = customer.SqlColumnQuery,
+                Note = customer.Note
+            };
+
+            return Ok(ApiResponse<object>.Ok(dto, "Lấy thông tin khách hàng thành công"));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Customer customer)
+        public async Task<IActionResult> Create([FromBody] CreateCustomerDto dto)
         {
-            try
+            if (!ModelState.IsValid)
+                return BadRequest(ApiResponse<object>.Fail("Dữ liệu không hợp lệ"));
+
+            var customer = new Customer
             {
-                await _customerRepository.AddAsync(customer);
-                return Ok(ApiResponse<object>.Ok(customer, "Tạo khách hàng thành công"));
-            }
-            catch (Exception ex)
+                Name = dto.Name,
+                Email = dto.Email,
+                IPAddress = dto.IPAddress,
+                Port = dto.Port,
+                ServerName = dto.ServerName,
+                UserName = dto.UserName,
+                Password = dto.Password,
+                DatabaseName = dto.DatabaseName,
+                SqlLogin = dto.SqlLogin,
+                SqlReport = dto.SqlReport,
+                SqlColumnQuery = dto.SqlColumnQuery,
+                Note = dto.Note
+            };
+
+            var created = await _customerService.AddCustomerAsync(customer);
+
+            var resultDto = new CustomerDto
             {
-                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi tạo khách hàng: {ex.Message}"));
-            }
+                Id = created.Id,
+                Name = created.Name,
+                Email = created.Email,
+                IPAddress = created.IPAddress,
+                Port = created.Port,
+                ServerName = created.ServerName,
+                DatabaseName = created.DatabaseName,
+                SqlLogin = created.SqlLogin,
+                SqlReport = created.SqlReport,
+                SqlColumnQuery = created.SqlColumnQuery,
+                Note = created.Note
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, ApiResponse<object>.Ok(resultDto, "Tạo khách hàng thành công"));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Customer customer)
+        public async Task<IActionResult> Update(string id, [FromBody] UpdateCustomerDto dto)
         {
-            try
-            {
-                var existingCustomer = await _customerRepository.GetByIdAsync(id);
-                if (existingCustomer == null)
-                    return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
-                customer.Id = id; // đảm bảo giữ ID cũ
-                await _customerRepository.UpdateAsync(customer);
-                return Ok(ApiResponse<object>.Ok(existingCustomer, "Cập nhật khách hàng thành công"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi cập nhật khách hàng: {ex.Message}"));
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ApiResponse<object>.Fail("Dữ liệu không hợp lệ"));
+
+            var existingCustomer = await _customerService.GetByIdAsync(id);
+            if (existingCustomer == null)
+                return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
+
+            existingCustomer.Name = dto.Name;
+            existingCustomer.Email = dto.Email;
+            existingCustomer.IPAddress = dto.IPAddress;
+            existingCustomer.Port = dto.Port;
+            existingCustomer.ServerName = dto.ServerName;
+            existingCustomer.UserName = dto.UserName;
+            existingCustomer.Password = dto.Password;
+            existingCustomer.DatabaseName = dto.DatabaseName;
+            existingCustomer.SqlLogin = dto.SqlLogin;
+            existingCustomer.SqlReport = dto.SqlReport;
+            existingCustomer.SqlColumnQuery = dto.SqlColumnQuery;
+            existingCustomer.Note = dto.Note;
+
+            var ok = await _customerService.UpdateCustomerAsync(existingCustomer);
+            if (!ok)
+                return BadRequest(ApiResponse<object>.Fail("Cập nhật thất bại"));
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            try
-            {
-                var existingCustomer = await _customerRepository.GetByIdAsync(id);
-                if (existingCustomer == null)
-                    return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
-                await _customerRepository.DeleteAsync(id);
-                return Ok(ApiResponse<object>.Ok(existingCustomer, "Xóa khách hàng thành công"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail($"Lỗi khi xóa khách hàng: {ex.Message}"));
-            }
+            var existingCustomer = await _customerService.GetByIdAsync(id);
+            if (existingCustomer == null)
+                return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));
+            var ok = await _customerService.DeleteCustomerAsync(id);
+            if (!ok)
+                return BadRequest(ApiResponse<object>.Fail("Xóa thất bại"));
+            return NoContent();
         }
     }
 }

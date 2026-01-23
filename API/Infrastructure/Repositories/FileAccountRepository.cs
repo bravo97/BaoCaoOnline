@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -15,30 +16,32 @@ namespace Infrastructure.Repositories
     public class FileAccountRepository : IAccountRepository
     {
         private readonly ICustomerRepository _customerRepository;
-        private static List<Account> _accounts = new();
+        private readonly ILogger<FileAccountRepository> _logger;
+        private static ConcurrentBag<Account> _accounts = new();
         // Cache connection string theo CustomerId
         private static ConcurrentDictionary<string, string> _connectionCache = new();
         private static ConcurrentDictionary<string, IEnumerable<Report>> _accountCache = new();
 
-        public FileAccountRepository(ICustomerRepository fileCustomerRepository)
+        public FileAccountRepository(ICustomerRepository fileCustomerRepository, ILogger<FileAccountRepository> logger)
         {
             _customerRepository = fileCustomerRepository;
+            _logger = logger;
         }
 
-        private async Task<string> GetConnectionStringAsync(Customer _customer)
+        private Task<string> GetConnectionStringAsync(Customer customer)
         {
-            if (_connectionCache.TryGetValue(_customer.Id, out var cachedConn))
-                return cachedConn;
+            if (customer == null)
+                throw new ArgumentNullException(nameof(customer));
 
-            if (_customer == null)
-                throw new Exception($"Customer {_customer!.Id} not found");
+            if (_connectionCache.TryGetValue(customer.Id, out var cachedConn))
+                return Task.FromResult(cachedConn);
 
             var builder = new SqlConnectionStringBuilder
             {
-                DataSource = _customer.ServerName,
-                InitialCatalog = _customer.DatabaseName,
-                UserID = _customer.UserName,
-                Password = _customer.Password, // có thể mã hóa trước khi lưu
+                DataSource = customer.ServerName,
+                InitialCatalog = customer.DatabaseName,
+                UserID = customer.UserName,
+                Password = customer.Password, // consider encrypting/securing this in production
                 MultipleActiveResultSets = true,
                 ConnectTimeout = 30,
                 Encrypt = false,
@@ -46,14 +49,13 @@ namespace Infrastructure.Repositories
             };
 
             var connStr = builder.ConnectionString;
-            _connectionCache[_customer.Id] = connStr;
+            _connectionCache[customer.Id] = connStr;
 
-            await Task.CompletedTask;
-            return connStr;
+            return Task.FromResult(connStr);
         }
 
         public Task<IEnumerable<Account>> GetAllAsync() =>
-            Task.FromResult(_accounts.AsEnumerable());
+            Task.FromResult(_accounts.ToArray().AsEnumerable());
 
         public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password)
         {
@@ -62,7 +64,7 @@ namespace Infrastructure.Repositories
                 throw new Exception("Customer not found");
 
             var connStr = await GetConnectionStringAsync(customer);
-            
+
             try
             {
                 using var conn = new SqlConnection(connStr);
@@ -81,7 +83,7 @@ namespace Infrastructure.Repositories
                 if (!await reader.ReadAsync())
                     return null;
 
-                var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username && x.Password == password);
+                var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username);
                 if (user == null)
                 {
                     var newUser = new Account()
@@ -89,7 +91,7 @@ namespace Infrastructure.Repositories
                         CustomerId = customerId,
                         UserId = reader["UserKey"]?.ToString() ?? string.Empty,
                         Username = reader["UserName"]?.ToString() ?? string.Empty,
-                        Password = reader["Password"]?.ToString() ?? string.Empty,
+                        Password = string.Empty, // don't cache plaintext password
                         Role = "Regular",
                         Note = reader["Note"]?.ToString() ?? string.Empty,
                         DateLogin = DateTime.Now,
@@ -105,7 +107,7 @@ namespace Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Login error: {ex.Message}");
+                _logger.LogError(ex, "Login error for customer {CustomerId}: {Message}", customerId, ex.Message);
                 throw;
             }
         }

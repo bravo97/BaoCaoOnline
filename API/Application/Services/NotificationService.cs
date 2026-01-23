@@ -27,7 +27,7 @@ namespace Application.Services
             return await _notificationRepository.GetByIdAsync(id);
         }
 
-        public async Task<Notification> AddCustomerAsync(Notification notification)
+        public async Task<Notification> AddNotificationAsync(Notification notification)
         {
             var all = await _notificationRepository.GetAllAsync();
 
@@ -35,7 +35,7 @@ namespace Application.Services
             return result;
         }
 
-        public async Task<bool> UpdateCustomerAsync(Notification notification)
+        public async Task<bool> UpdateNotificationAsync(Notification notification)
         {
             var existing = await _notificationRepository.GetByIdAsync(notification.Id);
             if (existing == null) return false;
@@ -44,7 +44,7 @@ namespace Application.Services
             return true;
         }
 
-        public async Task<bool> DeleteCustomerAsync(string id)
+        public async Task<bool> DeleteNotificationAsync(string id)
         {
             var existing = await _notificationRepository.GetByIdAsync(id);
             if (existing == null) return false;

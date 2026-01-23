@@ -38,7 +38,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtSettings!.Issuer,
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
-            ClockSkew = TimeSpan.FromHours(5)
+            ClockSkew = TimeSpan.FromMinutes(5) // reduced from 5 hours
         };
     });
 
@@ -50,8 +50,10 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // ===========================
 // 4. Các repository & services khác
 // ===========================
+// File-based repositories are stateful -> keep as singleton but ensure thread-safety
 builder.Services.AddSingleton<IUserRepository, FileUserRepository>();
 builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
+// Account repository depends on ILogger
 builder.Services.AddScoped<IAccountRepository, FileAccountRepository>();
 builder.Services.AddScoped<IReportRepository, OptimizedSqlReportRepository>();
 builder.Services.AddScoped<INotificationReponsitory,FileNotificationReponsitory>();
@@ -118,17 +120,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //c =>
-    //{
-    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RESTful API Demo v1");
-    //    c.RoutePrefix = string.Empty; // Để Swagger UI hiển thị ở root (http://localhost:<port>/)
-    //}
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
 // **Dùng CORS**
 app.UseCors("AllowAngularApp");
+// Global exception handler should be first in pipeline
+app.UseMiddleware<ExceptionMiddleware>();
 // **Thứ tự quan trọng**
 app.UseAuthentication();
 app.UseAuthorization();

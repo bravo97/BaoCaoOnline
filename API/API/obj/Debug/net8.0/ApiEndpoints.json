@@ -10,75 +10,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Controllers.AccountController",
-    "Method": "Create",
-    "RelativePath": "api/Account",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "account",
-        "Type": "Domain.Entities.Account",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
-    "Method": "Update",
-    "RelativePath": "api/Account/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "account",
-        "Type": "Domain.Entities.Account",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
-    "Method": "Delete",
-    "RelativePath": "api/Account/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controllers.AccountController",
-    "Method": "GetByCustomer",
-    "RelativePath": "api/Account/customer/{customerId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "customerId",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "API.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -127,6 +58,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "API.Controllers.AuthController",
+    "Method": "Verification",
+    "RelativePath": "api/Auth/verification",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controllers.CustomerController",
     "Method": "GetAll",
     "RelativePath": "api/Customer",
@@ -145,8 +92,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "customer",
-        "Type": "Domain.Entities.Customer",
+        "Name": "dto",
+        "Type": "API.DTO.CreateCustomerDto",
         "IsRequired": true
       }
     ],
@@ -182,8 +129,8 @@
         "IsRequired": true
       },
       {
-        "Name": "customer",
-        "Type": "Domain.Entities.Customer",
+        "Name": "dto",
+        "Type": "API.DTO.UpdateCustomerDto",
         "IsRequired": true
       }
     ],
@@ -193,6 +140,85 @@
     "ContainingType": "API.Controllers.CustomerController",
     "Method": "Delete",
     "RelativePath": "api/Customer/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.NotificationController",
+    "Method": "GetAll",
+    "RelativePath": "api/Notification",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.NotificationController",
+    "Method": "Create",
+    "RelativePath": "api/Notification",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "notification",
+        "Type": "Domain.Entities.Notification",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.NotificationController",
+    "Method": "GetById",
+    "RelativePath": "api/Notification/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.NotificationController",
+    "Method": "Update",
+    "RelativePath": "api/Notification/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "notification",
+        "Type": "Domain.Entities.Notification",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.NotificationController",
+    "Method": "Delete",
+    "RelativePath": "api/Notification/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
