@@ -17,12 +17,13 @@
     "Id": "eab08103-7649-4a04-b309-db5aaeec7db9",
     "Name": "A H\u00F9ng",
     "Email": "dobahung941997@gmail.com",
-    "IPAddress": "192.168.1.46",
-    "Port": 2008,
-    "ServerName": "192.168.1.46,2008",
+    "IPAddress": "117.1.105.27",
+    "Port": 5555,
+    "ServerName": "117.1.105.27,5555",
     "UserName": "sa",
-    "Password": "1",
-    "DatabaseName": "PhanMem24_Real",
+    "Password": "tgv12345",
+    "DatabaseName": "PhanMem24_MayChu",
+	"SqlLogin":"select Key1 as UserKey,dbo.TCVN2Unicode(ten) as UserName,MatKhau as Password,Ghi_Chu as Note from Users where ten = @username and MatKhau= @password",
     "SqlReport": "select Ma as 'Name', dbo.TCVN2Unicode(Ten) as 'FullName',NhomBC as 'Group',SQL1 as 'SqlQuery'  from SysReport",
     "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as 'ColumnName',dbo.TCVN2Unicode(TenTruong) as 'DisplayName', dbo.TCVN2Unicode(KieuDuLieu) as 'DataType' from DM_RunSQLGrd where Ma ='{Name}'",
     "Note": "ch\u1EA1y local"
@@ -37,8 +38,9 @@
     "UserName": "ssa",
     "Password": "atosql@2017",
     "DatabaseName": "SmartNet_VinhPhat",
+	"SqlLogin":"select pid as UserKey,ten as UserName,password as Password,'' as Note from app_users left join dmnhanvien on app_users.MaNV = dmnhanvien.ma where username = @username and password= @password",
     "SqlReport": "select ma 'Name',hienthi 'FullName',b.tennhom 'Group',sqlreport 'SqlQuery' from app_chucnang a join app_reportgroup b on a.rptgroup = b.id where isnull(rptgroup,0) \u003E 0",
-    "SqlColumnQuery": "select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType' from app_ctchucnang where chucnang ='{Name}'",
+    "SqlColumnQuery": "select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType',cotrong as 'ColumnWidth' from app_ctchucnang where chucnang ='{Name}'",
     "Note": "Kh\u00E1ch h\u00E0ng test 2"
   }
 ]

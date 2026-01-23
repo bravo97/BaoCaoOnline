@@ -48,9 +48,9 @@ namespace Application.Services
             return user;
         }
 
-        public async Task<Account?> LoginAccountAsync(string username, string password)
+        public async Task<Account?> LoginAccountAsync(string customerId,string username, string password)
         {
-            var user = await _accountRepo.GetByUsernameAsync(username);
+            var user = await _accountRepo.GetByUsernamePasswordAsync(customerId,username, password);
             if (user == null) return null;
 
             if (user.Password != password)

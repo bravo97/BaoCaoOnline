@@ -1826,23 +1826,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dobah\\.nuget\\packages\\": {},
+    "C:\\Users\\HungDB\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Hung\\BaoCaoOnline\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\dobah\\.nuget\\packages\\",
-      "outputPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\API\\obj\\",
+      "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\HungDB\\.nuget\\packages\\",
+      "outputPath": "C:\\Hung\\BaoCaoOnline\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\dobah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HungDB\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1851,17 +1851,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj": {
-              "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Application\\Application.csproj"
+            "C:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj": {
+              "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj"
             },
-            "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "S:\\Working\\LamThem\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -1875,8 +1876,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -1906,7 +1906,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -54,10 +54,12 @@ builder.Services.AddSingleton<IUserRepository, FileUserRepository>();
 builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
 builder.Services.AddScoped<IAccountRepository, FileAccountRepository>();
 builder.Services.AddScoped<IReportRepository, OptimizedSqlReportRepository>();
+builder.Services.AddScoped<INotificationReponsitory,FileNotificationReponsitory>();
 builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<NotificationService>();
 
 // ===========================
 // 5. Add Controllers & Swagger

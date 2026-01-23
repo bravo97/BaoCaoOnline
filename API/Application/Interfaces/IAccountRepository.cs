@@ -10,12 +10,6 @@ namespace Application.Interfaces
     public interface IAccountRepository
     {
         Task<IEnumerable<Account>> GetAllAsync();
-        Task<IEnumerable<Account>> GetByCustomerIdAsync(string customerId);
-        Task<Account?> GetByIdAsync(string id);
-        Task<Account?> GetByUsernameAsync(string username);
-        Task AddAsync(Account account);
-        Task UpdateAsync(Account account);
-        Task DeleteAsync(string id);
-        Task SaveChangesAsync();
+        Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password);
     }
 }

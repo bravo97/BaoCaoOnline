@@ -1,0 +1,12 @@
+C:\Hung\BaoCaoOnline\API\Domain\bin\Release\net8.0\Domain.deps.json
+C:\Hung\BaoCaoOnline\API\Domain\bin\Release\net8.0\Domain.dll
+C:\Hung\BaoCaoOnline\API\Domain\bin\Release\net8.0\Domain.pdb
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.AssemblyInfoInputs.cache
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.AssemblyInfo.cs
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.sourcelink.json
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.dll
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\refint\Domain.dll
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.pdb
+C:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\ref\Domain.dll

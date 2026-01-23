@@ -12,12 +12,14 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly CustomerService _customerService;
         private readonly IJwtTokenService _jwtTokenService;
 
-        public AuthController(UserService userService, IJwtTokenService jwtTokenService)
+        public AuthController(UserService userService,CustomerService customerService, IJwtTokenService jwtTokenService)
         {
             _userService = userService;
             _jwtTokenService = jwtTokenService;
+            _customerService = customerService;
         }
 
         [HttpPost("register")]
@@ -38,10 +40,18 @@ namespace API.Controllers
             return Ok(new { token });
         }
 
+        [HttpGet("verification")]
+        public async Task<IActionResult> Verification(string customerId)
+        {
+            var customer = await _customerService.GetByIdAsync(customerId);
+            if (customer == null) return Unauthorized("Invalid credentials");
+            return Ok(new { customer.Id });
+        }
+
         [HttpPost("loginuser")]
         public async Task<IActionResult> LoginAccount([FromBody] LoginDto dto)
         {
-            var user = await _userService.LoginAccountAsync(dto.Username, dto.Password);
+            var user = await _userService.LoginAccountAsync(dto.CustomerId, dto.Username, dto.Password);
             if (user == null) return Unauthorized("Invalid credentials");
 
             var token = _jwtTokenService.GenerateToken(user);

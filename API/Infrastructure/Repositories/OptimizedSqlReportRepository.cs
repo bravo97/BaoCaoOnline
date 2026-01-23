@@ -125,8 +125,15 @@ namespace Infrastructure.Repositories
                     var item = new ReportColumn
                     {
                         ReportId = reportId,
+
                         ColumnName = reader["ColumnName"] as string ?? string.Empty,
+
                         DisplayName = reader["DisplayName"] as string ?? string.Empty,
+
+                        ColumnWidth = reader["ColumnWidth"] == DBNull.Value
+                            ? 0
+                            : Convert.ToInt32(reader["ColumnWidth"]),
+
                         DataType = reader["DataType"] as string ?? string.Empty
                     };
 

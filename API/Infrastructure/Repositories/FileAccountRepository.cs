@@ -1,7 +1,10 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.Data.SqlClient;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -11,88 +14,100 @@ namespace Infrastructure.Repositories
 {
     public class FileAccountRepository : IAccountRepository
     {
-        private readonly string _filePath;
-        private List<Account> _accounts = new();
+        private readonly ICustomerRepository _customerRepository;
+        private static List<Account> _accounts = new();
+        // Cache connection string theo CustomerId
+        private static ConcurrentDictionary<string, string> _connectionCache = new();
+        private static ConcurrentDictionary<string, IEnumerable<Report>> _accountCache = new();
 
-        public FileAccountRepository()
+        public FileAccountRepository(ICustomerRepository fileCustomerRepository)
         {
-            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "accounts.json");
-
-            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
-
-            LoadFromFile();
+            _customerRepository = fileCustomerRepository;
         }
 
-        private void LoadFromFile()
+        private async Task<string> GetConnectionStringAsync(Customer _customer)
         {
-            if (!File.Exists(_filePath))
-            {
-                _accounts = new List<Account>();
-                SaveToFile();
-            }
-            else
-            {
-                var json = File.ReadAllText(_filePath);
-                _accounts = string.IsNullOrWhiteSpace(json)
-                    ? new List<Account>()
-                    : JsonSerializer.Deserialize<List<Account>>(json) ?? new List<Account>();
-            }
-        }
+            if (_connectionCache.TryGetValue(_customer.Id, out var cachedConn))
+                return cachedConn;
 
-        private void SaveToFile()
-        {
-            var json = JsonSerializer.Serialize(_accounts, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_filePath, json);
+            if (_customer == null)
+                throw new Exception($"Customer {_customer!.Id} not found");
+
+            var builder = new SqlConnectionStringBuilder
+            {
+                DataSource = _customer.ServerName,
+                InitialCatalog = _customer.DatabaseName,
+                UserID = _customer.UserName,
+                Password = _customer.Password, // có thể mã hóa trước khi lưu
+                MultipleActiveResultSets = true,
+                ConnectTimeout = 30,
+                Encrypt = false,
+                TrustServerCertificate = true
+            };
+
+            var connStr = builder.ConnectionString;
+            _connectionCache[_customer.Id] = connStr;
+
+            await Task.CompletedTask;
+            return connStr;
         }
 
         public Task<IEnumerable<Account>> GetAllAsync() =>
             Task.FromResult(_accounts.AsEnumerable());
 
-        public Task<IEnumerable<Account>> GetByCustomerIdAsync(string customerId) =>
-            Task.FromResult(_accounts.Where(a => a.CustomerId == customerId).AsEnumerable());
-
-        public Task<Account?> GetByIdAsync(string id) =>
-            Task.FromResult(_accounts.FirstOrDefault(a => a.Id == id));
-
-        public Task<Account?> GetByUsernameAsync(string username) =>
-            Task.FromResult(_accounts.FirstOrDefault(a => a.Username.Equals(username, StringComparison.OrdinalIgnoreCase)));
-
-        public Task AddAsync(Account account)
+        public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password)
         {
-            account.Id = Guid.NewGuid().ToString();
-            _accounts.Add(account);
-            SaveToFile();
-            return Task.CompletedTask;
-        }
+            var customer = await _customerRepository.GetByIdAsync(customerId);
+            if (customer == null)
+                throw new Exception("Customer not found");
 
-        public Task UpdateAsync(Account account)
-        {
-            var existing = _accounts.FirstOrDefault(a => a.Id == account.Id);
-            if (existing != null)
+            var connStr = await GetConnectionStringAsync(customer);
+            
+            try
             {
-                _accounts.Remove(existing);
-                _accounts.Add(account);
-                SaveToFile();
-            }
-            return Task.CompletedTask;
-        }
+                using var conn = new SqlConnection(connStr);
+                using var cmd = new SqlCommand(customer.SqlLogin, conn)
+                {
+                    CommandTimeout = 60
+                };
 
-        public Task DeleteAsync(string id)
-        {
-            var existing = _accounts.FirstOrDefault(a => a.Id == id);
-            if (existing != null)
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+
+                await conn.OpenAsync();
+
+                using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow);
+
+                if (!await reader.ReadAsync())
+                    return null;
+
+                var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username && x.Password == password);
+                if (user == null)
+                {
+                    var newUser = new Account()
+                    {
+                        CustomerId = customerId,
+                        UserId = reader["UserKey"]?.ToString() ?? string.Empty,
+                        Username = reader["UserName"]?.ToString() ?? string.Empty,
+                        Password = reader["Password"]?.ToString() ?? string.Empty,
+                        Role = "Regular",
+                        Note = reader["Note"]?.ToString() ?? string.Empty,
+                        DateLogin = DateTime.Now,
+                    };
+                    _accounts.Add(newUser);
+                    return newUser;
+                }
+                else
+                {
+                    user.DateLogin = DateTime.Now;
+                    return user;
+                }
+            }
+            catch (Exception ex)
             {
-                _accounts.Remove(existing);
-                SaveToFile();
+                Console.WriteLine($"Login error: {ex.Message}");
+                throw;
             }
-            return Task.CompletedTask;
-        }
-
-        public Task SaveChangesAsync()
-        {
-            SaveToFile();
-            return Task.CompletedTask;
         }
     }
 }

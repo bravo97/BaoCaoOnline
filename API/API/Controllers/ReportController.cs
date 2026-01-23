@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Regular")]
     [Route("api/[controller]")]
     [ApiController]
     public class ReportController : ControllerBase

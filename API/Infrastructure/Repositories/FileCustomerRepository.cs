@@ -69,7 +69,6 @@ namespace Infrastructure.Repositories
         public Task<Customer?> GetByIdAsync(string id) =>
             Task.FromResult(_customers.FirstOrDefault(c => c.Id == id));
 
-
         public Task SaveChangesAsync()
         {
             SaveData();
