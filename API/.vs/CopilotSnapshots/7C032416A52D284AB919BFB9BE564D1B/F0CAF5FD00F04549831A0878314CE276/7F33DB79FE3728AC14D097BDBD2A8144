@@ -1,0 +1,56 @@
+﻿namespace API.DTO
+{
+    public class CustomerDto
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+
+        // Connection meta (non-sensitive)
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+        public string ServerName { get; set; } = string.Empty;
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+
+    public class CreateCustomerDto
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+        public string ServerName { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty; // required for creating connection
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+
+    public class UpdateCustomerDto
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+        public string ServerName { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+}

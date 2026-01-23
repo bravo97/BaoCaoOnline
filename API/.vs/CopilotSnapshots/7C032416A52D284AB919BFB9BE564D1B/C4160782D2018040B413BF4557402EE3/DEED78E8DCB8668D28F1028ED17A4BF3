@@ -1,0 +1,120 @@
+﻿using Application.Interfaces;
+using Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Infrastructure.Repositories
+{
+    public class FileNotificationReponsitory : INotificationReponsitory
+    {
+        private readonly string _filePath;
+        private List<Notification> notifications = new();
+        private readonly object _lock = new();
+
+        public FileNotificationReponsitory()
+        {
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "notification.json");
+
+            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            lock (_lock)
+            {
+                if (!File.Exists(_filePath))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+                    File.WriteAllText(_filePath, "[]");
+                }
+
+                var json = File.ReadAllText(_filePath);
+                notifications = JsonSerializer.Deserialize<List<Notification>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new List<Notification>();
+            }
+        }
+        private void SaveData()
+        {
+            lock (_lock)
+            {
+                var json = JsonSerializer.Serialize(notifications, new JsonSerializerOptions { WriteIndented = true });
+                var temp = _filePath + ".tmp";
+                File.WriteAllText(temp, json);
+                File.Move(temp, _filePath, true);
+            }
+        }
+
+        public Task<Notification> AddAsync(Notification notification)
+        {
+            lock (_lock)
+            {
+                notification.Id = Guid.NewGuid().ToString();
+                notifications.Add(notification);
+                SaveData();
+                return Task.FromResult(notification);
+            }
+        }
+
+        public Task DeleteAsync(string id)
+        {
+            lock (_lock)
+            {
+                var existing = notifications.FirstOrDefault(c => c.Id == id);
+                if (existing != null)
+                {
+                    notifications.Remove(existing);
+                    SaveData();
+                }
+                return Task.CompletedTask;
+            }
+        }
+
+        public Task<IEnumerable<Notification>> GetAllAsync()
+        {
+            lock (_lock)
+            {
+                return Task.FromResult(notifications.ToArray().AsEnumerable());
+            }
+        }
+
+        public Task<Notification?> GetByIdAsync(string id)
+        {
+            lock (_lock)
+            {
+                return Task.FromResult(notifications.FirstOrDefault(c => c.Id == id));
+            }
+        }
+
+
+        public Task SaveChangesAsync()
+        {
+            SaveData();
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateAsync(Notification notification)
+        {
+            lock (_lock)
+            {
+                var existing = notifications.FirstOrDefault(c => c.Id == notification.Id);
+                if (existing != null)
+                {
+                    notifications.Remove(existing);
+                    notifications.Add(notification);
+                    SaveData();
+                }
+                return Task.CompletedTask;
+            }
+        }
+    }
+}

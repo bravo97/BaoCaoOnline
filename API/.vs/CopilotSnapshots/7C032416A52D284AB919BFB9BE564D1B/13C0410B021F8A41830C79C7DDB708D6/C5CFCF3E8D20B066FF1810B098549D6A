@@ -1,0 +1,115 @@
+﻿using Application.Interfaces;
+using Domain.Entities;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Repositories
+{
+    public class FileAccountRepository : IAccountRepository
+    {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly ILogger<FileAccountRepository> _logger;
+        private static ConcurrentBag<Account> _accounts = new();
+        // Cache connection string theo CustomerId
+        private static ConcurrentDictionary<string, string> _connectionCache = new();
+        private static ConcurrentDictionary<string, IEnumerable<Report>> _accountCache = new();
+
+        public FileAccountRepository(ICustomerRepository fileCustomerRepository, ILogger<FileAccountRepository> logger)
+        {
+            _customerRepository = fileCustomerRepository;
+            _logger = logger;
+        }
+
+        private Task<string> GetConnectionStringAsync(Customer customer)
+        {
+            if (customer == null)
+                throw new ArgumentNullException(nameof(customer));
+
+            if (_connectionCache.TryGetValue(customer.Id, out var cachedConn))
+                return Task.FromResult(cachedConn);
+
+            var builder = new SqlConnectionStringBuilder
+            {
+                DataSource = customer.ServerName,
+                InitialCatalog = customer.DatabaseName,
+                UserID = customer.UserName,
+                Password = customer.Password, // consider encrypting/securing this in production
+                MultipleActiveResultSets = true,
+                ConnectTimeout = 30,
+                Encrypt = false,
+                TrustServerCertificate = true
+            };
+
+            var connStr = builder.ConnectionString;
+            _connectionCache[customer.Id] = connStr;
+
+            return Task.FromResult(connStr);
+        }
+
+        public Task<IEnumerable<Account>> GetAllAsync() =>
+            Task.FromResult(_accounts.ToArray().AsEnumerable());
+
+        public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password)
+        {
+            var customer = await _customerRepository.GetByIdAsync(customerId);
+            if (customer == null)
+                throw new Exception("Customer not found");
+
+            var connStr = await GetConnectionStringAsync(customer);
+
+            try
+            {
+                using var conn = new SqlConnection(connStr);
+                using var cmd = new SqlCommand(customer.SqlLogin, conn)
+                {
+                    CommandTimeout = 60
+                };
+
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+
+                await conn.OpenAsync();
+
+                using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow);
+
+                if (!await reader.ReadAsync())
+                    return null;
+
+                var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username);
+                if (user == null)
+                {
+                    var newUser = new Account()
+                    {
+                        CustomerId = customerId,
+                        UserId = reader["UserKey"]?.ToString() ?? string.Empty,
+                        Username = reader["UserName"]?.ToString() ?? string.Empty,
+                        Password = string.Empty, // don't cache plaintext password
+                        Role = "Regular",
+                        Note = reader["Note"]?.ToString() ?? string.Empty,
+                        DateLogin = DateTime.Now,
+                    };
+                    _accounts.Add(newUser);
+                    return newUser;
+                }
+                else
+                {
+                    user.DateLogin = DateTime.Now;
+                    return user;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Login error for customer {CustomerId}: {Message}", customerId, ex.Message);
+                throw;
+            }
+        }
+    }
+}

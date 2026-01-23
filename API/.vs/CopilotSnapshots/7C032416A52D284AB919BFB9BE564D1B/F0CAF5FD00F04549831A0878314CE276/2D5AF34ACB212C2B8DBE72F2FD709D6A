@@ -1,0 +1,79 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API.DTO
+{
+    public class CustomerDto
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+
+        // Connection meta (non-sensitive)
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+        public string ServerName { get; set; } = string.Empty;
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+
+    public class CreateCustomerDto
+    {
+        [Required]
+        [StringLength(200)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+
+        [Required]
+        public string ServerName { get; set; } = string.Empty;
+
+        public string UserName { get; set; } = string.Empty;
+
+        [Required]
+        public string Password { get; set; } = string.Empty; // required for creating connection
+
+        [Required]
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+
+    public class UpdateCustomerDto
+    {
+        [Required]
+        [StringLength(200)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        public string IPAddress { get; set; } = string.Empty;
+        public int Port { get; set; }
+
+        [Required]
+        public string ServerName { get; set; } = string.Empty;
+
+        public string UserName { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        [Required]
+        public string DatabaseName { get; set; } = string.Empty;
+        public string SqlLogin { get; set; } = string.Empty;
+        public string SqlReport { get; set; } = string.Empty;
+        public string SqlColumnQuery { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+    }
+}

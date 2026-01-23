@@ -1,0 +1,221 @@
+﻿using Application.Interfaces;
+using Domain.Entities;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Security.Cryptography;
+
+namespace Infrastructure.Repositories
+{
+    public class FileAccountRepository : IAccountRepository
+    {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly ILogger<FileAccountRepository> _logger;
+        private readonly IHostEnvironment _env;
+
+        // In-memory cache for quick reads; persisted to file per customer
+        private static ConcurrentDictionary<string, List<Account>> _accountCache = new();
+
+        private readonly string _dataDir;
+
+        public FileAccountRepository(ICustomerRepository fileCustomerRepository, IHostEnvironment env, ILogger<FileAccountRepository> logger)
+        {
+            _customerRepository = fileCustomerRepository;
+            _env = env;
+            _logger = logger;
+            _dataDir = Path.Combine(_env.ContentRootPath, "data", "accounts");
+            Directory.CreateDirectory(_dataDir);
+        }
+
+        private string GetFilePath(string customerId) => Path.Combine(_dataDir, $"{customerId}.json");
+
+        private async Task<List<Account>> LoadAccountsAsync(string customerId)
+        {
+            if (_accountCache.TryGetValue(customerId, out var cached))
+                return cached;
+
+            var path = GetFilePath(customerId);
+            if (!File.Exists(path))
+            {
+                var empty = new List<Account>();
+                _accountCache[customerId] = empty;
+                return empty;
+            }
+
+            try
+            {
+                using var stream = File.OpenRead(path);
+                var accounts = await JsonSerializer.DeserializeAsync<List<Account>>(stream) ?? new List<Account>();
+                _accountCache[customerId] = accounts;
+                return accounts;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to load accounts for customer {CustomerId}", customerId);
+                return new List<Account>();
+            }
+        }
+
+        private async Task SaveAccountsAsync(string customerId, List<Account> accounts)
+        {
+            var path = GetFilePath(customerId);
+            try
+            {
+                using var stream = File.Create(path);
+                await JsonSerializer.SerializeAsync(stream, accounts, new JsonSerializerOptions { WriteIndented = true });
+                _accountCache[customerId] = accounts;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to save accounts for customer {CustomerId}", customerId);
+            }
+        }
+
+        public async Task<IEnumerable<Account>> GetAllAsync()
+        {
+            var list = new List<Account>();
+            try
+            {
+                var files = Directory.Exists(_dataDir) ? Directory.GetFiles(_dataDir, "*.json") : Array.Empty<string>();
+                foreach (var f in files)
+                {
+                    try
+                    {
+                        using var stream = File.OpenRead(f);
+                        var accounts = await JsonSerializer.DeserializeAsync<List<Account>>(stream) ?? new List<Account>();
+                        list.AddRange(accounts);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Failed to read account file {File}", f);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error enumerating account files");
+            }
+
+            return list;
+        }
+
+        public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password)
+        {
+            // Load accounts for this customer
+            var accounts = await LoadAccountsAsync(customerId);
+
+            // Find user
+            var user = accounts.FirstOrDefault(x => string.Equals(x.CustomerId, customerId, StringComparison.OrdinalIgnoreCase)
+                                                   && string.Equals(x.Username, username, StringComparison.OrdinalIgnoreCase));
+            if (user == null)
+            {
+                // Local-only mode: do not auto-create accounts on login. Return null so caller can decide to register.
+                _logger.LogInformation("User {Username} not found for customer {CustomerId}", username, customerId);
+                return null;
+            }
+
+            // Verify password. Support both legacy plaintext (for migration) and hashed passwords.
+            try
+            {
+                if (IsHashed(user.Password))
+                {
+                    if (!VerifyHashedPassword(user.Password, password))
+                    {
+                        _logger.LogInformation("Invalid password for user {Username} (customer {CustomerId})", username, customerId);
+                        return null;
+                    }
+                }
+                else
+                {
+                    // Legacy plaintext compare
+                    if (user.Password != password)
+                    {
+                        _logger.LogInformation("Invalid password for user {Username} (customer {CustomerId}) - legacy compare", username, customerId);
+                        return null;
+                    }
+
+                    // Upgrade to hashed password on successful login
+                    user.Password = HashPassword(password);
+                    await SaveAccountsAsync(customerId, accounts);
+                }
+
+                user.DateLogin = DateTime.UtcNow;
+                // update cache/file
+                await SaveAccountsAsync(customerId, accounts);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error verifying password for user {Username} (customer {CustomerId})", username, customerId);
+                throw;
+            }
+        }
+
+        public async Task<Account> AddAsync(Account account)
+        {
+            if (account == null) throw new ArgumentNullException(nameof(account));
+            if (string.IsNullOrWhiteSpace(account.CustomerId)) throw new ArgumentException("CustomerId is required", nameof(account.CustomerId));
+            if (string.IsNullOrWhiteSpace(account.Username)) throw new ArgumentException("Username is required", nameof(account.Username));
+            if (string.IsNullOrEmpty(account.Password)) throw new ArgumentException("Password is required", nameof(account.Password));
+
+            var accounts = await LoadAccountsAsync(account.CustomerId);
+            // Check duplicate username
+            if (accounts.Any(x => string.Equals(x.Username, account.Username, StringComparison.OrdinalIgnoreCase)))
+                throw new InvalidOperationException("Username already exists");
+
+            // Hash password before storing
+            account.Password = HashPassword(account.Password);
+            account.DateLogin = null;
+            accounts.Add(account);
+            await SaveAccountsAsync(account.CustomerId, accounts);
+            return account;
+        }
+
+        // Password hashing helpers
+        private static string HashPassword(string password)
+        {
+            // PBKDF2
+            const int iterations = 100_000;
+            using var rng = RandomNumberGenerator.Create();
+            var salt = new byte[16];
+            rng.GetBytes(salt);
+
+            using var derive = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
+            var hash = derive.GetBytes(32);
+
+            // store: iterations.saltBase64.hashBase64
+            return $"{iterations}.{Convert.ToBase64String(salt)}.{Convert.ToBase64String(hash)}";
+        }
+
+        private static bool IsHashed(string stored) => stored?.Contains('.') ?? false;
+
+        private static bool VerifyHashedPassword(string stored, string password)
+        {
+            try
+            {
+                var parts = stored.Split('.', 3);
+                if (parts.Length != 3) return false;
+                var iterations = int.Parse(parts[0]);
+                var salt = Convert.FromBase64String(parts[1]);
+                var hash = Convert.FromBase64String(parts[2]);
+
+                using var derive = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
+                var testHash = derive.GetBytes(hash.Length);
+                return CryptographicOperations.FixedTimeEquals(testHash, hash);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+}

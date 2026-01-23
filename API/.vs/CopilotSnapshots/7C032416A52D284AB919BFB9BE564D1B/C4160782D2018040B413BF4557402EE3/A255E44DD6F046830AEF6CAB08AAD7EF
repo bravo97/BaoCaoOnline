@@ -1,0 +1,121 @@
+﻿using Application.Interfaces;
+using Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Infrastructure.Repositories
+{
+    public class FileCustomerRepository : ICustomerRepository
+    {
+        private readonly string _filePath;
+        private List<Customer> _customers = new();
+        private readonly object _lock = new();
+
+        public FileCustomerRepository()
+        {
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "customers.json");
+
+            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            lock (_lock)
+            {
+                if (!File.Exists(_filePath))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+                    File.WriteAllText(_filePath, "[]");
+                }
+
+                var json = File.ReadAllText(_filePath);
+                _customers = JsonSerializer.Deserialize<List<Customer>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new List<Customer>();
+            }
+        }
+        private void SaveData()
+        {
+            lock (_lock)
+            {
+                var json = JsonSerializer.Serialize(_customers, new JsonSerializerOptions { WriteIndented = true });
+                var temp = _filePath + ".tmp";
+                File.WriteAllText(temp, json);
+                // Atomic replace (overwrite) of target file
+                File.Move(temp, _filePath, true);
+            }
+        }
+
+        public Task<Customer> AddAsync(Customer customer)
+        {
+            lock (_lock)
+            {
+                customer.Id = Guid.NewGuid().ToString();
+                _customers.Add(customer);
+                SaveData();
+                return Task.FromResult(customer);
+            }
+        }
+
+        public Task DeleteAsync(string id)
+        {
+            lock (_lock)
+            {
+                var existing = _customers.FirstOrDefault(c => c.Id == id);
+                if (existing != null)
+                {
+                    _customers.Remove(existing);
+                    SaveData();
+                }
+                return Task.CompletedTask;
+            }
+        }
+
+        public Task<IEnumerable<Customer>> GetAllAsync()
+        {
+            lock (_lock)
+            {
+                // return a copy to avoid callers modifying internal collection
+                return Task.FromResult(_customers.ToArray().AsEnumerable());
+            }
+        }
+
+        public Task<Customer?> GetByIdAsync(string id)
+        {
+            lock (_lock)
+            {
+                return Task.FromResult(_customers.FirstOrDefault(c => c.Id == id));
+            }
+        }
+
+        public Task SaveChangesAsync()
+        {
+            SaveData();
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateAsync(Customer customer)
+        {
+            lock (_lock)
+            {
+                var existing = _customers.FirstOrDefault(c => c.Id == customer.Id);
+                if (existing != null)
+                {
+                    _customers.Remove(existing);
+                    _customers.Add(customer);
+                    SaveData();
+                }
+                return Task.CompletedTask;
+            }
+        }
+    }
+}
