@@ -59,6 +59,11 @@ namespace Application.Services
             return user;
         }
 
+        public async Task<User?> GetByIdAsync(string id)
+        {
+            return await _userRepo.GetByIdAsync(id);
+        }
+
         private static string HashPassword(string password)
         {
             using var sha = SHA256.Create();

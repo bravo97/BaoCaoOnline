@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.scss',
 })
 export class Login {
-  loginModel: LoginModel = { username: '', password: '' };
+  loginModel: LoginModel = {username: '', password: '' };
   constructor(private router: Router,private auth:AuthService) {}
   Login() {
-      this.auth.login(this.loginModel.username, this.loginModel.password)
+      this.auth.login('5a95911c-10a0-4777-a468-a1af22977f41',this.loginModel.username, this.loginModel.password)
     .subscribe({
       next: () => {
         // login thành công => điều hướng

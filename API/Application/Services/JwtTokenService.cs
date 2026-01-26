@@ -7,6 +7,7 @@ using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,6 +65,24 @@ namespace Application.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        // Generate a secure random refresh token (plaintext)
+        public string GenerateRefreshTokenValue(int size = 64)
+        {
+            var bytes = new byte[size];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
+        }
+
+        // Hash the refresh token using SHA256 for storage
+        public string ComputeRefreshTokenHash(string refreshToken)
+        {
+            using var sha = SHA256.Create();
+            var bytes = Encoding.UTF8.GetBytes(refreshToken);
+            var hash = sha.ComputeHash(bytes);
+            return Convert.ToHexString(hash);
         }
     }
 }

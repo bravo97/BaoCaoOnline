@@ -85,6 +85,16 @@ namespace Infrastructure.Repositories
             }
         }
 
+        public Task<User?> GetByIdAsync(string id)
+        {
+            lock (_lock)
+            {
+                var user = _users.FirstOrDefault(u => u.Id == id);
+                _logger.LogDebug("GetById {Id} -> {Found}", id, user != null);
+                return Task.FromResult(user);
+            }
+        }
+
         public Task AddAsync(User user)
         {
             lock (_lock)

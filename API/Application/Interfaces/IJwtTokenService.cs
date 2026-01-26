@@ -11,5 +11,7 @@ namespace Application.Interfaces
     {
         string GenerateToken(User user);
         string GenerateToken(Account account);
+        string GenerateRefreshTokenValue(int size = 64);
+        string ComputeRefreshTokenHash(string refreshToken);
     }
 }

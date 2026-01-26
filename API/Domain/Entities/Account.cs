@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string CustomerId { get; set; } = string.Empty; // Khách hàng sở hữu account
         public string UserId { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = "Regular"; // Admin / Regular
         public string? Note { get; set; }

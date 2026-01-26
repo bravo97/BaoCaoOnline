@@ -10,6 +10,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -59,6 +60,11 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Report>> GetReportsAsync(string customerId)
         {
+            return await GetReportsAsync(customerId, CancellationToken.None);
+        }
+
+        public async Task<IEnumerable<Report>> GetReportsAsync(string customerId, CancellationToken cancellationToken)
+        {
             if (_reportCache.TryGetValue(customerId, out var cachedReports))
                 return cachedReports;
             var _customer = await _customerRepository.GetByIdAsync(customerId);
@@ -67,25 +73,28 @@ namespace Infrastructure.Repositories
             var reports = new List<Report>{ };
             try
             {
-                using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(_customer!.SqlReport, conn)
+                await RetryHelper.RetryAsync(async () =>
                 {
-                    CommandTimeout = 60
-                };
-                await conn.OpenAsync();
-                using var reader = await cmd.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
-                {
-                    var item = new Report
+                    using var conn = new SqlConnection(connStr);
+                    using var cmd = new SqlCommand(_customer!.SqlReport, conn)
                     {
-                        Name = reader["Name"] as string ?? string.Empty,
-                        FullName = reader["FullName"] as string ?? string.Empty,
-                        Group = reader["Group"] as string ?? string.Empty,
-                        SqlQuery = reader["SqlQuery"] as string ?? string.Empty
+                        CommandTimeout = 60
                     };
+                    await conn.OpenAsync(cancellationToken);
+                    using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+                    while (await reader.ReadAsync(cancellationToken))
+                    {
+                        var item = new Report
+                        {
+                            Name = reader["Name"] as string ?? string.Empty,
+                            FullName = reader["FullName"] as string ?? string.Empty,
+                            Group = reader["Group"] as string ?? string.Empty,
+                            SqlQuery = reader["SqlQuery"] as string ?? string.Empty
+                        };
 
-                    reports.Add(item);
-                }
+                        reports.Add(item);
+                    }
+                }, shouldRetry: ex => ex is SqlException);
             }
             catch (Exception ex)
             {
@@ -100,45 +109,53 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId)
         {
+            return await GetReportColumnsAsync(customerId, reportId, CancellationToken.None);
+        }
+
+        public async Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId, CancellationToken cancellationToken)
+        {
             string cacheKey = $"{customerId}_{reportId}";
             if (_columnCache.TryGetValue(cacheKey, out var cachedColumns))
                 return cachedColumns;
 
-            var _reports = await GetReportsAsync(customerId);
+            var _reports = await GetReportsAsync(customerId, cancellationToken);
             var _report = _reports.FirstOrDefault(r => r.Id == reportId);
-            if (_report == null) return null;
+            if (_report == null) return Enumerable.Empty<ReportColumn>();
             var _customer = await _customerRepository.GetByIdAsync(customerId);
             var connStr = await GetConnectionStringAsync(_customer!);
             var reportColumns = new List<ReportColumn> { };
             try
             {
-                string sqlColumnQuery = _customer!.SqlColumnQuery.Replace("{Name}", _report!.Name);
-                using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(sqlColumnQuery, conn)
+                await RetryHelper.RetryAsync(async () =>
                 {
-                    CommandTimeout = 60
-                };
-                await conn.OpenAsync();
-                using var reader = await cmd.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
-                {
-                    var item = new ReportColumn
+                    string sqlColumnQuery = _customer!.SqlColumnQuery.Replace("{Name}", _report!.Name);
+                    using var conn = new SqlConnection(connStr);
+                    using var cmd = new SqlCommand(sqlColumnQuery, conn)
                     {
-                        ReportId = reportId,
-
-                        ColumnName = reader["ColumnName"] as string ?? string.Empty,
-
-                        DisplayName = reader["DisplayName"] as string ?? string.Empty,
-
-                        ColumnWidth = reader["ColumnWidth"] == DBNull.Value
-                            ? 0
-                            : Convert.ToInt32(reader["ColumnWidth"]),
-
-                        DataType = reader["DataType"] as string ?? string.Empty
+                        CommandTimeout = 60
                     };
+                    await conn.OpenAsync(cancellationToken);
+                    using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+                    while (await reader.ReadAsync(cancellationToken))
+                    {
+                        var item = new ReportColumn
+                        {
+                            ReportId = reportId,
 
-                    reportColumns.Add(item);
-                }
+                            ColumnName = reader["ColumnName"] as string ?? string.Empty,
+
+                            DisplayName = reader["DisplayName"] as string ?? string.Empty,
+
+                            ColumnWidth = reader["ColumnWidth"] == DBNull.Value
+                                ? 0
+                                : Convert.ToInt32(reader["ColumnWidth"]),
+
+                            DataType = reader["DataType"] as string ?? string.Empty
+                        };
+
+                        reportColumns.Add(item);
+                    }
+                }, shouldRetry: ex => ex is SqlException, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {
@@ -147,15 +164,18 @@ namespace Infrastructure.Repositories
                 throw;
             }
 
-            
-
             _columnCache[cacheKey] = reportColumns;
             return reportColumns;
         }
 
         public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters)
         {
-            var reports = await GetReportsAsync(customerId);
+            return await GetReportDataAsync(customerId, reportId, parameters, CancellationToken.None);
+        }
+
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters, CancellationToken cancellationToken)
+        {
+            var reports = await GetReportsAsync(customerId, cancellationToken);
             var report = reports.FirstOrDefault(r => r.Id == reportId);
             if (report == null) return Enumerable.Empty<Dictionary<string, object>>();
             if(report.SqlQuery == null || report.SqlQuery == "") return Enumerable.Empty<Dictionary<string, object>>();
@@ -168,27 +188,30 @@ namespace Infrastructure.Repositories
 
             try
             {
-                using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(SqlQueryWithParams, conn)
+                await RetryHelper.RetryAsync(async () =>
                 {
-                    CommandTimeout = 60
-                };
-
-                foreach (var p in sqlParams)
-                    cmd.Parameters.Add(p);
-
-                await conn.OpenAsync();
-                using var reader = await cmd.ExecuteReaderAsync();
-                while (await reader.ReadAsync())
-                {
-                    var row = new Dictionary<string, object>();
-                    for (int i = 0; i < reader.FieldCount; i++)
+                    using var conn = new SqlConnection(connStr);
+                    using var cmd = new SqlCommand(SqlQueryWithParams, conn)
                     {
-                        var value = reader.IsDBNull(i) ? null : reader.GetValue(i);
-                        row[reader.GetName(i)] = value!;
+                        CommandTimeout = 60
+                    };
+
+                    foreach (var p in sqlParams)
+                        cmd.Parameters.Add(p);
+
+                    await conn.OpenAsync(cancellationToken);
+                    using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+                    while (await reader.ReadAsync(cancellationToken))
+                    {
+                        var row = new Dictionary<string, object>();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            var value = reader.IsDBNull(i) ? null : reader.GetValue(i);
+                            row[reader.GetName(i)] = value!;
+                        }
+                        result.Add(row);
                     }
-                    result.Add(row);
-                }
+                }, shouldRetry: ex => ex is SqlException, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {

@@ -57,6 +57,9 @@ builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
 builder.Services.AddScoped<IAccountRepository, FileAccountRepository>();
 builder.Services.AddScoped<IReportRepository, OptimizedSqlReportRepository>();
 builder.Services.AddScoped<INotificationReponsitory,FileNotificationReponsitory>();
+builder.Services.AddScoped<IRefreshTokenRepository, FileRefreshTokenRepository>();
+// Feedback
+builder.Services.AddScoped<IFeedbackRepository, FileFeedbackRepository>();
 builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserService>();

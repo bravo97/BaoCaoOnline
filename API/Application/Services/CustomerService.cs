@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -18,19 +19,19 @@ namespace Application.Services
         }
 
         // Lấy tất cả khách hàng
-        public async Task<IEnumerable<Customer>> GetAllAsync()
+        public async Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _customerRepository.GetAllAsync();
         }
 
         // Lấy khách hàng theo ID
-        public async Task<Customer?> GetByIdAsync(string id)
+        public async Task<Customer?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
             return await _customerRepository.GetByIdAsync(id);
         }
 
         // Thêm khách hàng, kiểm tra code trùng
-        public async Task<Customer> AddCustomerAsync(Customer customer)
+        public async Task<Customer> AddCustomerAsync(Customer customer, CancellationToken cancellationToken = default)
         {
             var all = await _customerRepository.GetAllAsync();
 
@@ -39,7 +40,7 @@ namespace Application.Services
         }
 
         // Cập nhật khách hàng
-        public async Task<bool> UpdateCustomerAsync(Customer customer)
+        public async Task<bool> UpdateCustomerAsync(Customer customer, CancellationToken cancellationToken = default)
         {
             var existing = await _customerRepository.GetByIdAsync(customer.Id);
             if (existing == null) return false;
@@ -49,7 +50,7 @@ namespace Application.Services
         }
 
         // Xóa khách hàng
-        public async Task<bool> DeleteCustomerAsync(string id)
+        public async Task<bool> DeleteCustomerAsync(string id, CancellationToken cancellationToken = default)
         {
             var existing = await _customerRepository.GetByIdAsync(id);
             if (existing == null) return false;

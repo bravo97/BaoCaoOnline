@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Threading;
 
 namespace API.Controllers
 {
@@ -23,9 +24,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 50, CancellationToken cancellationToken = default)
         {
-            var customers = await _customerService.GetAllAsync();
+            var customers = await _customerService.GetAllAsync(cancellationToken);
             // map to DTO
             var dtos = customers.Select(c => new CustomerDto
             {
@@ -42,7 +43,10 @@ namespace API.Controllers
                 Note = c.Note
             });
 
-            return Ok(ApiResponse<object>.Ok(dtos, "Lấy danh sách khách hàng thành công"));
+            var skip = Math.Max(0, page - 1) * pageSize;
+            var paged = dtos.Skip(skip).Take(pageSize);
+
+            return Ok(ApiResponse<object>.Ok(paged, "Lấy danh sách khách hàng thành công"));
         }
 
         [HttpGet("{id}")]

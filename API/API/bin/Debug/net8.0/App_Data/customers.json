@@ -7,10 +7,11 @@
     "Port": 2017,
     "ServerName": "LTATO",
     "UserName": "sa",
-    "Password": "1",
+    "Password": "CfDJ8E1kT9LzUedHiBHu86uXE_gKQ2dCoP6es_OPLXP8aP-sVY2c1wW47Kgja2IBi1vqGiMJWkUrOPwGj_35q_XwknIRW9KjAzP6kQd-eQ_DFAUpUzbEZabAHu5UKePVZs6Dvw",
     "DatabaseName": "PhanMem24h",
+    "SqlLogin": "",
     "SqlReport": "",
-    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as 'ColumnName',dbo.TCVN2Unicode(TenTruong) as 'DisplayName', dbo.TCVN2Unicode(KieuDuLieu) as 'DataType' from DM_RunSQLGrd where Ma ='{Name}'",
+    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as \u0027ColumnName\u0027,dbo.TCVN2Unicode(TenTruong) as \u0027DisplayName\u0027, dbo.TCVN2Unicode(KieuDuLieu) as \u0027DataType\u0027 from DM_RunSQLGrd where Ma =\u0027{Name}\u0027",
     "Note": "Kh\u00E1ch h\u00E0ng 1"
   },
   {
@@ -21,11 +22,11 @@
     "Port": 5555,
     "ServerName": "117.1.105.27,5555",
     "UserName": "sa",
-    "Password": "tgv12345",
+    "Password": "CfDJ8E1kT9LzUedHiBHu86uXE_ie0fZIK5NWurUlPm_ab0DUIy_ANKuCvRy1gPrn5RS3MW7MQctUsPchGQsIg0pP0dIeH8OUlhldAxN7ICJq413DWt_zQn4JoIKzmlXBz70a4w",
     "DatabaseName": "PhanMem24_MayChu",
-	"SqlLogin":"select Key1 as UserKey,dbo.TCVN2Unicode(ten) as UserName,MatKhau as Password,Ghi_Chu as Note from Users where ten = @username and MatKhau= @password",
-    "SqlReport": "select Ma as 'Name', dbo.TCVN2Unicode(Ten) as 'FullName',NhomBC as 'Group',SQL1 as 'SqlQuery'  from SysReport",
-    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as 'ColumnName',dbo.TCVN2Unicode(TenTruong) as 'DisplayName', dbo.TCVN2Unicode(KieuDuLieu) as 'DataType' from DM_RunSQLGrd where Ma ='{Name}'",
+    "SqlLogin": "select Key1 as UserKey,dbo.TCVN2Unicode(ten) as UserName,MatKhau as Password,Ghi_Chu as Note from Users where ten = @username and MatKhau= @password",
+    "SqlReport": "select Ma as \u0027Name\u0027, dbo.TCVN2Unicode(Ten) as \u0027FullName\u0027,NhomBC as \u0027Group\u0027,SQL1 as \u0027SqlQuery\u0027  from SysReport",
+    "SqlColumnQuery": "select dbo.TCVN2Unicode(TenTruong) as \u0027ColumnName\u0027,dbo.TCVN2Unicode(TenTruong) as \u0027DisplayName\u0027, dbo.TCVN2Unicode(KieuDuLieu) as \u0027DataType\u0027 from DM_RunSQLGrd where Ma =\u0027{Name}\u0027",
     "Note": "ch\u1EA1y local"
   },
   {
@@ -36,11 +37,11 @@
     "Port": 12017,
     "ServerName": "ato.vn,12017",
     "UserName": "ssa",
-    "Password": "atosql@2017",
+    "Password": "CfDJ8E1kT9LzUedHiBHu86uXE_iqIHSZbZCGR9duhINiIiy3qWYBHuALLLqRNSG6Dy9tH6pQkPZBkIy21NRPQhymSkI8-hfiLAqYyXIUpvkiPgswoz75FdEh4yRBIWKeubFGsA",
     "DatabaseName": "SmartNet_VinhPhat",
-	"SqlLogin":"select pid as UserKey,ten as UserName,password as Password,'' as Note from app_users left join dmnhanvien on app_users.MaNV = dmnhanvien.ma where username = @username and password= @password",
-    "SqlReport": "select ma 'Name',hienthi 'FullName',b.tennhom 'Group',sqlreport 'SqlQuery' from app_chucnang a join app_reportgroup b on a.rptgroup = b.id where isnull(rptgroup,0) \u003E 0",
-    "SqlColumnQuery": "select doituong as 'ColumnName',hienthi as 'DisplayName', kieudl as 'DataType',cotrong as 'ColumnWidth' from app_ctchucnang where chucnang ='{Name}'",
+    "SqlLogin": "select pid as UserKey,ten as UserName,password as Password,\u0027\u0027 as Note from app_users left join dmnhanvien on app_users.MaNV = dmnhanvien.ma where username = @username and password= @password",
+    "SqlReport": "select ma \u0027Name\u0027,hienthi \u0027FullName\u0027,b.tennhom \u0027Group\u0027,sqlreport \u0027SqlQuery\u0027 from app_chucnang a join app_reportgroup b on a.rptgroup = b.id where isnull(rptgroup,0) \u003E 0",
+    "SqlColumnQuery": "select doituong as \u0027ColumnName\u0027,hienthi as \u0027DisplayName\u0027, kieudl as \u0027DataType\u0027,cotrong as \u0027ColumnWidth\u0027 from app_ctchucnang where chucnang =\u0027{Name}\u0027",
     "Note": "Kh\u00E1ch h\u00E0ng test 2"
   }
 ]

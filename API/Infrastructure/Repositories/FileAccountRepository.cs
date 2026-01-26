@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Helpers;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -54,10 +56,10 @@ namespace Infrastructure.Repositories
             return Task.FromResult(connStr);
         }
 
-        public Task<IEnumerable<Account>> GetAllAsync() =>
+        public Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(_accounts.ToArray().AsEnumerable());
 
-        public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password)
+        public async Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password, CancellationToken cancellationToken = default)
         {
             var customer = await _customerRepository.GetByIdAsync(customerId);
             if (customer == null)
@@ -67,43 +69,47 @@ namespace Infrastructure.Repositories
 
             try
             {
-                using var conn = new SqlConnection(connStr);
-                using var cmd = new SqlCommand(customer.SqlLogin, conn)
+                return await RetryHelper.RetryAsync(async () =>
                 {
-                    CommandTimeout = 60
-                };
-
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                await conn.OpenAsync();
-
-                using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow);
-
-                if (!await reader.ReadAsync())
-                    return null;
-
-                var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username);
-                if (user == null)
-                {
-                    var newUser = new Account()
+                    using var conn = new SqlConnection(connStr);
+                    using var cmd = new SqlCommand(customer.SqlLogin, conn)
                     {
-                        CustomerId = customerId,
-                        UserId = reader["UserKey"]?.ToString() ?? string.Empty,
-                        Username = reader["UserName"]?.ToString() ?? string.Empty,
-                        Password = string.Empty, // don't cache plaintext password
-                        Role = "Regular",
-                        Note = reader["Note"]?.ToString() ?? string.Empty,
-                        DateLogin = DateTime.Now,
+                        CommandTimeout = 60
                     };
-                    _accounts.Add(newUser);
-                    return newUser;
-                }
-                else
-                {
-                    user.DateLogin = DateTime.Now;
-                    return user;
-                }
+
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    await conn.OpenAsync(cancellationToken);
+
+                    using var reader = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow, cancellationToken);
+
+                    if (!await reader.ReadAsync(cancellationToken))
+                        return null;
+
+                    var user = _accounts.FirstOrDefault(x => x.CustomerId == customerId && x.Username == username);
+                    if (user == null)
+                    {
+                        var newUser = new Account()
+                        {
+                            CustomerId = customerId,
+                            UserId = reader["UserKey"]?.ToString() ?? string.Empty,
+                            Username = reader["UserName"]?.ToString() ?? string.Empty,
+                            FullName = reader["FullName"]?.ToString() ?? string.Empty,
+                            Password = string.Empty, // don't cache plaintext password
+                            Role = "Regular",
+                            Note = reader["Note"]?.ToString() ?? string.Empty,
+                            DateLogin = DateTime.Now,
+                        };
+                        _accounts.Add(newUser);
+                        return newUser;
+                    }
+                    else
+                    {
+                        user.DateLogin = DateTime.Now;
+                        return user;
+                    }
+                }, shouldRetry: ex => ex is SqlException, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {
