@@ -1,38 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 import { Sidebar } from "./layout/sidebar/sidebar";
 import { Header } from "./layout/header/header";
-import { ReportViewer } from "./pages/report-viewer/report-viewer";
-import { ReportModel } from './models/reportModel';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, Sidebar, Header, ReportViewer],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, Sidebar, Header],
   templateUrl: './user.html',
   styleUrl: './user.scss',
 })
-export class User implements OnInit{
+export class User implements OnInit {
   sidebarCollapsed = false;
-  profileMenuOpen = false;
-  headerTitle = 'Home';
-  selectedReport?: ReportModel;
+  isReportView = false;
 
-  constructor() {}
+  constructor(private router: Router) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      // Check if current URL matches report view pattern
+      this.isReportView = event.url.includes('/report/');
+    });
+  }
+
   ngOnInit(): void {
-    
-  }
-
-
-
-  selectReport(report: ReportModel) {
-    this.headerTitle = report.fullName;
-  }
-
-  onMenuSelected(menu: any) {
-    
-    this.selectedReport = menu;
-    this.headerTitle = menu.fullName;
+    // Initial check in case of refresh on report page
+    this.isReportView = this.router.url.includes('/report/');
   }
 
   toggleSidebar() {

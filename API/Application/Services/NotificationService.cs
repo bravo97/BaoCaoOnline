@@ -44,6 +44,31 @@ namespace Application.Services
             return true;
         }
 
+        public async Task<IEnumerable<Notification>> GetByUserIdAsync(string userId, int page = 1, int pageSize = 20)
+        {
+            var all = await _notificationRepository.GetAllAsync();
+            return all.Where(n => n.UserId == userId || string.IsNullOrEmpty(n.UserId)) // Include broadcast
+                      .OrderByDescending(n => n.DateCreate)
+                      .Skip((page - 1) * pageSize)
+                      .Take(pageSize);
+        }
+
+        public async Task<int> GetUnreadCountAsync(string userId)
+        {
+            var all = await _notificationRepository.GetAllAsync();
+            return all.Count(n => (n.UserId == userId || string.IsNullOrEmpty(n.UserId)) && !n.IsRead);
+        }
+
+        public async Task<bool> MarkAsReadAsync(string id)
+        {
+            var item = await _notificationRepository.GetByIdAsync(id);
+            if (item == null) return false;
+            
+            item.IsRead = true;
+            await _notificationRepository.UpdateAsync(item);
+            return true;
+        }
+
         public async Task<bool> DeleteNotificationAsync(string id)
         {
             var existing = await _notificationRepository.GetByIdAsync(id);

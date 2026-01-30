@@ -1,8 +1,12 @@
-export interface NotificationModel {
-  id: string;
-  title: string;
-  message: string;
-  date: string;
-  sender: string;
-  isRead: boolean;
+export class Notification {
+
+  id: string = crypto.randomUUID();
+  title: string = '';
+  description: string = '';
+  dateCreate: Date = new Date();
+  dateUpdate: Date = new Date();
+
+  constructor(init?: Partial<Notification>) {
+    Object.assign(this, init);
+  }
 }

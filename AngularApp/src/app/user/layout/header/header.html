@@ -1,22 +1,36 @@
-<header>
-  <h2>{{ title }}</h2>
-
-  <div class="header-actions">
-    <!-- Nút toggle mode -->
-    <button class="mode-toggle" (click)="toggleDarkMode()">
-      <i [ngClass]="isDarkMode ? 'fa fa-sun' : 'fa fa-moon'"></i>
+<header class="header glass-effect">
+  <div class="header-left flex items-center gap-4">
+    <button (click)="layoutService.toggleMobileSidebar()"
+      class="md:hidden w-10 h-10 -ml-2 rounded-xl flex items-center justify-center text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/5 transition-all">
+      <i class="fa-solid fa-bars text-xl"></i>
     </button>
+    <h2 class="page-title">{{ title || 'Báo cáo trực tuyến' }}</h2>
+  </div>
 
-    <!-- Profile -->
-    <div class="profile-container">
-      <div class="profile" (click)="toggleProfileMenu()">
-        <i class="fa fa-user-circle"></i>
-      </div>
+  <div class="header-center">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Tìm kiếm báo cáo...">
+    </div>
+  </div>
 
-      <!-- Dropdown menu -->
-      <div class="profile-menu" [class.open]="profileMenuOpen">
-        <button (click)="changePassword()">Đổi mật khẩu</button>
-        <button (click)="logout()">Đăng xuất</button>
+  <div class="header-right">
+    <div class="actions">
+      <!-- Profile Shell -->
+      <div class="profile-shell" (click)="toggleProfileMenu()">
+        <div class="user-avatar">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <div class="user-meta">
+          <span class="user-name">HungDB</span>
+          <span class="user-role">User Account</span>
+        </div>
+        <i class="fa-solid fa-chevron-down toggle-icon" [class.open]="profileMenuOpen"></i>
+
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown glass-effect" *ngIf="profileMenuOpen">
+          <button (click)="changePassword()"><i class="fa-solid fa-shield-halved"></i> Bảo mật</button>
+        </div>
       </div>
     </div>
   </div>

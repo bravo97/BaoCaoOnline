@@ -1,1 +1,80 @@
-Settings
+<div class="space-y-8 animate-in mt-8 fade-in duration-700 pb-10">
+    <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-black tracking-tight text-primary">Cấu hình hệ thống</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Sidebar Navigation -->
+        <div class="lg:col-span-1 space-y-4">
+            <div
+                class="p-4 rounded-2xl bg-accent text-white font-bold flex items-center gap-3 shadow-lg shadow-accent/20 cursor-pointer">
+                <i class="fa-solid fa-sliders"></i>
+                Cấu hình chung
+            </div>
+            <div
+                class="p-4 rounded-2xl bg-secondary/30 text-secondary font-bold flex items-center gap-3 hover:bg-secondary/50 transition-all cursor-pointer">
+                <i class="fa-solid fa-server"></i>
+                Kết nối Máy chủ
+            </div>
+            <div
+                class="p-4 rounded-2xl bg-secondary/30 text-secondary font-bold flex items-center gap-3 hover:bg-secondary/50 transition-all cursor-pointer">
+                <i class="fa-solid fa-shield-halved"></i>
+                Bảo mật & Phân quyền
+            </div>
+        </div>
+
+        <!-- Setting Content -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="glass-card">
+                <h3 class="text-xl font-black text-primary mb-6">Thông tin ứng dụng</h3>
+                <div class="space-y-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[10px] font-black uppercase text-primary ml-1">Tên ứng
+                            dụng</label>
+                        <input type="text" value="Auto Báo Cáo Online"
+                            class="bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent/50" />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-[10px] font-black uppercase text-primary ml-1">Phiên bản</label>
+                        <input type="text" value="2.0.0-gold" readonly
+                            class="bg-primary/30 border border-glass/30 rounded-xl px-4 py-3 text-sm text-primary cursor-not-allowed" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3 class="text-xl font-black text-primary mb-6">Cấu hình báo cáo</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between p-4 rounded-2xl bg-secondary/20 border border-glass">
+                        <div>
+                            <p class="text-sm font-bold text-primary">Tự động làm mới dữ liệu</p>
+                            <p class="text-xs text-secondary italic">Cập nhật dữ liệu từ SQL server mỗi 5 phút.</p>
+                        </div>
+                        <div class="w-12 h-6 rounded-full bg-accent relative cursor-pointer">
+                            <div class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white shadow-sm"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 rounded-2xl bg-secondary/20 border border-glass">
+                        <div>
+                            <p class="text-sm font-bold text-primary">Gửi thông báo qua Email</p>
+                            <p class="text-xs text-secondary italic">Gửi file báo cáo định kỳ cho các Admin.</p>
+                        </div>
+                        <div class="w-12 h-6 rounded-full bg-secondary relative cursor-pointer">
+                            <div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-white shadow-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <button
+                    class="py-3 px-8 rounded-xl bg-secondary/50 text-secondary font-bold text-sm hover:bg-secondary transition-all">Đặt
+                    lại mặc định</button>
+                <button
+                    class="py-3 px-8 rounded-xl bg-accent hover:bg-accent-hover text-white font-bold text-sm shadow-xl shadow-accent/20 transition-all hover:-translate-y-1 active:scale-95">Lưu
+                    cấu hình</button>
+            </div>
+        </div>
+    </div>
+</div>

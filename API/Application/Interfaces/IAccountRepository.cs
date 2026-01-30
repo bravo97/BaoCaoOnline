@@ -12,5 +12,6 @@ namespace Application.Interfaces
     {
         Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<Account?> GetByUsernamePasswordAsync(string customerId, string username, string password, CancellationToken cancellationToken = default);
+        Task<Account?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     }
 }

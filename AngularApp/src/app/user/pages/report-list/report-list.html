@@ -1,1 +1,76 @@
-<p>report-list works!</p>
+<div class="report-list-container h-full overflow-auto custom-scrollbar">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="flex items-center justify-center h-full">
+        <div class="flex flex-col items-center gap-4">
+            <div class="w-16 h-16 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <p class="text-sm font-black uppercase tracking-[0.2em] text-accent animate-pulse">Đang tải báo cáo...</p>
+        </div>
+    </div>
+
+    <!-- Report Grid -->
+    <div *ngIf="!isLoading" class="p-6 space-y-8 animate-in fade-in duration-700">
+        <!-- Page Header -->
+        <div class="glass-effect rounded-2xl p-6 border border-glass/40 shadow-xl">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                    <i class="fa-solid fa-chart-bar text-2xl text-accent"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-primary tracking-tight">Danh Sách Báo Cáo</h1>
+                    <p class="text-sm text-secondary mt-1">Chọn báo cáo để xem chi tiết</p>
+                </div>
+                <div class="ml-auto">
+                    <div class="glass-effect px-4 py-2 rounded-lg border border-glass/40">
+                        <span class="text-xs font-black uppercase tracking-widest text-secondary/60">Tổng:</span>
+                        <span class="ml-2 text-lg font-black text-accent">{{ reports.length }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="reports.length === 0" class="glass-effect rounded-2xl p-12 border border-glass/40 text-center">
+            <i class="fa-solid fa-inbox text-6xl text-secondary/30 mb-4"></i>
+            <p class="text-secondary font-bold">Không có báo cáo nào</p>
+        </div>
+
+        <!-- Grouped Reports -->
+        <div *ngFor="let group of getGroups()" class="space-y-4">
+            <!-- Group Header -->
+            <div class="flex items-center gap-3">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-glass to-transparent"></div>
+                <h2 class="text-sm font-black uppercase tracking-[0.15em] text-secondary/80">{{ group }}</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-glass via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Report Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div *ngFor="let report of getReportsByGroup(group)" (click)="navigateToReport(report)"
+                    class="report-card glass-effect rounded-xl p-5 border border-glass/40 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 hover:border-accent/50 group">
+                    <!-- Icon -->
+                    <div
+                        class="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-accent/20">
+                        <i class="fa-solid {{ getReportIcon(report.name) }} text-2xl text-accent"></i>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="space-y-2">
+                        <h3
+                            class="text-sm font-black text-primary leading-tight line-clamp-2 group-hover:text-accent transition-colors">
+                            {{ report.fullName }}
+                        </h3>
+                        <p class="text-xs text-secondary/60 font-medium">{{ report.name }}</p>
+                    </div>
+
+                    <!-- Arrow Icon -->
+                    <div
+                        class="mt-4 flex items-center justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-right text-xs text-accent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

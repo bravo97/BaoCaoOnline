@@ -1,0 +1,126 @@
+<div
+    class="revenue-report-container h-full flex flex-col gap-6 p-6 overflow-auto custom-scrollbar animate-in fade-in duration-700">
+    <!-- Loading Overlay -->
+    <div *ngIf="isLoading"
+        class="absolute inset-0 z-30 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
+        <div class="flex flex-col items-center gap-4">
+            <div class="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-accent animate-pulse">Đang tải...</p>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="glass-effect rounded-2xl p-4 shadow-lg border border-glass/40 flex flex-wrap items-center gap-6">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                <i class="fa-solid fa-calendar-days text-sm"></i>
+            </div>
+            <div class="flex flex-col">
+                <label for="fromDate" class="text-[9px] font-black uppercase tracking-widest text-primary mb-0.5">Từ
+                    ngày</label>
+                <input id="fromDate" type="date" [(ngModel)]="fromDate"
+                    class="bg-primary/50 border border-glass rounded-lg px-2 py-1 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all" />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                <i class="fa-solid fa-calendar-check text-sm"></i>
+            </div>
+            <div class="flex flex-col">
+                <label for="toDate" class="text-[9px] font-black uppercase tracking-widest text-primary mb-0.5">Đến
+                    ngày</label>
+                <input id="toDate" type="date" [(ngModel)]="toDate"
+                    class="bg-primary/50 border border-glass rounded-lg px-2 py-1 text-xs text-primary focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all" />
+            </div>
+        </div>
+
+        <button [disabled]="isLoading"
+            class="ml-auto bg-accent hover:bg-accent-hover text-white font-black py-2.5 px-6 rounded-xl shadow-lg shadow-accent/20 transition-all duration-300 hover:-translate-y-1 active:scale-95 flex items-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            (click)="applyFilter()">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            Lọc dữ liệu
+        </button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div *ngFor="let card of summaryCards"
+            class="glass-effect rounded-2xl p-6 border border-glass/40 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+            <div class="flex items-start justify-between mb-4">
+                <div
+                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <i class="fa-solid {{ card.icon }} text-xl text-accent"></i>
+                </div>
+                <div class="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-black"
+                    [class.bg-green-500/10]="card.trend === 'up'" [class.text-green-500]="card.trend === 'up'"
+                    [class.bg-red-500/10]="card.trend === 'down'" [class.text-red-500]="card.trend === 'down'"
+                    [class.bg-gray-500/10]="card.trend === 'neutral'" [class.text-gray-500]="card.trend === 'neutral'">
+                    <i class="fa-solid" [class.fa-arrow-up]="card.trend === 'up'"
+                        [class.fa-arrow-down]="card.trend === 'down'" [class.fa-minus]="card.trend === 'neutral'"></i>
+                    {{ card.change }}
+                </div>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-secondary/60 uppercase tracking-wider mb-1">{{ card.title }}</p>
+                <p class="text-3xl font-black text-primary">{{ card.value }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="glass-effect rounded-2xl p-6 border border-glass/40 shadow-lg">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-black text-primary flex items-center gap-2">
+                <i class="fa-solid fa-chart-bar text-accent"></i>
+                Biểu Đồ Doanh Thu
+            </h3>
+            <div class="text-xs text-secondary/60 font-bold">6 tháng gần nhất</div>
+        </div>
+
+        <!-- Simple Bar Chart -->
+        <div class="flex items-end justify-between gap-3 h-64">
+            <div *ngFor="let item of chartData" class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-gradient-to-t from-accent/80 to-accent/40 rounded-t-lg transition-all duration-300 group-hover:from-accent group-hover:to-accent/60 relative"
+                    [style.height.%]="getChartBarHeight(item.value)">
+                    <div
+                        class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                        {{ item.value }}
+                    </div>
+                </div>
+                <span class="text-xs font-bold text-secondary">{{ item.month }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Table -->
+    <div class="glass-effect rounded-2xl border border-glass/40 shadow-lg overflow-hidden">
+        <div class="bg-slate-900 px-6 py-4">
+            <h3 class="text-lg font-black text-white flex items-center gap-2">
+                <i class="fa-solid fa-table text-accent"></i>
+                Chi Tiết Theo Kỳ
+            </h3>
+        </div>
+
+        <div class="overflow-auto custom-scrollbar max-h-96">
+            <table class="w-full">
+                <thead class="sticky top-0 bg-slate-900 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-black uppercase tracking-wider">Kỳ</th>
+                        <th class="px-6 py-3 text-right text-xs font-black uppercase tracking-wider">Doanh Thu</th>
+                        <th class="px-6 py-3 text-right text-xs font-black uppercase tracking-wider">Đơn Hàng</th>
+                        <th class="px-6 py-3 text-right text-xs font-black uppercase tracking-wider">Giá Trị TB</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200/50">
+                    <tr *ngFor="let row of detailedData" class="hover:bg-accent/5 transition-colors">
+                        <td class="px-6 py-3 text-sm font-bold text-primary">{{ row.period }}</td>
+                        <td class="px-6 py-3 text-sm font-bold text-primary text-right">{{ row.revenue }}</td>
+                        <td class="px-6 py-3 text-sm font-bold text-primary text-right">{{ row.orders }}</td>
+                        <td class="px-6 py-3 text-sm font-bold text-primary text-right">{{ row.avgValue }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

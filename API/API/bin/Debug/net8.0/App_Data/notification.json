@@ -3,7 +3,22 @@
     "Id": "cff72338-19b3-4d05-bed4-2197d6643783",
     "Title": "Th\u00F4ng b\u00E1o ph\u00E1t h\u00E0nh s\u1EA3n ph\u1EA9m",
     "Description": "B\u00E1o c\u00E1o online ch\u00EDnh th\u1EE9c ho\u1EA1t \u0111\u1ED9ng",
+    "UserId": null,
+    "IsRead": true,
+    "Type": null,
+    "Data": null,
     "DateCreate": "2026-01-23T07:24:23.867Z",
     "DateUpdate": "2026-01-23T07:24:23.867Z"
+  },
+  {
+    "Id": "cdf8a893-d56d-4f39-8c3c-2c9bb547d612",
+    "Title": "Th\u00F4ng b\u00E1o ngh\u1EC9 t\u1EBFt",
+    "Description": "Nh\u00E2n vi\u00EAn h\u1ED7 tr\u1EE3 s\u1EBD offline trong 10 ng\u00E0y",
+    "UserId": null,
+    "IsRead": true,
+    "Type": null,
+    "Data": null,
+    "DateCreate": "2026-01-29T03:36:15.7346806Z",
+    "DateUpdate": "2026-01-29T03:36:15.7346809Z"
   }
 ]

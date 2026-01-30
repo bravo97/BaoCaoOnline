@@ -1,9 +1,10 @@
 <div class="user-container">
-  <app-sidebar (menuSelected)="onMenuSelected($event)"></app-sidebar>
+  <app-sidebar></app-sidebar>
 
-  <div class="dashboard">
-    <app-header [title]="headerTitle"></app-header>
-
-    <app-report-viewer [report]="selectedReport"></app-report-viewer>
+  <div class="modern-dashboard">
+    <app-header *ngIf="!isReportView"></app-header>
+    <div class="view-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

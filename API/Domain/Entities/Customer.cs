@@ -21,6 +21,7 @@ namespace Domain.Entities
         public string DatabaseName { get; set; } = string.Empty;
         public string SqlLogin { get; set; } = string.Empty;
         public string SqlReport { get; set; } = string.Empty;
+        public string SqlParameter { get; set; } = string.Empty;
         public string SqlColumnQuery { get; set; } = string.Empty; // Query lấy danh sách cột báo cáo
 
         public string? Note { get; set; }

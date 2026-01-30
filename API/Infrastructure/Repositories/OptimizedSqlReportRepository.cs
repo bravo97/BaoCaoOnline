@@ -12,23 +12,27 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Infrastructure.Repositories
 {
     public class OptimizedSqlReportRepository : IReportRepository
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IDatabaseConnectionFactory _connectionFactory;
 
         // Cache connection string theo CustomerId
         private static ConcurrentDictionary<string, string> _connectionCache = new();
 
-        // Cache metadata report + columns
+        // Cache metadata report + columns + param
         private static ConcurrentDictionary<string, IEnumerable<Report>> _reportCache = new();
         private static ConcurrentDictionary<string, IEnumerable<ReportColumn>> _columnCache = new();
+        private static ConcurrentDictionary<string, IEnumerable<ReportParameter>> _paramCache = new();
 
-        public OptimizedSqlReportRepository(ICustomerRepository customerRepository)
+        public OptimizedSqlReportRepository(ICustomerRepository customerRepository, IDatabaseConnectionFactory connectionFactory)
         {
             _customerRepository = customerRepository;
+            _connectionFactory = connectionFactory;
         }
 
         private async Task<string> GetConnectionStringAsync(Customer _customer)
@@ -39,19 +43,7 @@ namespace Infrastructure.Repositories
             if (_customer == null)
                 throw new Exception($"Customer {_customer!.Id} not found");
 
-            var builder = new SqlConnectionStringBuilder
-            {
-                DataSource = _customer.ServerName,
-                InitialCatalog = _customer.DatabaseName,
-                UserID = _customer.UserName,
-                Password = _customer.Password, // có thể mã hóa trước khi lưu
-                MultipleActiveResultSets = true,
-                ConnectTimeout = 30,
-                Encrypt = false,
-                TrustServerCertificate = true
-            };
-
-            var connStr = builder.ConnectionString;
+            var connStr = _connectionFactory.CreateConnectionString(_customer);
             _connectionCache[_customer.Id] = connStr;
 
             await Task.CompletedTask;
@@ -128,12 +120,15 @@ namespace Infrastructure.Repositories
             {
                 await RetryHelper.RetryAsync(async () =>
                 {
-                    string sqlColumnQuery = _customer!.SqlColumnQuery.Replace("{Name}", _report!.Name);
+                    string sqlColumnQuery = _customer!.SqlColumnQuery;
                     using var conn = new SqlConnection(connStr);
                     using var cmd = new SqlCommand(sqlColumnQuery, conn)
                     {
                         CommandTimeout = 60
                     };
+
+                    cmd.Parameters.AddWithValue("@Name", _report!.Name);
+
                     await conn.OpenAsync(cancellationToken);
                     using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
                     while (await reader.ReadAsync(cancellationToken))
@@ -168,12 +163,12 @@ namespace Infrastructure.Repositories
             return reportColumns;
         }
 
-        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters)
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, Dictionary<string, object> parameters)
         {
             return await GetReportDataAsync(customerId, reportId, parameters, CancellationToken.None);
         }
 
-        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, Dictionary<string, object> parameters, CancellationToken cancellationToken)
         {
             var reports = await GetReportsAsync(customerId, cancellationToken);
             var report = reports.FirstOrDefault(r => r.Id == reportId);
@@ -222,6 +217,96 @@ namespace Infrastructure.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<ReportParameter>> GetParamDataAsync(string customerId, string reportId)
+        {
+            return await GetParamDataAsync(customerId, reportId, CancellationToken.None);
+        }
+
+        public async Task<IEnumerable<ReportParameter>> GetParamDataAsync(string customerId, string reportId, CancellationToken cancellationToken = default)
+        {
+            string cacheKey = $"{customerId}_{reportId}";
+            if (_paramCache.TryGetValue(cacheKey, out var cached))
+                return cached;
+
+            var reports = await GetReportsAsync(customerId, cancellationToken);
+            var report = reports.FirstOrDefault(r => r.Id == reportId);
+            if (report == null) return Enumerable.Empty<ReportParameter>();
+
+            var customer = await _customerRepository.GetByIdAsync(customerId);
+            var connStr = await GetConnectionStringAsync(customer!);
+
+            var result = new List<ReportParameter>();
+
+            using var conn = new SqlConnection(connStr);
+            await conn.OpenAsync(cancellationToken);
+
+            using var cmd = new SqlCommand(customer!.SqlParameter, conn)
+            {
+                CommandTimeout = 60
+            };
+            cmd.Parameters.AddWithValue("@Name", report.Name);
+
+            using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                var param = new ReportParameter
+                {
+                    Name = reader["Name"]?.ToString() ?? string.Empty,
+                    Param = reader["Param"]?.ToString() ?? string.Empty,
+                    ParamName = reader["ParamName"]?.ToString() ?? string.Empty,
+                    Query = new ReportParameterQuery
+                    {
+                        SqlQuery = reader["SqlQuery"]?.ToString() ?? string.Empty,
+                        ColumnValue = reader["ColumnValue"]?.ToString() ?? string.Empty,
+                        ColumnDisplay = reader["ColumnDisplay"]?.ToString() ?? string.Empty
+                    }
+                };
+
+                // 👉 Chỉ chạy SQL nếu có SqlQuery
+                if (!string.IsNullOrWhiteSpace(param.Query.SqlQuery))
+                {
+                    param.DataParameter = await LoadParameterDataAsync(
+                        conn,
+                        param.Query.SqlQuery,
+                        cancellationToken
+                    );
+                }
+
+                result.Add(param);
+            }
+
+            _paramCache[cacheKey] = result;
+            return result;
+        }
+
+        private async Task<List<Dictionary<string, object>>> LoadParameterDataAsync(SqlConnection conn, string sql, CancellationToken cancellationToken)
+        {
+            sql = sql.Replace("{manv1}", "");
+            using var cmd = new SqlCommand(sql, conn)
+            {
+                CommandTimeout = 60
+            };
+
+            using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+
+            var list = new List<Dictionary<string, object>>();
+
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                var row = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    row[reader.GetName(i)] =
+                        reader.IsDBNull(i) ? null : reader.GetValue(i);
+                }
+                list.Add(row);
+            }
+
+            return list;
+        }
+
 
         // Optional: xóa cache khi cần refresh
         public void ClearCache(string customerId)

@@ -4,13 +4,15 @@ import { map, Observable } from 'rxjs';
 import { CustomerModel } from '../models/customerModel';
 import { ApiResponse } from '../models/apiResponse';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'https://localhost:7023/api/customer';
+  private apiUrl = `${environment.apiUrl}/customer`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<CustomerModel[]> {
     return this.http.get<ApiResponse<CustomerModel[]>>(this.apiUrl).pipe(

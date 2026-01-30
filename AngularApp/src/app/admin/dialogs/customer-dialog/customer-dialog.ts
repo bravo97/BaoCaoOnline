@@ -24,7 +24,10 @@ export class CustomerDialog {
     userName: '',
     password: '',
     databaseName: '',
-    sqlReport:'',
+    sqlLogin: '',
+    sqlReport: '',
+    sqlParameter: '',
+    sqlColumnQuery: '',
     note: ''
   };
 
@@ -42,7 +45,10 @@ export class CustomerDialog {
         userName: '',
         password: '',
         databaseName: '',
-        sqlReport:'',
+        sqlLogin: '',
+        sqlReport: '',
+        sqlParameter: '',
+        sqlColumnQuery: '',
         note: ''
       };
     }

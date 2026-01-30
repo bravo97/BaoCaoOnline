@@ -1,65 +1,331 @@
-<div class="landing-container">
-  <header class="landing-header">
-    <div class="logo">📊 ReportOnline</div>
-    <nav>
-      <a href="#">Trang chủ</a>
-      <a href="#">Tính năng</a>
-      <a href="#">Giới thiệu</a>
-      <a href="#">Liên hệ</a>
-      <button class="btn-primary" (click)="goToLogin()">Đăng nhập</button>
-    </nav>
+<div
+  class="h-screen overflow-y-auto bg-[#fafafa] selection:bg-blue-600 selection:text-white font-sans text-slate-900 relative">
+  <!-- 1. Visual Texture Layer: Minimal Film Grain -->
+  <div class="fixed inset-0 pointer-events-none opacity-[0.015] z-[9999] bg-noise"></div>
+
+  <!-- 2. Dynamic Grid Layer: Pulsing Matrix -->
+  <div class="fixed inset-0 pointer-events-none -z-10 bg-grid-pulse opacity-[0.08]"></div>
+
+  <!-- 3. Ultra-Premium Background Effects -->
+  <div
+    class="fixed top-[-20%] left-[-10%] w-[70%] h-[70%] bg-blue-300/10 blur-[160px] rounded-full -z-10 animate-blob-rotate">
+  </div>
+  <div
+    class="fixed bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-cyan-300/10 blur-[160px] rounded-full -z-10 animate-blob-rotate-reverse">
+  </div>
+  <div
+    class="fixed top-[20%] left-[40%] w-[30%] h-[30%] bg-indigo-300/10 blur-[140px] rounded-full -z-10 animate-pulse-slow">
+  </div>
+
+  <!-- 4. Parallax Floating Elements (Sharpened) -->
+  <div
+    class="fixed top-1/4 right-[5%] w-12 h-12 border-2 border-blue-400/20 rounded-full animate-float -z-5 hidden lg:block">
+  </div>
+  <div class="fixed bottom-1/3 left-[8%] w-8 h-8 bg-cyan-400/20 rounded-lg animate-float-slow -z-5 hidden lg:block"
+    style="animation-delay: -2s"></div>
+  <div class="fixed top-[15%] left-[15%] w-4 h-4 bg-indigo-400/40 rounded-full animate-pulse-slow -z-5"></div>
+
+  <!-- Header: Minimalist Edition -->
+  <header class="sticky top-0 z-[100] w-full px-4 md:px-6 py-3 md:py-5">
+    <div
+      class="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-3 md:py-4 glass-effect rounded-full border border-slate-200/50 shadow-[0_20px_50px_rgba(0,0,0,0.08)] bg-white/60 backdrop-blur-3xl">
+      <div class="flex items-center gap-4 group cursor-pointer">
+        <div
+          class="w-12 h-12 bg-gradient-to-tr from-slate-950 to-blue-900 rounded-2xl flex items-center justify-center text-white shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:-rotate-12">
+          <i class="fa-solid fa-chart-pie text-xl"></i>
+        </div>
+        <div class="flex flex-col leading-none">
+          <span class="text-2xl font-black italic tracking-tighter text-slate-950">ReportOnline</span>
+          <span class="text-[8px] font-black uppercase tracking-[0.4em] text-blue-600 ml-1">Cổng thông tin Doanh
+            nghiệp</span>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <section class="hero fade-in">
-    <div class="hero-content slide-up">
-      <h1>Quản lý dữ liệu của bạn thông minh hơn</h1>
-      <p>
-        ReportOnline giúp bạn theo dõi và phân tích hiệu quả hoạt động doanh nghiệp với biểu đồ
-        trực quan, mọi lúc – mọi nơi.
+  <main>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-6 pt-12 pb-32 text-center relative">
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-16 w-px h-32 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent">
+      </div>
+
+      <div
+        class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white border border-slate-200 shadow-xl text-slate-950 text-[10px] font-black uppercase tracking-[0.2em] mb-8 relative overflow-hidden group animate-in slide-in-from-bottom-4 duration-700">
+        <div
+          class="absolute inset-0 bg-blue-50 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700">
+        </div>
+        <span class="relative z-10 flex items-center gap-2">
+          <span class="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+          Giải pháp báo cáo thông minh 2025
+        </span>
+      </div>
+
+      <h1
+        class="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter text-slate-950 mb-8 max-w-[80rem] mx-auto leading-[1.1] relative z-10 animate-in zoom-in-50 duration-1000">
+        Nền tảng báo cáo online cho <br />
+        <span class="text-blue-600 inline-block">doanh nghiệp dữ liệu.</span>
+      </h1>
+
+      <p
+        class="text-lg md:text-2xl text-slate-500 max-w-3xl mx-auto mb-12 font-medium leading-relaxed px-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+        Tổng hợp – phân tích – trực quan hóa dữ liệu từ nhiều nguồn chỉ trong vài phút, <br class="hidden md:block" />
+        không cần Excel phức tạp.
       </p>
-      <button class="btn-primary">Bắt đầu ngay</button>
-    </div>
-    <div class="hero-image fade-in">
-      <img src="https://cdn-icons-png.flaticon.com/512/4149/4149674.png" alt="Dashboard preview" />
-    </div>
-  </section>
 
-  <section class="features fade-in">
-    <h2 class="slide-up">Tính năng nổi bật</h2>
-    <div class="feature-grid">
-      <div class="feature-card slide-up" style="animation-delay: 0.1s">
-        <i class="fa-solid fa-chart-line"></i>
-        <h3>Báo cáo trực quan</h3>
-        <p>
-          Biểu đồ sắc nét, dễ hiểu giúp bạn nắm bắt số liệu chỉ trong vài giây.
-        </p>
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20 md:mb-32 relative z-20 px-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500">
+        <button (click)="goToLogin()"
+          class="group relative btn-energy text-white px-10 py-5 rounded-full font-bold text-lg shadow-3xl transition-all active:scale-95 flex items-center justify-center gap-3 overflow-hidden shimmer hover:scale-105 min-w-[200px]">
+          <span class="relative z-10">Dùng thử miễn phí</span>
+          <i class="fa-solid fa-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+        <button
+          class="group px-10 py-5 rounded-full font-bold text-lg text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all flex items-center justify-center gap-3 min-w-[200px]">
+          <i class="fa-solid fa-play text-blue-600 text-sm"></i>
+          <span>Xem báo cáo mẫu</span>
+        </button>
       </div>
-      <div class="feature-card slide-up" style="animation-delay: 0.2s">
-        <i class="fa-solid fa-cloud"></i>
-        <h3>Lưu trữ đám mây</h3>
-        <p>
-          Truy cập dữ liệu an toàn mọi lúc, không cần cài đặt phức tạp.
-        </p>
+
+      <!-- High-End Dashboard Showcase -->
+      <div
+        class="relative group max-w-[80rem] mx-auto perspective-1000 animate-in fade-in zoom-in-90 duration-1000 delay-700">
+
+        <!-- Dashboard Image Container -->
+        <div
+          class="relative bg-white p-2 rounded-[24px] md:rounded-[32px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] border-4 border-white ring-1 ring-slate-200 overflow-hidden group/beam">
+          <div
+            class="absolute inset-0 border-[4px] border-transparent rounded-[32px] pointer-events-none before:absolute before:inset-[-4px] before:rounded-[32px] before:border-[4px] before:border-transparent before:bg-gradient-to-r before:from-blue-600/20 before:via-cyan-400/20 before:to-indigo-600/20 before:bg-[length:200%_auto] before:animate-border-beam">
+          </div>
+
+          <div class="bg-white rounded-[20px] md:rounded-[28px] overflow-hidden aspect-video relative shadow-inner">
+            <img src="/assets/dashboard-ui.png" alt="Dashboard Hub"
+              class="w-full h-full object-cover opacity-100 transition-transform duration-[4s]" />
+
+            <!-- Overlay Captions -->
+            <div
+              class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm border border-slate-200 px-4 py-2 rounded-xl shadow-lg flex items-center gap-3 animate-in slide-in-from-right-8 delay-1000 duration-700">
+              <span class="relative flex h-3 w-3">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+              <div class="flex flex-col text-left leading-none">
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Trạng thái</span>
+                <span class="text-sm font-bold text-slate-900">Cập nhật Real-time</span>
+              </div>
+            </div>
+
+            <div
+              class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm border border-slate-200 px-4 py-2 rounded-xl shadow-lg flex items-center gap-3 animate-in slide-in-from-left-8 delay-1000 duration-700">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                <i class="fa-solid fa-bolt text-sm"></i>
+              </div>
+              <div class="flex flex-col text-left leading-none">
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Độ trễ</span>
+                <span class="text-sm font-bold text-slate-900">&lt; 1 giây</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="feature-card slide-up" style="animation-delay: 0.3s">
-        <i class="fa-solid fa-user-shield"></i>
-        <h3>Bảo mật tối đa</h3>
-        <p>
-          Áp dụng tiêu chuẩn bảo mật cao, đảm bảo an toàn tuyệt đối cho thông tin của bạn.
-        </p>
+    </section>
+
+    <!-- Social Proof Section [NEW] -->
+    <section class="max-w-7xl mx-auto px-6 py-12 border-b border-slate-100">
+      <div class="text-center mb-8">
+        <p class="text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px]">Được tin dùng bởi các doanh nghiệp
+          hàng đầu</p>
       </div>
+      <div
+        class="flex flex-wrap items-center justify-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+        <i class="fa-brands fa-aws text-4xl hover:text-[#FF9900] transition-colors"></i>
+        <i class="fa-brands fa-google text-3xl hover:text-[#4285F4] transition-colors"></i>
+        <i class="fa-brands fa-microsoft text-3xl hover:text-[#00A4EF] transition-colors"></i>
+        <i class="fa-brands fa-spotify text-4xl hover:text-[#1DB954] transition-colors"></i>
+        <i class="fa-brands fa-stripe text-4xl hover:text-[#635BFF] transition-colors"></i>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
+        <div>
+          <p class="text-4xl font-black text-slate-900 mb-2">10.000+</p>
+          <p class="text-slate-500 text-sm">Báo cáo được tạo mỗi tháng</p>
+        </div>
+        <div>
+          <p class="text-4xl font-black text-slate-900 mb-2">99.9%</p>
+          <p class="text-slate-500 text-sm">Uptime cam kết</p>
+        </div>
+        <div>
+          <p class="text-4xl font-black text-slate-900 mb-2">&lt; 1s</p>
+          <p class="text-slate-500 text-sm">Độ trễ xử lý dữ liệu</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section (Benefit-Focused) -->
+    <section class="max-w-7xl mx-auto px-6 py-32 relative">
+      <div class="text-center mb-20 animate-on-scroll">
+        <span class="text-blue-600 font-black tracking-[0.5em] uppercase text-xs mb-6 block animate-pulse">Công nghệ cốt
+          lõi</span>
+        <h2 class="text-5xl md:text-7xl font-black text-slate-950 tracking-tighter">Sắc nét từng chi tiết.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <!-- Feature 1 -->
+        <div
+          class="group p-10 rounded-[40px] border border-slate-200 bg-white hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:bg-blue-50/20">
+          <div
+            class="w-16 h-16 bg-blue-100/50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-brain text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-black text-slate-950 mb-4">Phát hiện xu hướng tự động</h3>
+          <p class="text-slate-600 font-medium leading-relaxed mb-4">Hệ thống tự động phân tích và cảnh báo bất thường
+            trong dữ liệu kinh doanh của bạn theo thời gian thực.</p>
+          <div
+            class="flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-full w-fit">
+            <i class="fa-solid fa-code"></i> AI Engine Core
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div
+          class="group p-10 rounded-[40px] border border-slate-200 bg-white hover:border-cyan-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:bg-cyan-50/20">
+          <div
+            class="w-16 h-16 bg-cyan-100/50 text-cyan-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-share-nodes text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-black text-slate-950 mb-4">Kết nối đa nguồn dữ liệu</h3>
+          <p class="text-slate-600 font-medium leading-relaxed mb-4">Dễ dàng tích hợp dữ liệu từ SQL, API, Excel file
+            hoặc thiết bị IoT vào một Dashboard duy nhất.</p>
+          <div
+            class="flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-full w-fit">
+            <i class="fa-solid fa-layer-group"></i> Multi-Architecture
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div
+          class="group p-10 rounded-[40px] border border-slate-200 bg-white hover:border-indigo-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:bg-indigo-50/20">
+          <div
+            class="w-16 h-16 bg-indigo-100/50 text-indigo-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-lock text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-black text-slate-950 mb-4">Bảo mật chuẩn doanh nghiệp</h3>
+          <p class="text-slate-600 font-medium leading-relaxed mb-4">An tâm tuyệt đối với cơ chế mã hóa dữ liệu AES-256
+            và phân quyền truy cập chi tiết đến từng dòng.</p>
+          <div
+            class="flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-full w-fit">
+            <i class="fa-solid fa-shield-halved"></i> Zero Trust Security
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section [NEW] -->
+    <section class="max-w-7xl mx-auto px-6 py-20 bg-slate-50/50 rounded-[60px] my-20">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Phù hợp cho mọi vai trò</h2>
+        <p class="text-slate-500 text-xl max-w-2xl mx-auto">Tối ưu hóa quy trình làm việc cho từng thành viên trong tổ
+          chức.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Role 1 -->
+        <div
+          class="bg-white p-8 rounded-3xl border border-slate-100 hover:border-blue-300 transition-all hover:shadow-lg">
+          <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h4 class="text-lg font-black text-slate-900 mb-2">CEO / Manager</h4>
+          <p class="text-slate-500 text-sm mb-4">Cần cái nhìn tổng quan về sức khỏe doanh nghiệp.</p>
+          <div class="text-blue-600 text-sm font-bold flex items-center gap-2">
+            <i class="fa-solid fa-check"></i> Xem KPI Realtime
+          </div>
+        </div>
+
+        <!-- Role 2 -->
+        <div
+          class="bg-white p-8 rounded-3xl border border-slate-100 hover:border-cyan-300 transition-all hover:shadow-lg">
+          <div class="w-12 h-12 bg-cyan-600 rounded-xl flex items-center justify-center text-white mb-6">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h4 class="text-lg font-black text-slate-900 mb-2">Data Analyst</h4>
+          <p class="text-slate-500 text-sm mb-4">Cần công cụ mạnh mẽ để xử lý dữ liệu thô.</p>
+          <div class="text-cyan-600 text-sm font-bold flex items-center gap-2">
+            <i class="fa-solid fa-check"></i> Phân tích sâu
+          </div>
+        </div>
+
+        <!-- Role 3 -->
+        <div
+          class="bg-white p-8 rounded-3xl border border-slate-100 hover:border-indigo-300 transition-all hover:shadow-lg">
+          <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white mb-6">
+            <i class="fa-solid fa-industry"></i>
+          </div>
+          <h4 class="text-lg font-black text-slate-900 mb-2">Vận hành (Ops)</h4>
+          <p class="text-slate-500 text-sm mb-4">Cần theo dõi sát sao hoạt động sản xuất/kho.</p>
+          <div class="text-indigo-600 text-sm font-bold flex items-center gap-2">
+            <i class="fa-solid fa-check"></i> Giám sát 24/7
+          </div>
+        </div>
+
+        <!-- Role 4 -->
+        <div
+          class="bg-white p-8 rounded-3xl border border-slate-100 hover:border-emerald-300 transition-all hover:shadow-lg">
+          <div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white mb-6">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <h4 class="text-lg font-black text-slate-900 mb-2">Tài chính</h4>
+          <p class="text-slate-500 text-sm mb-4">Cần số liệu chính xác để báo cáo dòng tiền.</p>
+          <div class="text-emerald-600 text-sm font-bold flex items-center gap-2">
+            <i class="fa-solid fa-check"></i> Báo cáo nhanh
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA (Conversion Focused) -->
+    <section class="max-w-7xl mx-auto px-6 py-20 mb-20">
+      <div
+        class="bg-gradient-to-br from-slate-900 to-blue-950 rounded-[64px] p-16 md:p-32 text-center relative overflow-hidden group shadow-[0_50px_100px_-20px_rgba(30,58,138,0.5)] transition-all hover:scale-[1.01] duration-700">
+        <div class="absolute inset-0 bg-grid-white opacity-[0.05]"></div>
+        <div
+          class="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-blue-500/30 blur-[150px] rounded-full animate-blob-rotate">
+        </div>
+        <div
+          class="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-cyan-500/30 blur-[150px] rounded-full animate-blob-rotate-reverse">
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto">
+          <h2 class="text-5xl md:text-7xl font-black text-white mb-12 tracking-tight leading-tight">
+            Bắt đầu xây dựng báo cáo <br />
+            <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">thông minh ngay hôm
+              nay.</span>
+          </h2>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <button (click)="goToLogin()"
+              class="w-full sm:w-auto bg-white hover:bg-blue-50 text-blue-900 px-12 py-6 rounded-full font-black text-2xl transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.3)] shimmer btn-glow min-w-[300px]">
+              Dùng thử miễn phí 14 ngày
+            </button>
+            <button (click)="goToLogin()"
+              class="w-full sm:w-auto px-12 py-6 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 transition-all min-w-[250px]">
+              Liên hệ tư vấn
+            </button>
+          </div>
+          <p class="text-slate-400 mt-8 text-sm font-medium">✨ Không cần thẻ tín dụng · Setup trong 5 phút</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer
+    class="max-w-7xl mx-auto px-12 py-24 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-12 text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px]">
+    <div>© 2025 ReportOnline Enterprise.</div>
+    <div class="flex gap-16">
+      <a href="#" class="hover:text-blue-600 transition-all hover:-translate-y-1">Twitter</a>
+      <a href="#" class="hover:text-blue-600 transition-all hover:-translate-y-1">LinkedIn</a>
+      <a href="#" class="hover:text-blue-600 transition-all hover:-translate-y-1">Behance</a>
     </div>
-  </section>
-
-  <section class="cta fade-in">
-    <h2>Trải nghiệm công cụ báo cáo thế hệ mới</h2>
-    <p>
-      Tăng tốc ra quyết định với dữ liệu chính xác, cập nhật theo thời gian thực.
-    </p>
-    <button class="btn-primary large">Dùng thử miễn phí</button>
-  </section>
-
-  <footer class="landing-footer fade-in">
-    <p>© 2025 ReportOnline. All rights reserved.</p>
   </footer>
 </div>

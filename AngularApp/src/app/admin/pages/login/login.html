@@ -1,38 +1,39 @@
 <div class="admin-login-page">
+  <!-- Dynamic Background Glows -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
   <div class="login-container">
     <div class="login-header">
-      <i class="fa fa-shield-alt logo"></i>
-      <h2>Đăng nhập Quản trị viên</h2>
-      <p>Vui lòng nhập thông tin tài khoản để tiếp tục</p>
+      <div class="logo-wrapper">
+        <i class="fa fa-shield-alt logo"></i>
+      </div>
+      <h2>QUẢN TRỊ VIÊN</h2>
+      <p>Vui lòng xác thực tài khoản để tiếp tục</p>
     </div>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
       <div class="form-group">
-        <label for="username">Tên đăng nhập</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          [(ngModel)]="loginModel.username"
-          required
-          placeholder="Nhập tên đăng nhập"
-        />
+        <label for="username">Tên người dùng</label>
+        <div class="input-wrapper">
+          <i class="fa fa-user input-icon"></i>
+          <input type="text" id="username" name="username" [(ngModel)]="loginModel.username" required
+            placeholder="Nhập username" />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Mật khẩu</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="loginModel.password"
-          required
-          placeholder="Nhập mật khẩu"
-        />
+        <div class="input-wrapper">
+          <i class="fa fa-lock input-icon"></i>
+          <input type="password" id="password" name="password" [(ngModel)]="loginModel.password" required
+            placeholder="Nhập password" />
+        </div>
       </div>
 
       <button type="submit" [disabled]="!loginForm.valid" class="login-btn">
-        <i class="fa fa-sign-in-alt"></i> Đăng nhập
+        <i class="fa fa-sign-in-alt"></i> Xác nhận Đăng nhập
       </button>
     </form>
   </div>

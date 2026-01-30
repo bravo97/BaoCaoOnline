@@ -7,7 +7,7 @@ using API.DTO;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotificationController : ControllerBase
@@ -19,11 +19,41 @@ namespace API.Controllers
             _notificationService = notificationService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            // Admin only - unfiltered
             var items = await _notificationService.GetAllAsync();
             return Ok(ApiResponse<object>.Ok(items, "Lấy danh sách thông báo thành công"));
+        }
+
+        [HttpGet("my-notifications")]
+        public async Task<IActionResult> GetMyNotifications([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId)) return Unauthorized(ApiResponse<object>.Fail("Không xác định được người dùng"));
+
+            var items = await _notificationService.GetByUserIdAsync(userId, page, pageSize);
+            return Ok(ApiResponse<object>.Ok(items, "Danh sách thông báo"));
+        }
+
+        [HttpGet("unread-count")]
+        public async Task<IActionResult> GetUnreadCount()
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId)) return Unauthorized(ApiResponse<object>.Fail("Không xác định được người dùng"));
+
+            var count = await _notificationService.GetUnreadCountAsync(userId);
+            return Ok(ApiResponse<object>.Ok(new { count }, "Số lượng chưa đọc"));
+        }
+
+        [HttpPut("{id}/read")]
+        public async Task<IActionResult> MarkAsRead(string id)
+        {
+            var ok = await _notificationService.MarkAsReadAsync(id);
+            if (!ok) return NotFound(ApiResponse<object>.Fail("Không tìm thấy thông báo"));
+            return Ok(ApiResponse<object>.Ok(null, "Đã đọc"));
         }
 
         [HttpGet("{id}")]
@@ -35,6 +65,7 @@ namespace API.Controllers
             return Ok(ApiResponse<object>.Ok(item, "Lấy thông tin thông báo thành công"));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] NotificationDto dto)
         {
@@ -53,6 +84,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, ApiResponse<object>.Ok(created, "Tạo thông báo thành công"));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] NotificationDto dto)
         {
@@ -72,6 +104,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

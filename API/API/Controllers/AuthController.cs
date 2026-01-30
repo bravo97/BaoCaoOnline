@@ -50,6 +50,7 @@ namespace API.Controllers
             {
                 TokenHash = refreshHash,
                 UserId = user.Id,
+                UserType = "User",
                 CreatedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddDays(7),
                 Revoked = false
@@ -78,6 +79,7 @@ namespace API.Controllers
             {
                 TokenHash = newHash,
                 UserId = existing.UserId,
+                UserType = existing.UserType,
                 CreatedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddDays(7),
                 Revoked = false,
@@ -88,13 +90,32 @@ namespace API.Controllers
             await _refreshTokenRepository.UpdateAsync(existing);
             await _refreshTokenRepository.AddAsync(newToken);
 
-            // issue new access token for user
-            // find user
-            var user = await _userService.GetByIdAsync(existing.UserId);
-            if (user == null) return Unauthorized("User not found");
+            // issue new access token
+            string accessToken = null;
+            
+            if (existing.UserType == "User")
+            {
+                 var user = await _userService.GetByIdAsync(existing.UserId);
+                 if (user != null) accessToken = _jwtTokenService.GenerateToken(user);
+            }
+            else if (existing.UserType == "Account")
+            {
+                 var account = await _userService.GetAccountByIdAsync(existing.UserId);
+                 if (account != null) accessToken = _jwtTokenService.GenerateToken(account);
+            }
+            // Fallback for old tokens without UserType (default "User") -> handled by default logic if needed, or assume migration handled. 
+            // Since we defaulted to "User" in class definition, old JSONs might load as "User".
+            // If it was Account but loaded as User, GetByIdAsync(user) fails -> unauthorized.
+            // This forces re-login for old sessions if types mismatch, which is acceptable fix.
 
-            var accessToken = _jwtTokenService.GenerateToken(user);
-            return Ok(new { accessToken, refreshToken = newPlain });
+            if (accessToken == null) return Unauthorized("User not found");
+            
+            // Return 'token' to be compatible with User Frontend, or 'accessToken' for Admin. 
+            // Using 'token' alias for 'accessToken' in the response might be safest or frontend handles both.
+            // Standardizing on 'token' field for the anonymous object to match LoginAccount? 
+            // Actually Login returns 'accessToken'. LoginUser returns 'token'.
+            // Let's return both or standard. Let's keep accessToken as per original Refresh, but ensure Frontend handles it.
+            return Ok(new { accessToken, token = accessToken, refreshToken = newPlain });
         }
 
         [HttpPost("logout")]
@@ -126,7 +147,23 @@ namespace API.Controllers
             if (user == null) return Unauthorized("Invalid credentials");
 
             var token = _jwtTokenService.GenerateToken(user);
-            return Ok(new { token });
+
+            var refreshTokenPlain = _jwtTokenService.GenerateRefreshTokenValue();
+            var refreshHash = _jwtTokenService.ComputeRefreshTokenHash(refreshTokenPlain);
+
+            var refreshToken = new RefreshToken
+            {
+                TokenHash = refreshHash,
+                UserId = user.Id,
+                UserType = "Account",
+                CreatedAt = DateTime.UtcNow,
+                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                Revoked = false
+            };
+
+            await _refreshTokenRepository.AddAsync(refreshToken);
+
+            return Ok(new { token, refreshToken = refreshTokenPlain });
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Application.Services
             return await _reportRepository.GetReportsAsync(customerId);
         }
 
-        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, ReportParameters parameters)
+        public async Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, Dictionary<string, object> parameters)
         {
             return await _reportRepository.GetReportDataAsync(customerId, reportId, parameters);
         }
@@ -31,6 +31,11 @@ namespace Application.Services
         public async Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId)
         {
             return await _reportRepository.GetReportColumnsAsync(customerId, reportId);
+        }
+
+        public async Task<IEnumerable<ReportParameter>> GetParamDataAsync(string customerId, string reportId)
+        {
+            return await _reportRepository.GetParamDataAsync(customerId, reportId);
         }
 
         public void ClearCache(string customerId)

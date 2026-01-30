@@ -52,13 +52,28 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("data/{reportId}")]
-        public async Task<ActionResult<object>> GetReportData(string reportId, [FromQuery] ReportParameters parameters)
+        [HttpPost("data/{reportId}")]
+        public async Task<ActionResult<object>> GetReportData(string reportId, [FromBody] Dictionary<string, object> parameters)
         {
             try
             {
                 var customerId = User.Identity?.Name;
                 var data = await _reportService.GetReportDataAsync(customerId!, reportId, parameters);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("param/{reportId}")]
+        public async Task<ActionResult<object>> GetLookupData(string reportId)
+        {
+            try
+            {
+                var customerId = User.Identity?.Name;
+                var data = await _reportService.GetParamDataAsync(customerId!, reportId);
                 return Ok(data);
             }
             catch (Exception ex)

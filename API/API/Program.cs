@@ -1,8 +1,10 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Repositories;
+using Infrastructure.Factories;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -43,6 +45,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // ===========================
+// 2.5. Data Protection (Persist Keys)
+// ===========================
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "keys")))
+    .SetApplicationName("BaoCaoOnlineAPI");
+
+// ===========================
 // 3. Đăng ký Application services
 // ===========================
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
@@ -53,6 +62,10 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // File-based repositories are stateful -> keep as singleton but ensure thread-safety
 builder.Services.AddSingleton<IUserRepository, FileUserRepository>();
 builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
+
+// Factories
+builder.Services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>(); // using Infrastructure.Factories;
+
 // Account repository depends on ILogger
 builder.Services.AddScoped<IAccountRepository, FileAccountRepository>();
 builder.Services.AddScoped<IReportRepository, OptimizedSqlReportRepository>();
@@ -65,6 +78,7 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<FeedbackService>();
 
 // ===========================
 // 5. Add Controllers & Swagger

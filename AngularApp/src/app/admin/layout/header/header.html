@@ -1,5 +1,9 @@
-<header>
-  <h2>{{ title }}</h2>
+<header class="flex items-center gap-4">
+  <button class="md:hidden text-2xl text-primary p-2 hover:bg-secondary/30 rounded-xl transition-all"
+    (click)="toggleMenu.emit()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <h2 class="flex-1">{{ title }}</h2>
 
   <div class="header-actions">
     <!-- Nút toggle mode -->

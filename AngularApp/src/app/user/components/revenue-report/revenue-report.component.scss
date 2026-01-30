@@ -1,0 +1,42 @@
+.revenue-report-container {
+    position: relative;
+}
+
+// Custom scrollbar
+.custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(30, 41, 59, 0.3);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(56, 189, 248, 0.3);
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(56, 189, 248, 0.5);
+        }
+    }
+}
+
+// Animation
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: fade-in 0.5s ease-out;
+}

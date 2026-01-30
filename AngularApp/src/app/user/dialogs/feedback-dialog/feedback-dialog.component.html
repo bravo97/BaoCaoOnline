@@ -1,0 +1,44 @@
+<div class="fixed inset-0 z-[2000] flex items-center justify-center p-4 animate-in fade-in duration-300"
+    *ngIf="visible">
+    <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" (click)="closeDialog()"></div>
+
+    <div class="glass-effect rounded-2xl p-6 w-full max-w-lg relative z-10 shadow-2xl border border-white/10 my-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-message text-accent"></i>
+                Góp ý / Báo lỗi
+            </h3>
+            <button (click)="closeDialog()"
+                class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/70 hover:bg-red-500/80 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="space-y-4">
+            <div class="group">
+                <label class="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2">Tiêu đề</label>
+                <input [(ngModel)]="subject" placeholder="Bạn muốn góp ý về vấn đề gì..."
+                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-all">
+            </div>
+
+            <div class="group">
+                <label class="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2">Nội dung chi
+                    tiết</label>
+                <textarea [(ngModel)]="message" rows="5" placeholder="Mô tả chi tiết ý kiến hoặc lỗi bạn gặp phải..."
+                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-all resize-none"></textarea>
+            </div>
+
+            <div class="pt-4 flex gap-3">
+                <button (click)="closeDialog()"
+                    class="flex-1 py-3 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-xl transition-all">
+                    Hủy bỏ
+                </button>
+                <button (click)="submit()" [disabled]="isSubmitting"
+                    class="flex-1 py-3 bg-accent hover:bg-accent-hover text-white font-bold rounded-xl shadow-lg shadow-accent/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <i *ngIf="isSubmitting" class="fa-solid fa-circle-notch fa-spin"></i>
+                    <span *ngIf="!isSubmitting">Gửi phản hồi</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

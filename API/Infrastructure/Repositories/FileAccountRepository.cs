@@ -19,15 +19,17 @@ namespace Infrastructure.Repositories
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ILogger<FileAccountRepository> _logger;
+        private readonly IDatabaseConnectionFactory _connectionFactory;
         private static ConcurrentBag<Account> _accounts = new();
         // Cache connection string theo CustomerId
         private static ConcurrentDictionary<string, string> _connectionCache = new();
         private static ConcurrentDictionary<string, IEnumerable<Report>> _accountCache = new();
 
-        public FileAccountRepository(ICustomerRepository fileCustomerRepository, ILogger<FileAccountRepository> logger)
+        public FileAccountRepository(ICustomerRepository fileCustomerRepository, ILogger<FileAccountRepository> logger, IDatabaseConnectionFactory connectionFactory)
         {
             _customerRepository = fileCustomerRepository;
             _logger = logger;
+            _connectionFactory = connectionFactory;
         }
 
         private Task<string> GetConnectionStringAsync(Customer customer)
@@ -38,19 +40,7 @@ namespace Infrastructure.Repositories
             if (_connectionCache.TryGetValue(customer.Id, out var cachedConn))
                 return Task.FromResult(cachedConn);
 
-            var builder = new SqlConnectionStringBuilder
-            {
-                DataSource = customer.ServerName,
-                InitialCatalog = customer.DatabaseName,
-                UserID = customer.UserName,
-                Password = customer.Password, // consider encrypting/securing this in production
-                MultipleActiveResultSets = true,
-                ConnectTimeout = 30,
-                Encrypt = false,
-                TrustServerCertificate = true
-            };
-
-            var connStr = builder.ConnectionString;
+            var connStr = _connectionFactory.CreateConnectionString(customer);
             _connectionCache[customer.Id] = connStr;
 
             return Task.FromResult(connStr);
@@ -116,6 +106,12 @@ namespace Infrastructure.Repositories
                 _logger.LogError(ex, "Login error for customer {CustomerId}: {Message}", customerId, ex.Message);
                 throw;
             }
+        }
+        
+        public Task<Account?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        {
+            var account = _accounts.FirstOrDefault(x => x.Id == id);
+            return Task.FromResult(account);
         }
     }
 }

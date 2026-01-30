@@ -14,25 +14,48 @@ import { Router, RouterModule } from '@angular/router';
 export class Sidebar {
   @Output() menuSelected = new EventEmitter<string>();
   sidebarCollapsed = false;
+  profileMenuOpen = false;
+  isDarkMode = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    const saved = localStorage.getItem('theme') || 'dark';
+    this.isDarkMode = saved === 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  }
 
   menuItems = [
-    { label: 'Tổng quan', icon: 'fa-solid fa-gauge-high', route:'/admin'},
-    { label: 'Khách hàng', icon: 'fa-solid fa-users', route:'/admin/customers' },
-    { label: 'Tài khoản', icon: 'fa-solid fa-chart-line', route:'/admin/accounts' },
-    { label: 'Góp ý & Phản ánh', icon: 'fa-solid fa-envelope', route:'/admin/feedbacks' },
-    { label: 'Quản lý cảnh báo', icon: 'fa-solid fa-tasks', route:'/admin/notifications' },
-    { label: 'Thiết lập hệ thống', icon: 'fa-solid fa-gear', route:'/admin/settings' }
+    { label: 'Tổng quan', icon: 'fa-solid fa-gauge-high', route: '/admin' },
+    { label: 'Khách hàng', icon: 'fa-solid fa-users', route: '/admin/customers' },
+    { label: 'Tài khoản', icon: 'fa-solid fa-chart-line', route: '/admin/accounts' },
+    { label: 'Góp ý & Phản ánh', icon: 'fa-solid fa-envelope', route: '/admin/feedbacks' },
+    { label: 'Quản lý cảnh báo', icon: 'fa-solid fa-tasks', route: '/admin/notifications' },
+    { label: 'Thiết lập hệ thống', icon: 'fa-solid fa-gear', route: '/admin/settings' }
   ];
 
-  // Highlight menu theo URL hiện tại
   get activeMenu() {
     return this.menuItems.find(item => item.route === this.router.url)?.label;
   }
 
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  }
+
+  toggleProfileMenu() {
+    this.profileMenuOpen = !this.profileMenuOpen;
+  }
+
+  logout() {
+    this.router.navigate(['admin/login']);
+  }
+
+  changePassword() {
+    console.log('Đổi mật khẩu');
   }
 
   selectMenu(item: any) {

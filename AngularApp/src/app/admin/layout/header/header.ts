@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './header.html',
   styleUrls: [
     '../../admin.scss',
     './header.scss'],
 })
-export class Header implements OnInit{
+export class Header implements OnInit {
   @Input() title: string = 'Tổng quan';
+  @Output() toggleMenu = new EventEmitter<void>();
   profileMenuOpen = false;
   isDarkMode = true; // mặc định dark
 

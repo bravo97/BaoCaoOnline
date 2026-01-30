@@ -18,6 +18,13 @@ namespace WebAPI.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var path = context.Request.Path.Value?.ToLower();
+            if (path != null && (path.Contains("/refresh") || path.Contains("/refresh-token")))
+            {
+                await _next(context);
+                return;
+            }
+
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             if (token != null)
             {

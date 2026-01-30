@@ -1,0 +1,85 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.min-height-0 {
+    min-height: 0;
+}
+
+// Glassmorphism Input Style
+.input-glass {
+    background-color: var(--bg-secondary) !important; // Fallback or base
+    background: rgba(255, 255, 255, 0.5); // Light mode glass
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 0.5rem; // rounded-lg
+    padding: 0.35rem 0.75rem; // px-3 py-1.5
+    font-size: 0.75rem; // text-xs
+    font-weight: 600; // font-bold
+    outline: none;
+    transition: all 0.2s ease-in-out;
+
+    &:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.1); // Using accent with opacity
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    &::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.5;
+    }
+}
+
+// Dark Mode Overrides for Input Glass
+:host-context(.dark) .input-glass {
+    background: rgba(15, 23, 42, 0.4); // Dark mode glass
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:focus {
+        background: rgba(15, 23, 42, 0.6);
+        border-color: var(--accent);
+    }
+}
+
+// Force high contrast for table content
+:host ::ng-deep {
+    table {
+        thead th {
+            color: var(--text-secondary) !important;
+            background-color: var(--bg-secondary);
+            border-bottom-color: var(--border-color);
+        }
+
+        tbody td {
+            color: var(--text-primary) !important;
+            border-bottom-color: var(--border-color);
+        }
+
+        tbody tr:hover td {
+            background-color: var(--sidebar-hover);
+        }
+    }
+}
+
+.custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(100, 116, 139, 0.2);
+        border-radius: 20px;
+
+        &:hover {
+            background: rgba(100, 116, 139, 0.4);
+        }
+    }
+}

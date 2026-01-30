@@ -1,31 +1,70 @@
-/* ================== ADMIN CONTAINER ================== */
 .admin-container {
-  display: grid;
-  grid-template-columns: auto 1fr; // sidebar + dashboard
+  display: flex;
   height: 100vh;
-  background: var(--bg-primary);;
+  background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: "Segoe UI", sans-serif;
   overflow: hidden;
+  position: relative;
 
-  
-  /* ================== DASHBOARD ================== */
-  .dashboard {
+  /* ================== MODERN DASHBOARD ================== */
+  .modern-dashboard {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 1rem 1.5rem;
+    height: 100vh;
+    padding: 2rem;
     box-sizing: border-box;
     overflow: hidden;
+    background: radial-gradient(circle at top right, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    transition: all 0.5s ease;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+      padding-top: 5rem;
+      width: 100vw;
+      flex: none;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 10px;
     }
   }
-    
+}
+
+/* Base style for content sections */
+.content-wrapper {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* ================== RESPONSIVE TABLET / MOBILE ================== */
 /* CONTENT RESPONSIVE */
 @media (max-width: 1024px) {
   .dashboard .content {
-    grid-template-columns: 1fr; /* stack dọc */
+    grid-template-columns: 1fr;
+    /* stack dọc */
     grid-template-rows: auto;
     gap: 1rem;
 
@@ -63,6 +102,15 @@
     canvas {
       max-height: 200px !important;
       min-width: 100% !important;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .admin-container {
+    .modern-dashboard {
+      padding: 1rem;
     }
   }
 }

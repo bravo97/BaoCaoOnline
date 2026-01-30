@@ -1,37 +1,54 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { LayoutService } from '../../../shared/services/layout.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
-  @Input() title: string='';
+export class Header implements OnInit {
+  title: string = 'Báo Cáo';
   profileMenuOpen = false;
-  isDarkMode = false; // mặc định dark
-  constructor(private router: Router){}
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public layoutService: LayoutService
+  ) { }
+
   ngOnInit() {
-    const saved = localStorage.getItem('theme') || 'dark';
-    this.isDarkMode = saved === 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
+    // Listen to route changes to update title
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateTitle();
+    });
+
+    this.updateTitle();
   }
 
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  updateTitle() {
+    // Get title from route data or default
+    const reportId = localStorage.getItem('selectedReport');
+    if (reportId) {
+      try {
+        const report = JSON.parse(reportId);
+        this.title = report.fullName || 'Báo Cáo';
+      } catch {
+        this.title = 'Báo Cáo';
+      }
+    } else {
+      this.title = 'Báo Cáo';
+    }
   }
 
   toggleProfileMenu() {
     this.profileMenuOpen = !this.profileMenuOpen;
-  }
-
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['login']);
   }
 
   changePassword() {

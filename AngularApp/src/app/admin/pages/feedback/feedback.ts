@@ -1,69 +1,116 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Sidebar } from "../../layout/sidebar/sidebar";
 import { Header } from "../../layout/header/header";
-import { FeedbackModel, MessageModel } from '../../models/feedbackModel';
+import { FeedbackModel, MessageModel, Feedback } from '../../models/feedbackModel';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
+import { AdminFeedbackService } from '../../services/admin-feedback.service';
+import { ToastrNotification } from '../../../shared/services/toastr-service';
 
 @Component({
   selector: 'app-feedback',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './feedback.html',
   styleUrl: './feedback.scss'
 })
-export class Feedback {
+export class FeedbackComponent {
   selectedCustomer?: FeedbackModel;
   replyText: string = '';
-  feedbacks: FeedbackModel[] = [
-    {
-      customerId: 'C001',
-      customerName: 'Nguyễn Văn A',
-      status: 'Pending',
-      lastMessage: 'App bị treo khi đăng nhập.',
-      messages: [
-        { from: 'customer', content: 'App bị treo khi đăng nhập.', time: '2025-11-06 10:02' }
-      ]
-    },
-    {
-      customerId: 'C002',
-      customerName: 'Trần Thị B',
-      status: 'Resolved',
-      lastMessage: 'Cảm ơn bạn, tôi đã khắc phục được rồi.',
-      messages: [
-        { from: 'customer', content: 'Không cập nhật được thông tin cá nhân.', time: '2025-11-06 09:00' },
-        { from: 'admin', content: 'Chị vui lòng thử đăng xuất rồi đăng nhập lại nhé.', time: '2025-11-06 09:10' },
-        { from: 'customer', content: 'Cảm ơn bạn, tôi đã khắc phục được rồi.', time: '2025-11-06 09:30' }
-      ]
-    },
-    {
-      customerId: 'C003',
-      customerName: 'Lê Văn C',
-      status: 'Pending',
-      lastMessage: 'Tôi muốn góp ý về giao diện mới.',
-      messages: [
-        { from: 'customer', content: 'Tôi muốn góp ý về giao diện mới.', time: '2025-11-06 08:45' }
-      ]
-    }
-  ];
+  searchText: string = '';
+  feedbacks: FeedbackModel[] = [];
+  rawFeedbacks: Feedback[] = [];
+  isLoading = false;
 
-  
+  constructor(private service: AdminFeedbackService, private toastr: ToastrNotification) { }
+
+  ngOnInit() {
+    this.loadFeedbacks();
+  }
+
+  loadFeedbacks() {
+    this.isLoading = true;
+    this.service.getAll().subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.rawFeedbacks = res.data;
+          this.feedbacks = this.rawFeedbacks.map(f => this.mapToViewModel(f));
+          // Reselect if exists
+          if (this.selectedCustomer) {
+            const updated = this.feedbacks.find(f => f.customerId === this.selectedCustomer?.customerId); // Using ID as CustomerID placeholder for now or mapping correctly
+            if (updated) this.selectedCustomer = updated;
+          }
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastr.error('Không thể tải danh sách góp ý');
+        this.isLoading = false;
+      }
+    });
+  }
+
+  mapToViewModel(f: Feedback): FeedbackModel {
+    const messages: MessageModel[] = [];
+    // User Message
+    messages.push({
+      from: 'customer',
+      content: f.message,
+      time: new Date(f.createdAt).toLocaleString('vi-VN')
+    });
+    // Admin Response
+    if (f.response) {
+      messages.push({
+        from: 'admin',
+        content: f.response,
+        time: f.responseAt ? new Date(f.responseAt).toLocaleString('vi-VN') : ''
+      });
+    }
+
+    return {
+      customerId: f.id, // Using FeedbackID as the identifier for selection
+      customerName: f.subject, // Using Subject as Name for now, or fetch user details
+      status: f.status === 2 ? 'Resolved' : 'Pending',
+      lastMessage: f.response || f.message,
+      messages: messages
+    };
+  }
+
+  get filteredFeedbacks() {
+    return this.feedbacks.filter(f =>
+      f.customerName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      f.lastMessage.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
+
+  isMobileChatActive: boolean = false;
+
   selectCustomer(f: FeedbackModel) {
     this.selectedCustomer = f;
+    this.isMobileChatActive = true;
+  }
+
+  backToList() {
+    this.isMobileChatActive = false;
   }
 
   sendReply() {
     if (!this.replyText.trim() || !this.selectedCustomer) return;
 
-    const newMsg: MessageModel = {
-      from: 'admin',
-      content: this.replyText.trim(),
-      time: new Date().toLocaleString('vi-VN')
-    };
-    this.selectedCustomer.messages.push(newMsg);
-    this.selectedCustomer.lastMessage = this.replyText.trim();
-    this.selectedCustomer.status = 'Resolved';
-    this.replyText = '';
+    const feedbackId = this.selectedCustomer.customerId; // This is actually the Feedback ID mapped
+
+    this.service.respond(feedbackId, this.replyText.trim()).subscribe({
+      next: () => {
+        this.toastr.success('Phản hồi thành công');
+        this.replyText = '';
+        this.loadFeedbacks(); // Reload to refresh state
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastr.error('Gửi phản hồi thất bại');
+      }
+    });
   }
-  
+
 }

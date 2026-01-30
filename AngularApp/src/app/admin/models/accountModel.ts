@@ -5,4 +5,5 @@ export interface AccountModel {
   password: string;
   role: 'Admin' | 'Regular';
   note?: string;
+  dateLogin?: Date;
 }

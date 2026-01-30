@@ -37,8 +37,10 @@ namespace API.Controllers
                 Port = c.Port,
                 ServerName = c.ServerName,
                 DatabaseName = c.DatabaseName,
+                
                 SqlLogin = c.SqlLogin,
                 SqlReport = c.SqlReport,
+                SqlParameter = c.SqlParameter,
                 SqlColumnQuery = c.SqlColumnQuery,
                 Note = c.Note
             });
@@ -67,6 +69,7 @@ namespace API.Controllers
                 DatabaseName = customer.DatabaseName,
                 SqlLogin = customer.SqlLogin,
                 SqlReport = customer.SqlReport,
+                SqlParameter = customer.SqlParameter,
                 SqlColumnQuery = customer.SqlColumnQuery,
                 Note = customer.Note
             };
@@ -92,6 +95,7 @@ namespace API.Controllers
                 DatabaseName = dto.DatabaseName,
                 SqlLogin = dto.SqlLogin,
                 SqlReport = dto.SqlReport,
+                SqlParameter = dto.SqlParameter,
                 SqlColumnQuery = dto.SqlColumnQuery,
                 Note = dto.Note
             };
@@ -109,6 +113,7 @@ namespace API.Controllers
                 DatabaseName = created.DatabaseName,
                 SqlLogin = created.SqlLogin,
                 SqlReport = created.SqlReport,
+                SqlParameter = created.SqlParameter,
                 SqlColumnQuery = created.SqlColumnQuery,
                 Note = created.Note
             };
@@ -136,6 +141,7 @@ namespace API.Controllers
             existingCustomer.DatabaseName = dto.DatabaseName;
             existingCustomer.SqlLogin = dto.SqlLogin;
             existingCustomer.SqlReport = dto.SqlReport;
+            existingCustomer.SqlParameter = dto.SqlParameter;
             existingCustomer.SqlColumnQuery = dto.SqlColumnQuery;
             existingCustomer.Note = dto.Note;
 

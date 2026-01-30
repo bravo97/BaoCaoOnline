@@ -16,15 +16,29 @@ namespace Infrastructure.Helpers
                 {
                     return await action();
                 }
-                catch (Exception ex) when (attempt < maxRetries && (shouldRetry == null || shouldRetry(ex)))
+                catch (Exception ex)
                 {
                     attempt++;
+
+                    // Check if we should stop retrying
+                    bool isRetryable = shouldRetry == null || shouldRetry(ex);
+                    if (attempt > maxRetries || !isRetryable)
+                    {
+                        throw;
+                    }
+
+                    // Calculate backoff
                     var backoff = delayMs * (int)Math.Pow(2, attempt - 1);
-                    try
+                    
+                    // Wait before next attempt
+                    try 
                     {
                         await Task.Delay(backoff, cancellationToken);
                     }
-                    catch (OperationCanceledException) { throw; }
+                    catch (OperationCanceledException)
+                    {
+                        throw;
+                    }
                 }
             }
         }

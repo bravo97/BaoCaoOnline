@@ -15,7 +15,8 @@ namespace Application.Interfaces
         Task<IEnumerable<Report>> GetReportsAsync(string customerId, CancellationToken cancellationToken = default);
 
         // Lấy dữ liệu report
-        Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId,ReportParameters parameters, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Dictionary<string, object>>> GetReportDataAsync(string customerId, string reportId, Dictionary<string, object> parameters, CancellationToken cancellationToken = default);
+        Task<IEnumerable<ReportParameter>> GetParamDataAsync(string customerId, string reportId, CancellationToken cancellationToken = default);
 
         // Lấy danh sách cột của report
         Task<IEnumerable<ReportColumn>> GetReportColumnsAsync(string customerId, string reportId, CancellationToken cancellationToken = default);

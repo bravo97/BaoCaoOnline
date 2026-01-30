@@ -1,34 +1,45 @@
-<div class="accounts-page">
-  <div class="page-header">
-    <button class="btn-add" (click)="openDialog()">+ Thêm tài khoản</button>
+<div class="space-y-6 animate-in fade-in duration-500">
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-black tracking-tight text-primary">Danh sách tài khoản đang hoạt động</h1>
+    <!-- Removed 'Add Account' button -->
   </div>
 
-  <table class="accounts-table">
-    <thead>
-      <tr>
-        <th>Customer ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Role</th>
-        <th>Note</th>
-        <th>Thao tác</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let a of accounts">
-        <td>{{ a.customerId }}</td>
-        <td>{{ a.username }}</td>
-        <td>{{ a.password }}</td>
-        <td>{{ a.role }}</td>
-        <td>{{ a.note }}</td>
-        <td>
-          <button class="btn-edit" (click)="openDialog(a)">Sửa</button>
-          <button class="btn-delete" (click)="openDialog(a.id)">Xóa</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="glass-card overflow-hidden">
+    <div class="overflow-x-auto custom-scrollbar">
+      <table class="w-full text-left border-separate border-spacing-0">
+        <thead>
+          <tr class="bg-secondary/50">
+            <th
+              class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-secondary border-b border-glass rounded-tl-2xl">
+              Customer ID</th>
+            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-secondary border-b border-glass">
+              Username</th>
+            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-secondary border-b border-glass">Role
+            </th>
+            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-secondary border-b border-glass">Note
+            </th>
+            <th
+              class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-secondary border-b border-glass rounded-tr-2xl">
+              Date Login</th>
+             <!-- Removed Actions Column -->
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-glass/30">
+          <tr *ngFor="let a of accounts" class="group transition-colors hover:bg-accent/5">
+            <td class="px-6 py-4 text-sm font-mono text-primary">{{ a.customerId }}</td>
+            <td class="px-6 py-4 text-sm font-semibold text-primary">{{ a.username }}</td>
+            <td class="px-6 py-4 text-sm">
+              <span
+                class="px-3 py-1 bg-accent/10 text-accent rounded-full text-[10px] font-black uppercase tracking-widest border border-accent/20">{{
+                a.role }}</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-primary italic leading-tight">{{ a.note }}</td>
+            <td class="px-6 py-4 text-sm font-mono text-primary">{{ a.dateLogin | date:'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<!-- Account Dialog -->
-<app-account-dialog #accountDialog (save)="saveAccount($event)"></app-account-dialog>
+<!-- Removed Dialog Component -->

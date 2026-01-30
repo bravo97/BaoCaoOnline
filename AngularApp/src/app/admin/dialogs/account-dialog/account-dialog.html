@@ -1,27 +1,72 @@
-<div class="dialog-backdrop" *ngIf="visible">
-  <div class="dialog">
-    <h3>{{ account.id ? 'Sửa Account' : 'Thêm Account' }}</h3>
-    <label>Khách hàng:
-      <input [(ngModel)]="account.customerId" placeholder="Customer ID">
-    </label>
-    <label>Username:
-      <input [(ngModel)]="account.username">
-    </label>
-    <label>Password:
-      <input [(ngModel)]="account.password" type="password">
-    </label>
-    <label>Role:
-      <select [(ngModel)]="account.role">
-        <option value="Regular">Regular</option>
-        <option value="Admin">Admin</option>
-      </select>
-    </label>
-    <label>Note:
-      <textarea [(ngModel)]="account.note"></textarea>
-    </label>
-    <div class="dialog-actions">
-      <button (click)="saveAccount()">Lưu</button>
-      <button (click)="closeDialog()">Hủy</button>
+<div class="fixed inset-0 z-[2000] flex items-center justify-center p-4 animate-in fade-in duration-300"
+  *ngIf="visible">
+  <div class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm" (click)="closeDialog()"></div>
+
+  <div class="glass-effect rounded-3xl p-8 w-full max-w-md relative z-10 shadow-2xl border border-glass/50 my-auto">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h3 class="text-2xl font-black text-primary">{{ account.id ? 'Cập nhật tài khoản' : 'Thêm tài khoản mới' }}</h3>
+        <p class="text-secondary text-xs font-bold uppercase tracking-widest opacity-60">Thông tin đăng nhập hệ thống
+        </p>
+      </div>
+      <button (click)="closeDialog()"
+        class="w-10 h-10 rounded-xl bg-secondary/50 flex items-center justify-center text-secondary hover:bg-red-500 hover:text-white transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="space-y-6">
+      <div class="group">
+        <label
+          class="block text-[10px] font-black text-secondary uppercase tracking-widest mb-2 ml-1 opacity-70 group-focus-within:text-accent transition-colors">Chọn
+          khách hàng (ID)</label>
+        <input [(ngModel)]="account.customerId" placeholder="Nhập ID khách hàng..."
+          class="w-full bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary placeholder:text-secondary/30 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all font-mono" />
+      </div>
+
+      <div class="group">
+        <label
+          class="block text-[10px] font-black text-secondary uppercase tracking-widest mb-2 ml-1 opacity-70 group-focus-within:text-accent transition-colors">Tên
+          đăng nhập</label>
+        <input [(ngModel)]="account.username" placeholder="Nhập username..."
+          class="w-full bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary placeholder:text-secondary/30 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all" />
+      </div>
+
+      <div class="group">
+        <label
+          class="block text-[10px] font-black text-secondary uppercase tracking-widest mb-2 ml-1 opacity-70 group-focus-within:text-accent transition-colors">Mật
+          khẩu</label>
+        <input [(ngModel)]="account.password" type="password" placeholder="••••••••"
+          class="w-full bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all" />
+      </div>
+
+      <div class="group">
+        <label
+          class="block text-[10px] font-black text-secondary uppercase tracking-widest mb-2 ml-1 opacity-70 group-focus-within:text-accent transition-colors">Phân
+          quyền (Role)</label>
+        <select [(ngModel)]="account.role"
+          class="w-full bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all appearance-none cursor-pointer">
+          <option value="Regular">Regular (Người dùng)</option>
+          <option value="Admin">Admin (Quản trị viên)</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label
+          class="block text-[10px] font-black text-secondary uppercase tracking-widest mb-2 ml-1 opacity-70 group-focus-within:text-accent transition-colors">Ghi
+          chú</label>
+        <textarea [(ngModel)]="account.note" rows="3" placeholder="Ghi chú thêm về tài khoản này..."
+          class="w-full bg-primary/50 border border-glass rounded-xl px-4 py-3 text-sm text-primary placeholder:text-secondary/30 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"></textarea>
+      </div>
+
+      <div class="flex gap-4 pt-4">
+        <button (click)="closeDialog()"
+          class="flex-1 py-4 px-6 rounded-2xl bg-secondary/50 text-secondary font-bold text-sm hover:bg-secondary transition-all">Hủy
+          bỏ</button>
+        <button (click)="saveAccount()"
+          class="flex-1 py-4 px-6 rounded-2xl bg-accent hover:bg-accent-hover text-white font-bold text-sm shadow-xl shadow-accent/20 transition-all hover:-translate-y-1 active:scale-95">Lưu
+          tài khoản</button>
+      </div>
     </div>
   </div>
 </div>

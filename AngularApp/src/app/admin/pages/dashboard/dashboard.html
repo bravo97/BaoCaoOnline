@@ -1,40 +1,137 @@
-<div class="dashboard-page">
-    <div class="cards">
-      <div class="card"><h4>Tổng số khách hàng</h4><div class="number">1,250</div></div>
-      <div class="card"><h4>Tổng số tài khoản</h4><div class="number">1,230</div></div>
-      <div class="card"><h4>Tổng số người dùng thực tế</h4><div class="number">$6,520</div></div>
-      <div class="card"><h4>Tổng số báo cáo</h4><div class="number">560</div></div>
+<div class="space-y-8 animate-in mt-8 fade-in duration-700">
+  <!-- Stats Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="glass-card hover:border-accent group transition-all duration-300 hover:-translate-y-1">
+      <div class="flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+          <i class="fa-solid fa-users text-xl"></i>
+        </div>
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-widest text-primary">Tổng khách hàng</h4>
+          <div class="text-2xl font-black text-primary">1,250</div>
+        </div>
+      </div>
     </div>
 
-    <div class="content">
-      <div class="box revenue-box">
-        <h4>Revenue</h4>
+    <div class="glass-card hover:border-accent group transition-all duration-300 hover:-translate-y-1">
+      <div class="flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+          <i class="fa-solid fa-id-card text-xl"></i>
+        </div>
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-widest text-primary">Tổng tài khoản</h4>
+          <div class="text-2xl font-black text-primary">1,230</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card hover:border-accent group transition-all duration-300 hover:-translate-y-1">
+      <div class="flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+          <i class="fa-solid fa-user-check text-xl"></i>
+        </div>
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-widest text-primary">Người dùng thực tế</h4>
+          <div class="text-2xl font-black text-primary">456</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card hover:border-accent group transition-all duration-300 hover:-translate-y-1">
+      <div class="flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+          <i class="fa-solid fa-file-invoice text-xl"></i>
+        </div>
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-widest text-primary">Tổng báo cáo</h4>
+          <div class="text-2xl font-black text-primary">560</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts & Tables Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
+    <!-- Revenue Chart -->
+    <div class="lg:col-span-2 glass-card">
+      <div class="flex items-center justify-between mb-6">
+        <h4 class="text-lg font-bold text-primary">Biểu đồ doanh thu</h4>
+        <div class="text-xs font-semibold text-accent hover:underline cursor-pointer">Xem chi tiết</div>
+      </div>
+      <div class="h-[300px] w-full relative">
         <canvas id="revenueChart"></canvas>
       </div>
+    </div>
 
-      <div class="box orders-box">
-        <h4>Recent Orders</h4>
-        <table>
-          <thead>
-            <tr><th>ID</th><th>Customer</th><th>Status</th></tr>
+    <!-- Recent Orders -->
+    <div class="glass-card">
+      <h4 class="text-lg font-bold text-primary mb-6">Yêu cầu gần đây</h4>
+      <div class="overflow-hidden">
+        <table class="w-full text-left">
+          <thead class="text-xs font-black uppercase text-primary">
+            <tr>
+              <th class="pb-4">Mã</th>
+              <th class="pb-4">Khách hàng</th>
+              <th class="pb-4">Trạng thái</th>
+            </tr>
           </thead>
-          <tbody>
-            <tr><td>OR9842</td><td>Robert Fox</td><td class="completed">Completed</td></tr>
-            <tr><td>OR1849</td><td>Arlene McCoy</td><td class="pending">Pending</td></tr>
-            <tr><td>OR7429</td><td>Glenna Reichert</td><td class="processing">Processing</td></tr>
-            <tr><td>OR7429</td><td>Clementine Bauch</td><td class="completed">Completed</td></tr>
+          <tbody class="text-sm font-medium">
+            <tr class="border-t border-glass/30">
+              <td class="py-3 font-mono text-primary">#OR9842</td>
+              <td class="py-3 text-primary">Hùng DB</td>
+              <td class="py-3"><span
+                  class="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded-md text-[10px] font-black uppercase">Xong</span>
+              </td>
+            </tr>
+            <tr class="border-t border-glass/30">
+              <td class="py-3 font-mono text-primary">#OR1849</td>
+              <td class="py-3 text-primary">Phúc LT</td>
+              <td class="py-3"><span
+                  class="px-2 py-1 bg-amber-500/10 text-amber-500 rounded-md text-[10px] font-black uppercase">Chờ</span>
+              </td>
+            </tr>
+            <tr class="border-t border-glass/30">
+              <td class="py-3 font-mono text-primary">#OR7429</td>
+              <td class="py-3 text-primary">Sơn Nguyễn</td>
+              <td class="py-3"><span
+                  class="px-2 py-1 bg-blue-500/10 text-blue-500 rounded-md text-[10px] font-black uppercase">Xử
+                  lý</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
+    </div>
 
-      <div class="box stats-box">
-        <h4>Stats</h4>
+    <!-- Additional Charts -->
+    <div class="glass-card flex flex-col items-center justify-center p-8">
+      <h4 class="text-lg font-bold text-primary mb-4 w-full">Thống kê truy cập</h4>
+      <div class="h-[220px] w-full relative">
         <canvas id="statsChart"></canvas>
       </div>
+    </div>
 
-      <div class="box traffic-box">
-        <h4>Traffic</h4>
+    <div class="glass-card flex flex-col items-center justify-center p-8">
+      <h4 class="text-lg font-bold text-primary mb-4 w-full">Lưu lượng dữ liệu</h4>
+      <div class="h-[220px] w-full relative">
         <canvas id="trafficChart"></canvas>
       </div>
     </div>
+
+    <div class="glass-card bg-accent relative overflow-hidden group">
+      <div class="relative z-10 h-full flex flex-col justify-between">
+        <h4 class="text-lg font-bold text-white mb-2">Thông báo mới?</h4>
+        <p class="text-white/70 text-sm mb-4">Gửi thông báo đến toàn bộ người dùng trong hệ thống ngay lập tức.</p>
+        <button class="bg-white text-accent font-bold py-2 rounded-xl transition-transform group-hover:scale-105">Bắt
+          đầu soạn</button>
+      </div>
+      <div
+        class="absolute -right-10 -bottom-10 text-white/10 text-[120px] rotate-12 group-hover:rotate-0 transition-transform duration-700">
+        <i class="fa-solid fa-paper-plane"></i>
+      </div>
+    </div>
+  </div>
 </div>

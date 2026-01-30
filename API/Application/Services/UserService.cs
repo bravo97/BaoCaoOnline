@@ -53,15 +53,17 @@ namespace Application.Services
             var user = await _accountRepo.GetByUsernamePasswordAsync(customerId,username, password);
             if (user == null) return null;
 
-            if (user.Password != password)
-                return null;
-
             return user;
         }
 
         public async Task<User?> GetByIdAsync(string id)
         {
             return await _userRepo.GetByIdAsync(id);
+        }
+
+        public async Task<Account?> GetAccountByIdAsync(string id)
+        {
+            return await _accountRepo.GetByIdAsync(id);
         }
 
         private static string HashPassword(string password)

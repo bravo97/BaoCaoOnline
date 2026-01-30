@@ -10,5 +10,9 @@ namespace API.DTO
 
         [StringLength(2000)]
         public string Description { get; set; } = string.Empty;
+
+        public string? UserId { get; set; }
+        public string? Type { get; set; }
+        public string? Data { get; set; }
     }
 }

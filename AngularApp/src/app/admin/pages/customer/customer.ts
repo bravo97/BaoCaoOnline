@@ -10,24 +10,25 @@ import { ConfirmDialog } from "../../../shared/components/confirm-dialog/confirm
 
 @Component({
   selector: 'app-customer',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule, CustomerDialog, ConfirmDialog],
   templateUrl: './customer.html',
   styleUrl: './customer.scss',
 })
-export class Customer implements AfterViewInit{
+export class Customer implements AfterViewInit {
   @ViewChild('customerDialog') customerDialog!: CustomerDialog;
   ustomers = [];
   confirmVisible = false;
   deleteId: string | null = null;
   customers: CustomerModel[] = [];
-  constructor(private customerService: CustomerService, private notify:ToastrNotification) {
+  constructor(private customerService: CustomerService, private notify: ToastrNotification) {
     this.loadCustomers();
   }
-  ngAfterViewInit(): void {}
-  
+  ngAfterViewInit(): void { }
+
   loadCustomers() {
     this.customerService.getAll().subscribe(data => {
+      console.log(data);
       this.customers = data;
     });
   }
@@ -43,7 +44,7 @@ export class Customer implements AfterViewInit{
       this.customerService.delete(this.deleteId).subscribe(() => {
         this.customers = this.customers.filter(c => c.id !== this.deleteId);
       });
-      
+
       this.deleteId = null;
       this.confirmVisible = false;
     }
@@ -60,11 +61,12 @@ export class Customer implements AfterViewInit{
       this.customerService.update(customer).subscribe(updated => {
         this.notify.info(updated.message);
         const idx = this.customers.findIndex(c => c.id === updated.data.id);
-        if(idx >= 0) this.customers[idx] = customer;
+        if (idx >= 0) this.customers[idx] = customer;
       });
     } else {
       //tạo mới
       this.customerService.create(customer).subscribe(created => {
+        console.log(created);
         this.notify.success(created.message);
         this.customers.push(created.data);
       });

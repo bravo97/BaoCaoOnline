@@ -107,6 +107,7 @@ namespace Infrastructure.Repositories
                         DatabaseName = c.DatabaseName,
                         SqlLogin = c.SqlLogin,
                         SqlReport = c.SqlReport,
+                        SqlParameter = c.SqlParameter,
                         SqlColumnQuery = c.SqlColumnQuery,
                         Note = c.Note
                     }).ToList();
@@ -178,6 +179,7 @@ namespace Infrastructure.Repositories
                     DatabaseName = c.DatabaseName,
                     SqlLogin = c.SqlLogin,
                     SqlReport = c.SqlReport,
+                    SqlParameter = c.SqlParameter,
                     SqlColumnQuery = c.SqlColumnQuery,
                     Note = c.Note
                 }).ToArray().AsEnumerable());

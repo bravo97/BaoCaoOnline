@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "ef7d6ae6-b9e6-4fd3-9165-f7902f690e0c",
+    "CustomerId": null,
+    "UserEmail": null,
+    "Subject": "Test",
+    "Message": "feedback \u0111\u1EA7u ti\u00EAn",
+    "Status": 2,
+    "Response": "C\u1EA3m \u01A1n b\u1EA1n \u0111\u00E3 g\u00F3p \u00FD",
+    "CreatedAt": "2026-01-28T16:45:45.9389367Z",
+    "ResponseAt": "2026-01-28T16:46:22.5849966Z",
+    "Metadata": null
+  },
+  {
+    "Id": "59d7304f-6676-4be6-a1c3-f5e2db762aeb",
+    "CustomerId": null,
+    "UserEmail": null,
+    "Subject": "G\u00F3p \u00FD \u0111\u1EA7u ti\u00EAn",
+    "Message": "Phi\u00EAn b\u1EA3n \u0111\u1EA7u ti\u00EAn h\u01A1i nhi\u1EC1u l\u1ED7i nha",
+    "Status": 2,
+    "Response": "v\u1EABn ch\u01B0a nh\u1EADn \u0111\u01B0\u1EE3c th\u00F4ng b\u00E1o \u00E0",
+    "CreatedAt": "2026-01-28T16:55:33.967053Z",
+    "ResponseAt": "2026-01-29T03:34:37.3670251Z",
+    "Metadata": null
+  }
+]

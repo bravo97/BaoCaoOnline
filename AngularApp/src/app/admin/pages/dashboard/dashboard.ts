@@ -9,12 +9,12 @@ import Chart from 'chart.js/auto';
 })
 export class Dashboard {
   orders = [
-      { id: 'OR9842', customer: 'Robert Fox', status: 'Completed' },
-      { id: 'OR1849', customer: 'Arlene McCoy', status: 'Pending' },
-      { id: 'OR7429', customer: 'Glenna Reichert', status: 'Processing' },
-      { id: 'OR7429', customer: 'Clementine Bauch', status: 'Completed' }
-    ];
-  
+    { id: 'OR9842', customer: 'Robert Fox', status: 'Completed' },
+    { id: 'OR1849', customer: 'Arlene McCoy', status: 'Pending' },
+    { id: 'OR7429', customer: 'Glenna Reichert', status: 'Processing' },
+    { id: 'OR7429', customer: 'Clementine Bauch', status: 'Completed' }
+  ];
+
   ngAfterViewInit(): void {
     this.initRevenueChart();
     this.initStatsChart();
@@ -35,9 +35,11 @@ export class Dashboard {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
-          x: { ticks: { color: '#94a3b8' } },
-          y: { ticks: { color: '#94a3b8' } }
+          x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } }
         },
         plugins: { legend: { display: false } },
       }
@@ -56,9 +58,11 @@ export class Dashboard {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
-          x: { ticks: { color: '#94a3b8' } },
-          y: { ticks: { color: '#94a3b8' } }
+          x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148, 163, 184, 0.1)' } }
         },
         plugins: { legend: { display: false } }
       }
@@ -73,11 +77,25 @@ export class Dashboard {
         datasets: [{
           data: [65, 35],
           backgroundColor: ['#3b82f6', '#1e40af'],
-          borderWidth: 0
+          borderWidth: 0,
+          hoverOffset: 4
         }]
       },
       options: {
-        plugins: { legend: { labels: { color: '#94a3b8' } } }
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#94a3b8',
+              usePointStyle: true,
+              padding: 20,
+              font: { size: 11, weight: 'bold' }
+            }
+          }
+        }
       }
     });
   }

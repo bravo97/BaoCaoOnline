@@ -1,19 +1,35 @@
 <nav class="sidebar" [class.collapsed]="sidebarCollapsed">
   <div class="sidebar-header">
-    <button (click)="toggleSidebar()">
-      <i class="fa-solid fa-bars"></i>
+    <button (click)="toggleSidebar()" class="toggle-btn">
+      <i class="fa-solid" [class.fa-bars]="sidebarCollapsed" [class.fa-chevron-left]="!sidebarCollapsed"></i>
     </button>
-    <span *ngIf="!sidebarCollapsed"></span>
+    <span *ngIf="!sidebarCollapsed" class="logo-text">ADMIN</span>
   </div>
 
   <ul class="menu">
-    <li
-      *ngFor="let item of menuItems"
-      (click)="selectMenu(item)"
-      [class.active]="activeMenu === item.label"
-    >
+    <li *ngFor="let item of menuItems" (click)="selectMenu(item)" [class.active]="activeMenu === item.label"
+      title="{{ item.label }}">
       <i [class]="item.icon"></i>
       <span *ngIf="!sidebarCollapsed">{{ item.label }}</span>
     </li>
   </ul>
+
+  <div class="sidebar-footer">
+    <button class="footer-action" (click)="toggleDarkMode()" title="Đổi giao diện">
+      <i [ngClass]="isDarkMode ? 'fa fa-sun' : 'fa fa-moon'"></i>
+      <span *ngIf="!sidebarCollapsed">{{ isDarkMode ? 'Giao diện sáng' : 'Giao diện tối' }}</span>
+    </button>
+
+    <div class="profile-container">
+      <div class="footer-action" (click)="toggleProfileMenu()" title="Tài khoản">
+        <i class="fa fa-user-circle"></i>
+        <span *ngIf="!sidebarCollapsed">Admin</span>
+      </div>
+
+      <div class="profile-dropdown" [class.open]="profileMenuOpen" *ngIf="profileMenuOpen">
+        <button (click)="changePassword()"><i class="fa fa-key"></i> Đổi mật khẩu</button>
+        <button (click)="logout()" class="logout-btn"><i class="fa fa-sign-out-alt"></i> Đăng xuất</button>
+      </div>
+    </div>
+  </div>
 </nav>

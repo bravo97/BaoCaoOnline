@@ -10,10 +10,12 @@ namespace Application.Services
     public class FeedbackService
     {
         private readonly IFeedbackRepository _repository;
+        private readonly NotificationService _notificationService;
 
-        public FeedbackService(IFeedbackRepository repository)
+        public FeedbackService(IFeedbackRepository repository, NotificationService notificationService)
         {
             _repository = repository;
+            _notificationService = notificationService;
         }
 
         public async Task<Feedback> CreateAsync(Feedback feedback)
@@ -37,6 +39,23 @@ namespace Application.Services
             item.ResponseAt = DateTime.UtcNow;
             item.Status = FeedbackStatus.Closed;
             await _repository.UpdateAsync(item);
+
+            // Create Notification
+            if (!string.IsNullOrEmpty(item.CustomerId))
+            {
+                var notif = new Notification
+                {
+                    Title = "Phản hồi mới từ Admin",
+                    Description = $"Admin đã trả lời góp ý: {item.Subject}",
+                    UserId = item.CustomerId,
+                    Type = "Feedback",
+                    Data = item.Id,
+                    DateCreate = DateTime.UtcNow,
+                    DateUpdate = DateTime.UtcNow
+                };
+                await _notificationService.AddNotificationAsync(notif);
+            }
+
             return true;
         }
 

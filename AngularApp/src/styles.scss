@@ -1,50 +1,256 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* styles.scss */
 :root {
-  /* 🌞 LIGHT THEME — sáng, tinh tế, hiện đại */
-  --bg-primary: #F8FAFC;         /* nền tổng thể: trắng xanh dịu */
-  --bg-secondary: #E9EEF6;       /* sidebar hoặc block phụ */
-  --card-bg: #FFFFFF;            /* nền card trắng sáng */
-  --text-primary: #1E293B;       /* chữ chính xanh đen */
-  --text-secondary: #64748B;     /* chữ phụ xám lam */
-  --accent: #3B82F6;             /* xanh lam chủ đạo */
-  --border-color: #CBD5E1;       /* viền nhẹ */
-  --sidebar-hover: #DDE9FB;      /* hover xanh lam nhạt */
+  /* 🌞 LIGHT THEME — Refined & Professional */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --sidebar-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: #ffffff;
+  --text-primary: #020617;
+  /* Slate-950 */
+  --text-secondary: #475569;
+  /* Slate-600 */
+  --text-accent: #2563eb;
+  --accent: #3b82f6;
+  --accent-rgb: 59, 130, 246;
+  --accent-hover: #1d4ed8;
+  --border-color: #e2e8f0;
+  --sidebar-hover: rgba(59, 130, 246, 0.05);
+  /* Softer hover */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.08);
 }
 
 [data-theme="dark"] {
-  /* 🌙 DARK THEME — sang trọng, dịu mắt */
-  --bg-primary: #0f172a;         /* nền chính gần đen xanh */
-  --bg-secondary: #1e293b;       /* sidebar, vùng phụ */
-  --card-bg: #1e293b;            /* nền card */
-  --text-primary: #e2e8f0;       /* chữ sáng dịu */
-  --text-secondary: #94a3b8;     /* chữ phụ lam nhạt */
-  --accent: #60a5fa;             /* xanh lam nhẹ hơn, hài hòa trên nền tối */
-  --border-color: #334155;       /* viền xám đậm */
-  --sidebar-hover: #2b3a52;      /* hover sáng hơn nhẹ */
+  /* 🌙 DARK THEME (Neutral Premium) — Zinc/Vercel Aesthetic */
+  --bg-primary: #09090b;
+  /* Zinc-950 */
+  --bg-secondary: #18181b;
+  /* Zinc-900 */
+  --sidebar-bg: rgba(24, 24, 27, 0.92);
+  --card-bg: #1f1f23;
+  --text-primary: #f4f4f5;
+  /* Zinc-100 */
+  --text-secondary: #a1a1aa;
+  /* Zinc-400 */
+  --text-accent: #38bdf8;
+  --accent: #38bdf8;
+  --accent-rgb: 56, 189, 248;
+  --accent-hover: #7dd3fc;
+  --border-color: #27272a;
+  /* Zinc-800 */
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(24, 24, 27, 0.85);
+  --glass-border: #27272a;
+  --shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+  --glow: 0 0 15px rgba(56, 189, 248, 0.1);
 }
 
+[data-theme="emerald"] {
+  /* 🌿 EMERALD THEME — Cyber Garden Enterprise */
+  --bg-primary: #022c22;
+  --bg-secondary: #033a2c;
+  --sidebar-bg: rgba(2, 44, 34, 0.9);
+  --card-bg: #064e3b;
+  --text-primary: #ecfdf5;
+  /* Emerald-50 */
+  --text-secondary: #6ee7b7;
+  /* Emerald-300 */
+  --text-accent: #10b981;
+  --accent: #10b981;
+  --accent-rgb: 16, 185, 129;
+  --accent-hover: #34d399;
+  --border-color: #065f46;
+  /* Emerald-700 */
+  --sidebar-hover: rgba(16, 185, 129, 0.1);
+  --glass-bg: rgba(2, 44, 34, 0.8);
+  --glass-border: #065f46;
+  --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+  --glow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
 
-/* Reset CSS cơ bản */
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #0f172a;
-  color: #e2e8f0;
-  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  @apply selection:bg-accent selection:text-white;
 }
 
-/* App root full màn hình */
+/* Global Input & UI Fixes */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+
+  /* Mobile Touch Target Fix */
+  @media (max-width: 768px) {
+    min-height: 44px;
+  }
+}
+
+input,
+textarea,
+select {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  background-clip: padding-box;
+  /* Fix for some browser rendering issues */
+}
+
+button {
+  color: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+  /* Slightly more visible but still secondary */
+}
+
 app-root {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+}
+
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Modern Table Styling */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+
+  thead {
+    background: var(--bg-secondary);
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+
+      &:first-child {
+        border-top-left-radius: 12px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 12px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      transition: all 0.2s;
+
+      &:hover {
+        background: var(--sidebar-hover);
+        transform: scale(1.002);
+      }
+
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+        font-size: 0.9rem;
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+/* Modern Buttons */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+
+  &:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+  }
+}
+
+.btn-add {
+  @extend .btn-primary;
+  margin-bottom: 1.5rem;
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
 }
