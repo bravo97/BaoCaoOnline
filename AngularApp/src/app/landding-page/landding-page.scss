@@ -2,345 +2,136 @@
 :host {
   display: block;
   width: 100%;
+
+  /* 🔵 SCOPED THEME: Blue (Only for Landing Page) */
+  --kv-green: #2563eb;
+  --kv-green-hover: #1d4ed8;
+  --kv-green-light: rgba(37, 99, 235, 0.1);
+  --kv-text-dark: #1e293b;
 }
 
-/* 1. Grain Texture - Reduced for Clarity */
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* Apply scoped theme to standard classes used in HTML */
+.text-\[\#00b14f\] {
+  color: var(--kv-green) !important;
 }
 
-/* 2. Dynamic Grid Background - Sharper Matrix */
-.bg-grid-pulse {
-  background-size: 60px 60px;
-  background-image:
-    linear-gradient(to right, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px);
-  mask-image: radial-gradient(ellipse at center, black, transparent 85%);
-  animation: grid-pulse-anim 10s ease-in-out infinite;
+.bg-\[\#00b14f\] {
+  background-color: var(--kv-green) !important;
 }
 
-@keyframes grid-pulse-anim {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.08;
-  }
-
-  50% {
-    transform: scale(1.03);
-    opacity: 0.12;
-  }
+.hover\:bg-\[\#008f40\]:hover {
+  background-color: var(--kv-green-hover) !important;
 }
 
-.bg-grid-white {
-  background-size: 40px 40px;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+.border-emerald-100 {
+  border-color: #dbeafe !important;
 }
 
-/* 3. Advanced Keyframes (Sharpened) */
-
-@keyframes border-beam {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+.bg-emerald-50 {
+  background-color: #eff6ff !important;
 }
 
-.animate-border-beam {
-  animation: border-beam 4s linear infinite;
+.to-emerald-50 {
+  --tw-gradient-to: #eff6ff !important;
 }
 
-@keyframes infinite-scroll {
+.text-\[\#2563eb\] {
+  color: var(--kv-green) !important;
+}
+
+.bg-\[\#2563eb\] {
+  background-color: var(--kv-green) !important;
+}
+
+.selection\:bg-\[\#2563eb\] *::selection {
+  background-color: var(--kv-green) !important;
+  color: white !important;
+}
+
+/* Base Animations */
+.animate-in {
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0;
+}
+
+.fade-in {
+  animation-name: fade-in-anim;
+}
+
+@keyframes fade-in-anim {
   from {
-    transform: translateX(0);
+    opacity: 0;
   }
 
   to {
-    transform: translateX(-100%);
+    opacity: 1;
   }
 }
 
-.animate-infinite-scroll {
-  animation: infinite-scroll 60s linear infinite;
-  /* Slower for readability */
+.zoom-in-50 {
+  animation-name: zoom-in-50-anim;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+@keyframes zoom-in-50-anim {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
 
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.shimmer {
-  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  background-size: 250% 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer:hover {
-  animation: shimmer 1.2s infinite linear;
-}
-
-.btn-energy {
-  background: linear-gradient(135deg, #2563eb, #06b6d4, #3b82f6);
-  background-size: 200% 200%;
-  box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.4);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.btn-energy:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.6);
-  filter: brightness(1.1);
-}
-
-.btn-glow {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-}
-
-.btn-glow:hover {
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0);
-  }
-
-  50% {
-    transform: translateY(-30px) rotate(1deg);
-  }
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-@keyframes float-slow {
-
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    transform: translateY(-15px) scale(1.05);
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 5s ease-in-out infinite;
-}
-
-@keyframes blob-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  50% {
-    transform: rotate(180deg) scale(1.2);
-  }
-
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-.animate-blob-rotate {
-  animation: blob-rotate 30s linear infinite;
-}
-
-@keyframes blob-rotate-reverse {
-  0% {
-    transform: rotate(360deg) scale(1.2);
-  }
-
-  50% {
-    transform: rotate(180deg) scale(1);
-  }
-
-  100% {
-    transform: rotate(0deg) scale(1.2);
-  }
-}
-
-.animate-blob-rotate-reverse {
-  animation: blob-rotate-reverse 35s linear infinite;
-}
-
-@keyframes pulse-slow {
-
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.2;
-    transform: scale(1.3);
-  }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 10s ease-in-out infinite;
-}
-
-@keyframes gradient-fast {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient-fast {
-  animation: gradient-fast 4s linear infinite;
-}
-
-/* 4. Perspective & 3D */
-.perspective-1000 {
-  perspective: 1200px;
-}
-
-.rotate-x-2 {
-  transform: rotateX(2deg);
-}
-
-.scale-in {
-  opacity: 0;
-  transform: scale(0.98);
-  animation: scale-in-anim 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes scale-in-anim {
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* 5. High-Definition Visuals */
-.glass-effect {
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow:
-    0 10px 40px -10px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(15, 23, 42, 0.05);
-}
-
-.shadow-3xl {
-  box-shadow:
-    0 30px 60px -15px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(15, 23, 42, 0.03);
-}
-
-.text-glow {
-  text-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
-}
-
-/* Ensure images are ultra-sharp */
-img {
-  image-rendering: -webkit-optimize-contrast;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  /* Hardware acceleration */
-}
-
-/* Better typography rendering */
-h1,
-h2,
-h3,
-p {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* Custom Animation Utilities (Simulation of tailwindcss-animate) */
-.animate-in {
-  animation-duration: 0.5s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-  --tw-enter-opacity: 1;
-  --tw-enter-scale: 1;
-  --tw-enter-translate-y: 0;
-  opacity: 0;
-  /* Initial state */
-}
-
-.fade-in {
-  animation-name: enter-animation;
-  --tw-enter-opacity: 1;
-}
-
-.zoom-in-50 {
-  --tw-enter-scale: 0.5;
-  animation-name: enter-animation;
-}
-
-.zoom-in-90 {
-  --tw-enter-scale: 0.9;
-  animation-name: enter-animation;
-}
-
 .slide-in-from-bottom-4 {
-  --tw-enter-translate-y: 1rem;
-  animation-name: enter-animation;
+  animation-name: slide-up-4;
 }
 
-.slide-in-from-bottom-8 {
-  --tw-enter-translate-y: 2rem;
-  animation-name: enter-animation;
-}
-
-.slide-in-from-bottom-10 {
-  --tw-enter-translate-y: 2.5rem;
-  animation-name: enter-animation;
-}
-
-@keyframes enter-animation {
+@keyframes slide-up-4 {
   from {
     opacity: 0;
-    transform: scale(var(--tw-enter-scale)) translateY(var(--tw-enter-translate-y));
+    transform: translateY(1rem);
   }
 
   to {
-    opacity: var(--tw-enter-opacity);
-    transform: scale(1) translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Ensure standard tailwind delay/duration classes apply to animation if they don't natively */
-.duration-700 {
-  animation-duration: 700ms;
+.slide-in-from-bottom-8 {
+  animation-name: slide-up-8;
 }
 
-.duration-1000 {
-  animation-duration: 1000ms;
+@keyframes slide-up-8 {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-from-bottom-10 {
+  animation-name: slide-up-10;
+}
+
+@keyframes slide-up-10 {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .delay-300 {
@@ -353,4 +144,176 @@ p {
 
 .delay-700 {
   animation-delay: 700ms;
+}
+
+/* 🌊 Dynamic Chart Slide Animations (Faster) */
+@keyframes chart-slide {
+  0% {
+    transform: translateX(-5%);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateX(5%);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateX(-5%);
+    opacity: 0.2;
+  }
+}
+
+.animate-chart-slide-1 {
+  animation: chart-slide 10s ease-in-out infinite;
+  /* Was 15s */
+}
+
+.animate-chart-slide-2 {
+  animation: chart-slide 14s ease-in-out infinite;
+  /* Was 20s */
+  animation-delay: -5s;
+}
+
+/* 🎈 Floating Shapes Animations (More Dynamic) */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-25px) rotate(8deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  /* Was 8s */
+}
+
+.animate-float-fast {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float-reverse {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  50% {
+    transform: translateY(25px) rotate(35deg);
+  }
+}
+
+.animate-float-reverse {
+  animation: float-reverse 8s ease-in-out infinite;
+}
+
+.animate-float-reverse-fast {
+  animation: float-reverse 6s ease-in-out infinite;
+}
+
+/* 💓 Pulse & Bounce (Intensified) */
+@keyframes pulse-fast {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+}
+
+.animate-pulse-fast {
+  animation: pulse-fast 3s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 5s ease-in-out infinite;
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+@keyframes bounce-x {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1.2s ease-in-out infinite;
+}
+
+/* ✨ New Particle Animations */
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
