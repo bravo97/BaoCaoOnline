@@ -29,7 +29,8 @@ namespace Application.Services
             {
                 Username = username,
                 PasswordHash = HashPassword(password),
-                Email = email
+                Email = email,
+                Role = UserRole.Admin
             };
 
             await _userRepo.AddAsync(user);
