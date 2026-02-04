@@ -1832,11 +1832,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Hung\\BaoCaoOnline\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Hung\\deployAPI\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\API\\API.csproj",
+      "projectPath": "C:\\Hung\\deployAPI\\API\\API\\API.csproj",
       "packagesPath": "C:\\Users\\HungDB\\.nuget\\packages\\",
-      "outputPath": "C:\\Hung\\BaoCaoOnline\\API\\API\\obj\\",
+      "outputPath": "C:\\Hung\\deployAPI\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1858,11 +1858,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj": {
-              "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj"
+            "C:\\Hung\\deployAPI\\API\\Application\\Application.csproj": {
+              "projectPath": "C:\\Hung\\deployAPI\\API\\Application\\Application.csproj"
             },
-            "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Hung\\deployAPI\\API\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Hung\\deployAPI\\API\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }

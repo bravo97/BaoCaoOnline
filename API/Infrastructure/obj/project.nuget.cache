@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wP8y4Ziub7A=",
+  "dgSpecHash": "gXohsXfCngU=",
   "success": true,
-  "projectFilePath": "C:\\Hung\\BaoCaoOnline\\API\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Hung\\deployAPI\\API\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HungDB\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\HungDB\\.nuget\\packages\\azure.identity\\1.11.3\\azure.identity.1.11.3.nupkg.sha512",

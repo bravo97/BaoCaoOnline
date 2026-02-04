@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0koSBeZ+GTs=",
+  "dgSpecHash": "Ja77zz5O+OA=",
   "success": true,
-  "projectFilePath": "C:\\Hung\\BaoCaoOnline\\API\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Hung\\deployAPI\\API\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

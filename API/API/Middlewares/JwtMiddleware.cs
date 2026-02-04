@@ -18,6 +18,12 @@ namespace WebAPI.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            // ✅ CHO OPTIONS ĐI QUA (BẮT BUỘC CHO CORS)
+            if (context.Request.Method == HttpMethods.Options)
+            {
+                await _next(context);
+                return;
+            }
             var path = context.Request.Path.Value?.ToLower();
             if (path != null && (path.Contains("/refresh") || path.Contains("/refresh-token")))
             {

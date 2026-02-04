@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WyNl/T3LNQ0=",
+  "dgSpecHash": "qNBZRIsO4iI=",
   "success": true,
-  "projectFilePath": "C:\\Hung\\BaoCaoOnline\\API\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Hung\\deployAPI\\API\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HungDB\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.20\\microsoft.aspnetcore.authentication.jwtbearer.8.0.20.nupkg.sha512",
     "C:\\Users\\HungDB\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.1.2\\microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512",

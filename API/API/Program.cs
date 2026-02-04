@@ -119,13 +119,10 @@ builder.Services.AddSwaggerGen(c =>
 // Khai báo policy CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp", policy =>
-    {
-        policy.WithOrigins("https://bravo97.github.io/") // domain frontend
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
+              .AllowAnyMethod());
 });
 
 var app = builder.Build();
@@ -142,7 +139,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 // **Dùng CORS**
-app.UseCors("AllowAngularApp");
+app.UseCors();
 // Global exception handler should be first in pipeline
 app.UseMiddleware<ExceptionMiddleware>();
 // **Thứ tự quan trọng**
