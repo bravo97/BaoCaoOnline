@@ -26,4 +26,4 @@ ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
 # 🔥 ĐỔI TÊN DLL nếu project bạn không phải "API"
-ENTRYPOINT ["dotnet", "BaoCaoOnline.dll"]
+ENTRYPOINT ["dotnet", "API.dll"]
