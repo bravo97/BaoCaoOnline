@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "55aef448-4a45-46ba-8f71-da34331ff706",
+    "Username": "string",
+    "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
+    "Email": "string",
+    "CreatedAt": "2026-02-04T09:25:47.7149369Z",
+    "Role": 1
+  }
+]

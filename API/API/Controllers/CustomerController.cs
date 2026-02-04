@@ -80,8 +80,6 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCustomerDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ApiResponse<object>.Fail("Dữ liệu không hợp lệ"));
 
             var customer = new Customer
             {
@@ -124,9 +122,6 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateCustomerDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ApiResponse<object>.Fail("Dữ liệu không hợp lệ"));
-
             var existingCustomer = await _customerService.GetByIdAsync(id);
             if (existingCustomer == null)
                 return NotFound(ApiResponse<object>.Fail("Khách hàng không tồn tại"));

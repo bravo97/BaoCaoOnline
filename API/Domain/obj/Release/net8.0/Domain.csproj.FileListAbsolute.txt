@@ -22,3 +22,15 @@ D:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.dll
 D:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\refint\Domain.dll
 D:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\Domain.pdb
 D:\Hung\BaoCaoOnline\API\Domain\obj\Release\net8.0\ref\Domain.dll
+C:\Hung\deployAPI\API\Domain\bin\Release\net8.0\Domain.deps.json
+C:\Hung\deployAPI\API\Domain\bin\Release\net8.0\Domain.dll
+C:\Hung\deployAPI\API\Domain\bin\Release\net8.0\Domain.pdb
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.AssemblyInfoInputs.cache
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.AssemblyInfo.cs
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.sourcelink.json
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.dll
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\refint\Domain.dll
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\Domain.pdb
+C:\Hung\deployAPI\API\Domain\obj\Release\net8.0\ref\Domain.dll
