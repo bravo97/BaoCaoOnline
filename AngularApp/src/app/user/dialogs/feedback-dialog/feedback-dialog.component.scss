@@ -1,6 +1,0 @@
-/* Glass effect inherited from global or defined here if standalone */
-.glass-effect {
-    background: rgba(17, 25, 40, 0.75);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-}
