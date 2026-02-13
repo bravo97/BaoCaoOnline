@@ -21,10 +21,12 @@ export class NotificationService {
     }
 
     create(notification: Notification): Observable<Notification> {
+        console.log('Creating notification:', notification);
         return this.http.post<Notification>(this.apiUrl, notification);
     }
 
     update(notification: Notification): Observable<any> {
+        console.log('Updating notification:', notification);
         return this.http.put(`${this.apiUrl}`, notification);
     }
 

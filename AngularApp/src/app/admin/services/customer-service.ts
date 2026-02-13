@@ -27,10 +27,12 @@ export class CustomerService {
   }
 
   create(customer: CustomerModel): Observable<ApiResponse<any>> {
+    console.log('Creating customer:', customer);
     return this.http.post<ApiResponse<any>>(this.apiUrl, customer);
   }
 
   update(customer: CustomerModel): Observable<ApiResponse<CustomerModel>> {
+    console.log('Updating customer:', customer);
     return this.http.put<ApiResponse<CustomerModel>>(`${this.apiUrl}/${customer.id}`, customer);
   }
 

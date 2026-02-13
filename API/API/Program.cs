@@ -62,6 +62,8 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // File-based repositories are stateful -> keep as singleton but ensure thread-safety
 builder.Services.AddSingleton<IUserRepository, FileUserRepository>();
 builder.Services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
+builder.Services.AddSingleton<IDeviceLogRepository, FileDeviceLogRepository>();
+
 
 // Factories
 builder.Services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>(); // using Infrastructure.Factories;
@@ -119,14 +121,12 @@ builder.Services.AddSwaggerGen(c =>
 // Khai báo policy CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp", policy =>
-    {
-        policy.WithOrigins("https://bravo97.github.io/") // domain frontend
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
+              .AllowAnyMethod());
 });
+
 
 var app = builder.Build();
 
@@ -138,13 +138,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
+//Tạm comment do MonsterASP có thể không hỗ trợ HTTPS chuẩn
+//app.UseHttpsRedirection();
 app.UseRouting();
 // **Dùng CORS**
-app.UseCors("AllowAngularApp");
+app.UseCors();
 // Global exception handler should be first in pipeline
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<DeviceLogMiddleware>();
+
 // **Thứ tự quan trọng**
 app.UseAuthentication();
 app.UseAuthorization();

@@ -46,6 +46,19 @@ namespace Infrastructure.Repositories
             return Task.FromResult(connStr);
         }
 
+        public static String Md5Hash(string input)
+        {
+            System.Security.Cryptography.MD5 md5Hasher = System.Security.Cryptography.MD5.Create();
+            byte[] data = md5Hasher.ComputeHash(System.Text.Encoding.Unicode.GetBytes(input));
+            System.Text.StringBuilder sBuilder = new System.Text.StringBuilder();
+            int i = 0;
+            for (i = 0; i <= data.Length - 1; i++)
+            {
+                sBuilder.Append(data[i].ToString("x1"));
+            }
+            return sBuilder.ToString();
+        }
+
         public Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default) =>
             Task.FromResult(_accounts.ToArray().AsEnumerable());
 
@@ -66,6 +79,8 @@ namespace Infrastructure.Repositories
                     {
                         CommandTimeout = 60
                     };
+
+                    if (customer.useMD5) password = Md5Hash(password); 
 
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", password);

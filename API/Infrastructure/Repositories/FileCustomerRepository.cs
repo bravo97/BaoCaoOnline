@@ -106,6 +106,7 @@ namespace Infrastructure.Repositories
                         Password = string.IsNullOrEmpty(c.Password) ? string.Empty : _protector.Protect(c.Password),
                         DatabaseName = c.DatabaseName,
                         SqlLogin = c.SqlLogin,
+                        useMD5 = c.useMD5,
                         SqlReport = c.SqlReport,
                         SqlParameter = c.SqlParameter,
                         SqlColumnQuery = c.SqlColumnQuery,
@@ -177,6 +178,7 @@ namespace Infrastructure.Repositories
                     UserName = c.UserName,
                     Password = c.Password, // in-memory password is plaintext
                     DatabaseName = c.DatabaseName,
+                    useMD5 = c.useMD5,
                     SqlLogin = c.SqlLogin,
                     SqlReport = c.SqlReport,
                     SqlParameter = c.SqlParameter,

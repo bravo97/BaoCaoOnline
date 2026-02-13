@@ -1,0 +1,13 @@
+[
+  {
+    "Id": "636a87da-c1b8-4681-9a33-a49762dc3160",
+    "TokenHash": "2AA93DC2AFC843D6488CF3B4A8170B27FD44FAC491F74338DC0DE1E3CE409316",
+    "UserId": "89a963dc-6e3f-4e03-9577-ac48b58f925c",
+    "UserType": "User",
+    "CreatedAt": "2026-02-06T05:08:58.008198Z",
+    "ExpiresAt": "2026-02-13T05:08:58.0082193Z",
+    "Revoked": false,
+    "ReplacedByToken": null,
+    "DeviceInfo": null
+  }
+]

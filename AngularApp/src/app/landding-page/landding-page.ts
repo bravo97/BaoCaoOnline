@@ -15,4 +15,8 @@ export class LanddingPage {
   goToLogin() {
     this.router.navigate(['login']);
   }
+
+  goToAdmin() {
+    this.router.navigate(['admin']);
+  }
 }

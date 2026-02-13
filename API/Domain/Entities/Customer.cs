@@ -20,6 +20,7 @@ namespace Domain.Entities
         public string Password { get; set; } = string.Empty;
         public string DatabaseName { get; set; } = string.Empty;
         public string SqlLogin { get; set; } = string.Empty;
+        public bool useMD5 { get; set; } = false;
         public string SqlReport { get; set; } = string.Empty;
         public string SqlParameter { get; set; } = string.Empty;
         public string SqlColumnQuery { get; set; } = string.Empty; // Query lấy danh sách cột báo cáo

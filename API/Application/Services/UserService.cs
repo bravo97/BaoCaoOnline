@@ -29,7 +29,9 @@ namespace Application.Services
             {
                 Username = username,
                 PasswordHash = HashPassword(password),
-                Email = email
+                Email = email,
+                CreatedAt = DateTime.UtcNow,
+                Role = UserRole.Admin
             };
 
             await _userRepo.AddAsync(user);
